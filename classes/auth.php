@@ -43,10 +43,30 @@
     public function login($email , $Motdepasse){
         try{
             $sql= "SELECT id_user , Email , Motdepasse , ROLE , profile  , Nom FROM user WHERE Email = :Email";
-            $stmt = $this->$db->prepare($sql);
+            $stmt = $this->db->prepare($sql);
             $stmt->execute([':Email' => $email]);
 
-            if()
+            if($stmt -> rowCount()>0){
+           $user= $stmt ->fetch(PDO::FETCH_ASSOC);
+           if(password_verify($Motdepasse, $user['Motdepasse'])){
+            return[
+                'i_user'=>$user['id_user'],
+                'Email'=>$user['Email'],
+                'profile'=>$user['profile'],
+                'ROLE'=>$user['ROLE'],
+                'Nom'=>$user['Nom'],
+            ];
+
+           }else{
+            throw new Exception('mot de passe Incorrect !');
+           }
+
+            }  
+            
+            
+
+        }catch (Exception $e){
+           throw $e;
         }
     }
 
