@@ -12,3 +12,35 @@ CREATE TABLE user (
     ROLE ENUM('admin', 'etudiant ', 'enseignant')
 );
 
+CREATE TABLE Category (
+    id_category INT AUTO_INCREMENT PRIMARY KEY,
+    id_admin INT NOT NULL,
+    Nom VARCHAR(255) NOT NULL,
+    FOREIGN KEY (id_admin) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
+);
+CREATE TABLE tags(
+    id_tag INT AUTO_INCREMENT PRIMARY KEY,
+    id_admin INT NOT NULL,
+    Nom VARCHAR(255) NOT NULL,
+    FOREIGN KEY (id_admin) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE Cours (
+    id_cours INT AUTO_INCREMENT PRIMARY KEY,
+    Titre VARCHAR(255) NOT NULL,
+    Contenu TEXT NOT NULL,
+    DESCRIPTION TEXT NOT NULL,
+    video TEXT NOT NULL ,
+    id_auteur INT,
+    id_category INT,
+    id_tag INT ,
+    Statut ENUM('Soumis', 'Accepté', 'Refusé') NOT NULL,
+    DateCréation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    DateModification TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    Image VARCHAR(500),
+    FOREIGN KEY (id_category) REFERENCES Category(id_category) ON DELETE CASCADE ON UPDATE CASCADE,
+      FOREIGN KEY (id_tag) REFERENCES tags(id_tag) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_auteur) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
