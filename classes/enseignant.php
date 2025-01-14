@@ -1,0 +1,79 @@
+<?php 
+ require_once '../database/db.php';
+ require_once '../classes/user.php';
+
+ class Enseignant extends User{
+       
+    private $db;
+     public function __construct($db)
+     {
+        $this->db= $db ;
+     }
+
+
+     
+     public function ajoutercours( $id_enseignant, $titre, $description,$video, $contenu, $Image, $id_category ,$id_tag){
+        try{
+            echo "hhn0";
+
+            $sql = 'INSERT INTO Cours ( id_enseignant , Titre, Contenu,DESCRIPTION,Image,video, id_category,id_tag ) VALUES ( :id_enseignant ,:Titre, :Contenu,:DESCRIPTION,:Image,:video, :id_category , :id_tag)';
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(":Titre", $titre);
+            $stmt->bindParam(":Image", $Image);
+            $stmt->bindParam(":DESCRIPTION", $description);
+            $stmt->bindParam(":video", $video);
+            $stmt->bindParam(":Contenu", $contenu);
+            $stmt->bindParam(":id_tag",   $id_tag);
+            $stmt->bindParam(":id_enseignant", $id_enseignant);
+            $stmt->bindParam(":id_category", $id_category);
+            echo "before ex";
+
+            $stmt->execute();
+            
+            echo "hhn0";
+
+        } catch (PDOException $e) {
+            return "Erreur lors de l'ajout de cours: " . $e->getMessage();
+        }
+    }
+
+    public function modifierCours($id_cours, $titre, $contenu,$description, $image,$video, $id_category, $id_tag) {
+        try {
+        $sql = "UPDATE Cours SET Titre = :Titre, Contenu = :Contenu, DESCRIPTION= :DESCRIPTION, Image = :Image,video=:video id_category = :id_category, id_tag = :id_tag WHERE id_cours = :id_cours";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":Titre", $titre, PDO::PARAM_STR);
+        $stmt->bindParam(":Contenu", $contenu, PDO::PARAM_STR);
+        $stmt->bindParam(":video", $video, PDO::PARAM_STR);
+        $stmt->bindParam(":DESCRIPTION", $description, PDO::PARAM_STR);
+        $stmt->bindParam(":Image", $image, PDO::PARAM_STR);
+        $stmt->bindParam(":id_category", $id_category, PDO::PARAM_INT);
+        $stmt->bindParam(":id_tag", $id_tag, PDO::PARAM_INT);
+        $stmt->bindParam(":id_cours", $id_cours, PDO::PARAM_INT);
+
+        if($stmt->execute()){
+            return true;
+        } else {
+            return false;
+        }
+        
+        } catch (PDOException $e) {
+            return "Erreur lors de la modification de cours: " . $e->getMessage();
+        }
+    }
+    
+
+    public function supprimerArticle( $id_article){
+        try{
+            $sql = "DELETE FROM Cours WHERE id_cours = :id_cours";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(":id_cours", $id_article, PDO::PARAM_INT);
+            $stmt->execute();
+
+            header("location: ");
+        } catch (PDOException $e) {
+            return "Erreur lors de la suppression de cours : ". $e->getMessage();
+        }
+    }
+ }
+
+?>
