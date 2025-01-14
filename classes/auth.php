@@ -1,7 +1,7 @@
 <?php 
  require_once '../database/db.php';
 
- class auth{
+ class Auth{
    
     private $db;
 
@@ -40,6 +40,15 @@
         }
     }
       
+    public function login($email , $Motdepasse){
+        try{
+            $sql= "SELECT id_user , Email , Motdepasse , ROLE , profile  , Nom FROM user WHERE Email = :Email";
+            $stmt = $this->$db->prepare($sql);
+            $stmt->execute([':Email' => $email]);
+
+            if()
+        }
+    }
 
 
  }

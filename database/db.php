@@ -2,7 +2,7 @@
 class DbConnection {
     private $host = 'localhost';
     private $username = 'root';
-    private $password = '';
+    private $password = '12345';
     private $database = 'youdemy';
    
     protected $connection;
