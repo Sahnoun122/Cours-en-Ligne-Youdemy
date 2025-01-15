@@ -36,12 +36,16 @@ public function getEmail(){
    return  $this->profile;
  }
 
+ public function getMotdepasse(){
+    return $this->Motdepasse;
+ }
+
  public function getRole(){
     return $this->role;
  }
 
 
-
+ 
  public function setNom($nom){
      $this->nom =$nom;
  }
@@ -54,9 +58,15 @@ public function getEmail(){
  public function setProfile($profile){
     $this->profile = $profile;
  }
+
+ public function setMotdepasse($Motdepasse){
+    $this->Motdepasse= $Motdepasse;
+ }
  public function setRole($role){
     $this->role= $role;
  }
+
+
 
  public function getData(){
     $id_user = $_SESSION['id_user'];

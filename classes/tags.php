@@ -3,7 +3,7 @@
 <?php
 
     require_once '../database/db.php';
-    class Tag {
+    class Tags {
         private $id;
         private $nom;
 
@@ -24,7 +24,7 @@
         public function setNom($nom) {
             $this->nom = $nom;
         }
-
+       
 
         
     }

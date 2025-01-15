@@ -2,7 +2,7 @@
 
     require_once '../database/db.php';
 
-    class Course {
+    class Cours {
         private  $id_cours;
         private  $titre;
         private  $description;
