@@ -8,6 +8,7 @@
  $auth = new User( $pdo);
 
 
+ 
 
   if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $nom =$_POST['nom'];
