@@ -129,8 +129,6 @@ public function login($email , $Motdepasse){
 
 
 
-
-
  public function getData(){
     $id_user = $_SESSION['id_user'];
     $query ="SELECT * FROM user WHERE id_user = :id_user";
