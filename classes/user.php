@@ -1,8 +1,9 @@
 <?php 
 
 require_once '../database/db.php';
+require_once '../classes/interfaceuser.php';
 
-class User{
+class User implements Userinterface{
     
     private $id_user;
     private $nom;
@@ -75,8 +76,15 @@ public function getEmail(){
     $stmt->execute([':id_user'=> $id_user]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
  }
-  
 
+
+ public function supprimerData(){
+
+ }
+
+ public function activeData(){
+    
+ }
 }
 
 
