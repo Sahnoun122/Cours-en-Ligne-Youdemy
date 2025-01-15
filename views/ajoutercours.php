@@ -1,6 +1,7 @@
 <?php
 require_once '../database/db.php';
 require_once '../classes/enseignant.php';
+require_once '../classes/coursvideo.php';
 
 $db= new DbConnection();
 $pdo= $db->getConnection();
@@ -31,7 +32,9 @@ if($_SERVER['REQUEST_METHOD']=== 'POST' && isset($_POST['Titre'])){
     exit;
 }
 
+$coursvideo= new Coursvideo($pdo);
 
+$coursvideo->afficherCours();
 
 
 
@@ -116,8 +119,38 @@ if($_SERVER['REQUEST_METHOD']=== 'POST' && isset($_POST['Titre'])){
 </div>
 
 
+<?php
+
+
+if (!empty($coursvideo) && (is_array($coursvideo) || is_object($coursvideo))) {
+    foreach ($coursvideo as $cours) {
+        ?>
+        <div class="" data-category="<?php echo htmlspecialchars($cours['NomCategorie'], ENT_QUOTES, 'UTF-8'); ?>" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+            <div class="p-6">
+                <h3 class="text-4xl mb-4 font-semibold text-black"><?php echo htmlspecialchars($cours['Titre'], ENT_QUOTES, 'UTF-8'); ?></h3>
+                <p class="text-lg text-black"><?php echo htmlspecialchars($cours['DESCRIPTION'], ENT_QUOTES, 'UTF-8'); ?></p>
+                <a href="#"><img src="<?php echo htmlspecialchars($cours['video'], ENT_QUOTES, 'UTF-8'); ?>" alt="video" class="w-full h-48 object-cover"></a>
+                <p class="text-lg text-black"><?php echo htmlspecialchars($cours['NomCategorie'], ENT_QUOTES, 'UTF-8'); ?></p>
+                <p class="text-lg text-black"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
+
+                <form method="POST" action="">
+                    <div class="flex items-center justify-center mt-4">
+                        <button type="submit" name="delete" class="text-xl hover:scale-105" value="<?php echo htmlspecialchars($cours['id_article'], ENT_QUOTES, 'UTF-8'); ?>">🗑️</button>
+                    </div>
+                </form>
+                <a href="modifierarticle.php?id=<?php echo htmlspecialchars($cours['id_cours'], ENT_QUOTES, 'UTF-8'); ?>">🔏</a>
+            </div>
+        </div>
+        <?php
+    }
+} else {
+    echo "No data available or incorrect data format.";
+}
+?>
 
 <!-- Main -->
+
+
 
 
     <h2 class="text-4xl font-semibold text-black mb-6">Add New Articles</h2>
@@ -147,6 +180,8 @@ if($_SERVER['REQUEST_METHOD']=== 'POST' && isset($_POST['Titre'])){
        }
         ?>
   </select>
+
+
             
 
                     <div class="relative">
