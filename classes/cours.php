@@ -2,7 +2,9 @@
 
     require_once '../database/db.php';
 
-    class Cours {
+  abstract   class Cours {
+
+
         private  $id_cours;
         private  $titre;
         private  $description;
@@ -67,6 +69,7 @@
             $this->date = $date;
         }
 
+        abstract public function afficherCours();
         
     }
 

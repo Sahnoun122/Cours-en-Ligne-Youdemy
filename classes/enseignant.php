@@ -62,7 +62,7 @@
     }
     
 
-    public function supprimerArticle( $id_article){
+    public function supprimeCours( $id_article){
         try{
             $sql = "DELETE FROM Cours WHERE id_cours = :id_cours";
             $stmt = $this->db->prepare($sql);
