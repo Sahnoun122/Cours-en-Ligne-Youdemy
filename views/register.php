@@ -1,11 +1,11 @@
 
 <?php
  require_once '../database/db.php';
- require_once '../classes/auth.php';
+ require_once '../classes/user.php';
 
  $db = new DbConnection();
  $pdo = $db->getConnection();
- $auth = new Auth( $pdo);
+ $auth = new User( $pdo);
 
 
 

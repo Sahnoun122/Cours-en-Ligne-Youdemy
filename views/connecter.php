@@ -3,14 +3,14 @@
 <?php 
 
 
-   require_once '../classes/auth.php';
    require_once '../database/db.php';
+   require_once '../classes/user.php';
    session_start();
 
   $db = new DbConnection();
   $pdo = $db->getConnection();
 
-   $auth = new Auth($pdo);
+   $auth = new User($pdo);
 
    if($_SERVER['REQUEST_METHOD' ] === 'POST'){
     $email = $_POST['Email'];
