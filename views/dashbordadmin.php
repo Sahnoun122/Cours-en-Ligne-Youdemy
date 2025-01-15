@@ -2,6 +2,10 @@
 
 require_once '../classes/user.php';
 require_once '../database/db.php';
+echo $_SESSION['id_user'];
+
+session_start();
+
 
 ?>
 
@@ -34,12 +38,7 @@ require_once '../database/db.php';
     <div class="h-full overflow-y-auto bg-black">
     <!-- Sidebar Menu -->
     <div class="flex flex-col">
-    <div class="flex flex-col items-center mt-6 -mx-2">
-        <img class="object-cover w-24 h-24 mx-2 rounded-full" src="<?php echo $_SESSION['profile']?>" alt="avatar">
-        <h4 class="mx-2 mt-2 font-medium" style="color: white;"><?php echo $_SESSION['Nom']?></h4>
-        <p class="mx-2 mt-1 text-sm font-medium" style="color: white;"><?php echo $_SESSION['email']?></p>
-    </div>
-
+    
       <ul class="space-y-2 font-medium px-3 pb-4">
         <li>
             <a href="dashbordadmin.php" class="flex items-center p-2 text-white rounded-lg hover:bg-gray-100 hover:text-black group">
@@ -94,30 +93,7 @@ require_once '../database/db.php';
     <h2 class="text-4xl font-semibold text-black mb-6">Reservations</h2>
 
     
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12" style="align-items: start;">
-        <?php
-            $activities_sql = "SELECT * FROM articles";
-            $stmt_activities = $pdo->query($activities_sql);
-            $activities = $stmt_activities->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($activities as $activity):
-        ?>
-        <div class="bg-black shadow-lg rounded-lg overflow-hidden" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-            <div class="p-6">
-                <h3 class="text-4xl mb-4 font-semibold text-white"><?php echo $activity['Titre']; ?></h3>
-                <p class="text-lg text-white"><?php echo $activity['Contenu']; ?></p>
-                <img src="<?php echo $activity['Image']; ?>" alt="Activity Photo" class="w-full h-48 object-cover">
-
-                     <form method="POST" action="" class="flex space-x-2">
-                                <input type="hidden" name="id_article" value="<?php echo $activity['id_article']; ?>">
-                                <button name="action" value="accept" class="text-xl hover:scale-105">✅</button>
-                                <button name="actions" value="reject" class="text-xl hover:scale-105">❌</button>
-                            </form>
-            </div>
-        </div>
-        <?php endforeach; ?>
-
-    </div>
 
  
 

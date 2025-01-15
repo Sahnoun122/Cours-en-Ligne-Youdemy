@@ -38,10 +38,6 @@ $coursvideo->afficherCours();
 
 
 
-
-
-
-
 ?>
 
 

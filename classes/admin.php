@@ -10,18 +10,23 @@ class Admin extends User{
    }
 
    public function ajoutercategory($id_admin , $nom){
+    echo "sahnoun";
     try{
-        $sql= "INSERT INTO category (id_admin , nom) VALUES (:id_admin , :nom)";
+        $sql= "INSERT INTO Category (id_admin , Nom) VALUES (:id_admin , :Nom)";
         $stmt= $this->db->prepare($sql);
         $stmt->bindParam(":id_admin" , $id_admin , PDO::PARAM_INT);
-        $stmt->bindParam(":nom",$nom, PDO::PARAM_STR);
+        $stmt->bindParam(":Nom",$nom, PDO::PARAM_STR);
         $stmt->execute();
-         header("Location:../action/addcategory.php");
+         header("Location:../views/ajoutercategory");
 
     }catch (PDOException $e){
         echo "Erreur lors de l'ajout de la catégorie : " .$e->getMessage();
     }
+
+    echo " f ek,ke";
    }
+
+
 
   public function modifiercategory($id_admin , $nom){
     try{

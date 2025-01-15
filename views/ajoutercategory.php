@@ -3,10 +3,39 @@
 require_once '../database/db.php';
 require_once '../classes/admin.php';
 
+
+session_start();
+
+if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: connecter.php");
+    exit;
+}
+
+
+echo $_SESSION['id_user'];
+
+if (isset($_POST['id_user'])) {
+    $id_admin = $_POST['id_user'];
+} else {
+    
+    $id_admin = null;
+}
+
 $db= new DbConnection();
 $pdo = $db->getConnection();
 
+$admin = new Admin($pdo);
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Nom'])) {
+
+    $id_admin =$_SESSION['id_user'];
+    $nom = $_POST['Nom'];
+   
+    $admin->ajoutercategory($id_admin , $nom);
+
+    header("Location:ajoutercategory.php");
+    exit;
+}
 
 
 ?>
@@ -38,11 +67,7 @@ $pdo = $db->getConnection();
 <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
     <div class="h-full overflow-y-auto bg-black">
     <!-- Sidebar Menu -->
-    <div class="flex flex-col items-center mt-6 -mx-2">
-        <img class="object-cover w-24 h-24 mx-2 rounded-full" src="<?php echo $visitor['profile'] ?>" alt="avatar">
-        <h4 class="mx-2 mt-2 font-medium" style="color: white;"><?php echo $visitor['Nom'] ?></h4>
-        <p class="mx-2 mt-1 text-sm font-medium" style="color: white;"><?php echo $_SESSION['email']?></p>
-    </div>
+    
       <ul class="space-y-2 font-medium px-3 pb-4">
         <li>
             <a href="dashbordadmin.php" class="flex items-center p-2 text-white rounded-lg hover:bg-gray-100 hover:text-black group">
@@ -97,35 +122,7 @@ $pdo = $db->getConnection();
 
     <h2 class="text-4xl font-semibold text-black mb-10">category</h2>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12" style="align-items: start;">
-        <?php
-          
 
-        foreach ($activities as $activity):
-        ?>
-        <div class="bg-black shadow-lg rounded-lg overflow-hidden" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-            <div class="p-6">
-                <h3 class="text-4xl mb-4 font-semibold text-white"><?php echo $activity['Nom']; ?></h3>
-
-
-                <form method="POST" onsubmit="return confirm('Are you sure you want to delete this activity?');">
-                    <div class="flex items-center justify-center mt-4">
-                        <button type="submit" class="text-xl hover:scale-105"  name="delete" value="<?php echo $activity['id_category']; ?>">🗑️</button>
-                    </div>
-                    <!-- <button type="submit" name="update" value="" class="text-xl hover:scale-105">🗑️</button> -->
-
-                   
-                </form>
-
-                <form action="./updatecategory.php?id=<?php echo $activity['id_category']; ?>" method="POST">
-                    <button name="update" class="text-xl hover:scale-105">🗑️</button>
-                </form>
-
-            </div>
-        </div>
-        <?php endforeach; ?>
-
-    </div>
 
     <h2 class="text-4xl font-semibold text-black mb-6">Add New Activity</h2>
     <div class="flex items-center justify-center my-8 bg-gray-100">
@@ -139,21 +136,7 @@ $pdo = $db->getConnection();
                         <input type="text" id="Nom" name="Nom" required class="border placeholder-gray-400 focus:outline-none
                             focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                             border-gray-300 rounded-md"/>
-                    <!-- </div>
-                    <div class="relative">
-                        <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
-                            absolute">Description</p>
-                        <textarea id="activityDescription" name="activityDescription" rows="3" required class="border placeholder-gray-400 focus:outline-none
-                            focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                            border-gray-300 rounded-md"></textarea>
-                    </div>
-                    <div class="relative">
-                        <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
-                            absolute">Image</p>
-                        <input type="text" id="activityImg" name="activityImg" required class="border placeholder-gray-400 focus:outline-none
-                            focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                            border-gray-300 rounded-md"/>
-                    </div> -->
+                    
                     <div class="relative">
                         <button type="submit" class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-green-500
                             rounded-lg transition duration-200 hover:bg-green-600 ease">Add Category</button>
