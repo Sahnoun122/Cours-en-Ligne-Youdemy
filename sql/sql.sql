@@ -26,21 +26,23 @@ CREATE TABLE tags(
 );
 
 
+
 CREATE TABLE Cours (
     id_cours INT AUTO_INCREMENT PRIMARY KEY,
     Titre VARCHAR(255) NOT NULL,
-    Contenu TEXT NOT NULL,
     DESCRIPTION TEXT NOT NULL,
     video TEXT NOT NULL ,
-    id_auteur INT,
+    pdf BLOB ,
+    id_enseignant INT,
     id_category INT,
     id_tag INT ,
     Statut ENUM('Soumis', 'Accepté', 'Refusé') NOT NULL,
     DateCréation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     DateModification TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    Image VARCHAR(500),
+    
     FOREIGN KEY (id_category) REFERENCES Category(id_category) ON DELETE CASCADE ON UPDATE CASCADE,
-      FOREIGN KEY (id_tag) REFERENCES tags(id_tag) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (id_auteur) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (id_tag) REFERENCES tags(id_tag) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_enseignant) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 

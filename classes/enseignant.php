@@ -12,17 +12,16 @@
 
 
      
-     public function ajoutercours( $id_enseignant, $titre, $description,$video, $contenu, $Image, $id_category ,$id_tag){
+     public function ajoutercours( $id_enseignant, $titre, $description,$video, $pdf, $id_category ,$id_tag){
         try{
             echo "hhn0";
 
-            $sql = 'INSERT INTO Cours ( id_enseignant , Titre, Contenu,DESCRIPTION,Image,video, id_category,id_tag ) VALUES ( :id_enseignant ,:Titre, :Contenu,:DESCRIPTION,:Image,:video, :id_category , :id_tag)';
+            $sql = 'INSERT INTO Cours ( id_enseignant , Titre, pdf,DESCRIPTION,video, id_category,id_tag ) VALUES ( :id_enseignant ,:Titre, :pdf,:DESCRIPTION,:video, :id_category , :id_tag)';
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(":Titre", $titre);
-            $stmt->bindParam(":Image", $Image);
             $stmt->bindParam(":DESCRIPTION", $description);
             $stmt->bindParam(":video", $video);
-            $stmt->bindParam(":Contenu", $contenu);
+            $stmt->bindParam(":pdf", $pdf);
             $stmt->bindParam(":id_tag",   $id_tag);
             $stmt->bindParam(":id_enseignant", $id_enseignant);
             $stmt->bindParam(":id_category", $id_category);
