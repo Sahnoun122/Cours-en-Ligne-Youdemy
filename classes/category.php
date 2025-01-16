@@ -26,16 +26,16 @@
             $this->nom = $nom;
         }
     
-   public function affichercategory(){
-    try{
-         $sql= "SELECT * FROM Category ";
-         $stmt = $this->db->prepare($sql);
-         $stmt->execute();
-         return $stmt->fetchALL(PDO::FETCH_ASSOC);
-    }catch(PDOException $e){
-        echo "Errore" .$e->getMessage();
-    }
-   }
+        public function affichercategory(){
+            try{
+                 $sql= "SELECT * FROM Category ";
+                 $stmt = $this->db->prepare($sql);
+                 $stmt->execute();
+                 return $stmt->fetchALL(PDO::FETCH_ASSOC);
+            }catch(PDOException $e){
+                echo "Errore" .$e->getMessage();
+            }
+           }
 
      
 

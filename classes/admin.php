@@ -41,16 +41,17 @@ class Admin extends User{
     }
   }
 
-  public function supprimercategory($id_admin){
+  public function supprimercategory($id){
     try{
-        $sql="DELETE FROM category WHERE id_admin = :id_category";
+        $sql="DELETE FROM  Category WHERE id_admin = :id_category";
         $stmt=$this->db->prepare($sql);
-        $stmt->bindParam(":id_admin" , $id_admin , PDO::PARAM_INT);
+        $stmt->bindParam(":id_category" , $id , PDO::PARAM_INT);
         $stmt->execute();
     }catch(PDOException $e){
      echo "Erreur lors de la suppression de la catégorie :" . $e->getMessage();
     }  
 }
+
 
 
 
