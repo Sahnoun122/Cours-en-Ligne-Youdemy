@@ -28,24 +28,26 @@ if (isset($_POST['id_user'])) {
     $id_auteur = null;
 }
 
-if($_SERVER['REQUEST_METHOD']=== 'POST' && isset($_POST['Titre'])){
-    $id_enseignant= $_SESSION['id_user'];
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Titre'])) {
+    $id_enseignant = $_SESSION['id_user'];
     $titre = $_POST['Titre'];
-    $description= $_POST['description'];
-    $video=$_POST['video'];
-    $pdf=$_POST['pdf'];
+    $description = $_POST['DESCRIPTION'];
+    $video = $_POST['video'];
+    $pdf = $_POST['pdf'];
     $id_category = $_POST['id_category'];
     $id_tag = $_POST['id_tag'];
 
-
-    $enseignant->ajoutercours( $id_enseignant, $titre, $description,$video, $pdf, $id_category ,$id_tag);
-    header("Location:ajoutercours.php");
+    $enseignant->ajouterCours($id_enseignant, $titre, $description, $video, $pdf, $id_category, $id_tag);
+    header("Location: ajoutercours.php");
     exit;
 }
 
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     $id = $_POST['delete'];
-    
     $enseignant->supprimeCours($id);
     header("Location: ajoutercours.php");
     exit;
@@ -133,6 +135,7 @@ $category= $category->affichercategory();
 
     </div>
 </div>
+
 <div class="p-4 sm:ml-80">
 
 <div class="" id="articlesContainer" style="align-items: start;">
@@ -190,7 +193,7 @@ if (($coursvideo_)) {
        <?php
         
       foreach ($category as $row) {
-      echo "<option value=".$row['id_category'] . ">" . $row['Nom'] . "</option>";
+      echo "<option   value=".$row['id_category'] . ">" . $row['Nom'] . "</option>";
        }
         ?>
   </select>
@@ -202,7 +205,7 @@ if (($coursvideo_)) {
     <?php
     foreach ($tags as $row) {
         echo '<div class="flex items-center mb-2">';
-        echo '<input id="tag-' . $row['id_tag'] . '" type="checkbox" name="id_tag[]" value="' . $row['id_tag'] . '" class="mr-2">';
+        echo '<input id="tag-' . $row['id_tag'] . '" type="checkbox" name="id_tag" value="' . $row['id_tag'] . '" class="mr-2">';
         echo '<label for="tag-' . $row['id_tag'] . '" class="text-gray-900 dark:text-white">' . $row['Nom'] . '</label>';
         echo '</div>';
     }
@@ -223,7 +226,7 @@ if (($coursvideo_)) {
                     <div class="relative">
                         <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                             absolute">description</p>
-                        <textarea id="description" name="description" rows="3" required class="border placeholder-gray-400 focus:outline-none
+                        <textarea id="description" name="DESCRIPTION" rows="3" required class="border placeholder-gray-400 focus:outline-none
                             focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                             border-gray-300 rounded-md"></textarea>
                     </div>
