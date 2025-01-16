@@ -5,6 +5,7 @@
 
  $db = new DbConnection();
  $pdo = $db->getConnection();
+ 
  $auth = new User( $pdo);
 
 

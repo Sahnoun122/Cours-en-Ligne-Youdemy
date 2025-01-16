@@ -6,10 +6,10 @@ require_once '../classes/admin.php';
 
 session_start();
 
-if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: connecter.php");
-    exit;
-}
+// if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+//     header("Location: connecter.php");
+//     exit;
+// }
 
 
 echo $_SESSION['id_user'];

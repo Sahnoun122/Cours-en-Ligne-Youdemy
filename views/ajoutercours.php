@@ -3,6 +3,13 @@ require_once '../database/db.php';
 require_once '../classes/enseignant.php';
 require_once '../classes/coursvideo.php';
 
+session_start();
+
+// if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'enseignant') {
+//     header("Location: connecter.php");
+//     exit;
+// }
+
 $db= new DbConnection();
 $pdo= $db->getConnection();
 

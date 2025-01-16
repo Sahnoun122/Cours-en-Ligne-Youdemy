@@ -1,10 +1,21 @@
 <?php 
 
+session_start();
+
+
 require_once '../classes/user.php';
 require_once '../database/db.php';
+
+// if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+//     header("Location: connecter.php");
+//     exit;
+// }
+
+
+
+
 echo $_SESSION['id_user'];
 
-session_start();
 
 
 ?>
@@ -90,7 +101,7 @@ session_start();
 <!-- Main -->
 <div class="p-8 sm:ml-80">
 
-    <h2 class="text-4xl font-semibold text-black mb-6">Reservations</h2>
+    <h2 class="text-4xl font-semibold text-black mb-6">Cours</h2>
 
     
 
