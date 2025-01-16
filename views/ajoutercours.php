@@ -45,7 +45,7 @@ if($_SERVER['REQUEST_METHOD']=== 'POST' && isset($_POST['Titre'])){
 
 $coursvideo= new Coursvideo($pdo);
 
-$coursvideo->afficherCours();
+$coursvideo_ = $coursvideo->afficherCours();
 
 $tags= $tags-> afficherTags();
 $category= $category->affichercategory();
@@ -127,8 +127,9 @@ $category= $category->affichercategory();
 <?php
 
 
-if (!empty($coursvideo) && (is_array($coursvideo) || is_object($coursvideo))) {
-    foreach ($coursvideo as $cours) {
+if (($coursvideo_)) {
+   echo var_dump($coursvideo_);
+    foreach ($coursvideo_ as $cours) {
         ?>
         <div class="" data-category="<?php echo htmlspecialchars($cours['id_category'], ENT_QUOTES, 'UTF-8'); ?>" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
             <div class="p-6">
@@ -138,9 +139,9 @@ if (!empty($coursvideo) && (is_array($coursvideo) || is_object($coursvideo))) {
                 <p class="text-lg text-black"><?php echo htmlspecialchars($cours['NomCategorie'], ENT_QUOTES, 'UTF-8'); ?></p>
                 <p class="text-lg text-black"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
 
-                <form method="POST" action="">
+                <form method="POST" action="ajoutercours.php">
                     <div class="flex items-center justify-center mt-4">
-                        <button type="submit" name="delete" class="text-xl hover:scale-105" value="<?php echo htmlspecialchars($cours['id_article'], ENT_QUOTES, 'UTF-8'); ?>">🗑️</button>
+                        <button type="submit" name="delete" class="text-xl hover:scale-105" value="<?php echo htmlspecialchars($cours['id_cours'], ENT_QUOTES, 'UTF-8'); ?>">🗑️</button>
                     </div>
                 </form>
                 <a href="modifierarticle.php?id=<?php echo htmlspecialchars($cours['id_cours'], ENT_QUOTES, 'UTF-8'); ?>">🔏</a>
@@ -218,7 +219,7 @@ if (!empty($coursvideo) && (is_array($coursvideo) || is_object($coursvideo))) {
                     <div class="relative">
                         <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                             absolute">Contenu PDF</p>
-                        <input type="files" id="pdf" name="pdf" required class="border placeholder-gray-400 focus:outline-none
+                        <input type="file" id="pdf" name="pdf" required class="border placeholder-gray-400 focus:outline-none
                             focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                             border-gray-300 rounded-md"/>
                     </div>

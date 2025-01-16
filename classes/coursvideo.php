@@ -14,10 +14,6 @@ class Coursvideo extends Cours{
             Cours.Titre,
             Cours.DESCRIPTION,
             Cours.video,
-            Cours.pdf,
-            Cours.Statut,
-            Cours.DateCréation,
-            Cours.DateModification,
             Category.Nom AS NomCategorie,
             tags.Nom AS NomTag
             FROM 
