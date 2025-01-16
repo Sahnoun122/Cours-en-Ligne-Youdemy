@@ -47,13 +47,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Titre'])) {
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
-    $id = $_POST['delete'];
+    $cours= $_POST['delete'];
+    $id = $_SESSION['id_user'];
+
     $enseignant->supprimeCours($id);
     header("Location: ajoutercours.php");
     exit;
 }
-
-
 
 $coursvideo= new Coursvideo($pdo);
 
@@ -158,10 +158,11 @@ if (($coursvideo_)) {
 
                 
                 <form method="POST" onsubmit="return confirm('Are you sure you want to delete this course?');">
-    <div class="flex items-center justify-center mt-4">
-        <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo htmlspecialchars($cours['id_cours'], ENT_QUOTES, 'UTF-8'); ?>">🗑️</button>
-    </div>
-</form>
+                       <div class="flex items-center justify-center mt-4">
+                   <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo htmlspecialchars($cours['id_cours'], ENT_QUOTES, 'UTF-8'); ?>">🗑️</button>
+                   </div>
+                    </form>
+
 
             </div>
         </div>
@@ -187,7 +188,7 @@ if (($coursvideo_)) {
         <div class="w-full mx-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12">
             <div class="p-10 bg-white shadow-2xl rounded-xl relative z-10" data-aos="fade-right">
 
-                <form method="POST" class="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
+                <form method="POST"  class="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an category</label>
             <select id="category" name="id_category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
        <?php

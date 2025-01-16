@@ -149,13 +149,6 @@ $category = $category->affichercategory();
                     <div class="flex items-center justify-center mt-4">
                         <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo $category['id_category']; ?>">🗑️</button>
                     </div>
-                    <!-- <button type="submit" name="update" value="" class="text-xl hover:scale-105">🗑️</button> -->
-
-                   
-                </form>
-
-                <form action="./updatecategory.php?id=<?php echo  $category['id_category']; ?>" method="POST">
-                    <button name="update" class="text-xl hover:scale-105">🗑️</button>
                 </form>
 
             </div>
