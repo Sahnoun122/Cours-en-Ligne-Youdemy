@@ -82,17 +82,20 @@ public function modifietags($id, $nom){
 }
 
 
-public function supprimertags($id){
-    try {
-        $sql = "DELETE FROM tags WHERE id_admin= :id_admin";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":id_admin", $id, PDO::PARAM_INT);
-        $stmt->execute();
-        header("location: ../views/ajoutertags.php");
-    } catch (PDOException $e) {
-        return "Erreur lors de la suppression de la catégorie : " . $e->getMessage();
+
+    public function supprimertags( $id_tag) {
+        try {
+            $sql = "DELETE FROM tags WHERE id_tag = :id_tag ";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':id_tag', $id_tag);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
     }
-}
+
+
 
 
 

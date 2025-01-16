@@ -45,6 +45,7 @@ if($_SERVER['REQUEST_METHOD']=== 'POST' && isset($_POST['Titre'])){
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     $id = $_POST['delete'];
+    
     $enseignant->supprimeCours($id);
     header("Location: ajoutercours.php");
     exit;
