@@ -9,6 +9,16 @@ require_once '../classes/category.php';
 require_once '../classes/coursvideo.php';
 
 
+$db= new DbConnection();
+$pdo= $db->getConnection();
+
+$enseignant= new Enseignant($pdo);
+
+$tags= new Tags($pdo);
+ 
+$category = new Category($pdo);
+
+$coursvideo= new Coursvideo($pdo);
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Titre'])) {
@@ -21,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Titre'])) {
     $id_tag = $_POST['id_tag'];
 
     $enseignant->ajouterCours($id_enseignant, $titre, $description, $video, $pdf, $id_category, $id_tag);
-    header("Location: ../views/ajoutercours");
+    header("Location:../views/ajoutercours.php");
     exit;
 }
 
@@ -31,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     echo $_POST['delete'];
     $cours= intval($_POST['delete']);
     $enseignant->supprimeCours($cours);
-    header("Location: ../views/ajoutercours");
+    header("Location:../views/ajoutercours.php");
     exit;
 }
 

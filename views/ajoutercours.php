@@ -116,7 +116,7 @@ if (($coursvideo_)) {
                 <p class="text-lg text-white"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
 
                 
-                <form method="POST" action="../action//EnseignantActions.php" onsubmit="return confirm('Are you sure you want to delete this course?');">
+                <form method="POST" action="../action/EnseignantActions.php" onsubmit="return confirm('Are you sure you want to delete this course?');">
                        <div class="flex items-center justify-center mt-4">
                    <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo $cours['id_cours']; ?>">🗑️</button>
                    </div>
