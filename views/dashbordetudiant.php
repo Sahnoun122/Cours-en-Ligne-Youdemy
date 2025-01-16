@@ -43,11 +43,7 @@ $coursvideo_ = $coursvideo->afficherCours();
     <div class="h-full overflow-y-auto bg-black">
     <!-- Sidebar Menu -->
     <div class="flex flex-col">
-    <div class="flex flex-col items-center mt-6 -mx-2">
-        <img class="object-cover w-24 h-24 mx-2 rounded-full" src="<?php echo $_SESSION['profile']?>" alt="avatar">
-        <h4 class="mx-2 mt-2 font-medium" style="color: white;"><?php echo $_SESSION['Nom']?></h4>
-        <p class="mx-2 mt-1 text-sm font-medium" style="color: white;"><?php echo $_SESSION['email']?></p>
-    </div>
+   
 
       <ul class="space-y-2 font-medium px-3 pb-4">
         <li>

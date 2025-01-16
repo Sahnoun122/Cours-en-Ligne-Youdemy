@@ -47,13 +47,14 @@ CREATE TABLE Cours (
 
 
 
+
 CREATE TABLE inscription (
     id_inscrire INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT NOT NULL,
     id_cours INT,
     dateInsrire TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE ,
-       FOREIGN KEY (id_cours) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
+       FOREIGN KEY (id_cours) REFERENCES Cours(id_cours) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
