@@ -47,10 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Titre'])) {
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
-    $cours= $_POST['delete'];
-    $id = $_SESSION['id_user'];
-
-    $enseignant->supprimeCours($id);
+    echo $_POST['delete'];
+    $cours= intval($_POST['delete']);
+    $enseignant->supprimeCours($cours);
     header("Location: ajoutercours.php");
     exit;
 }
@@ -159,7 +158,7 @@ if (($coursvideo_)) {
                 
                 <form method="POST" onsubmit="return confirm('Are you sure you want to delete this course?');">
                        <div class="flex items-center justify-center mt-4">
-                   <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo htmlspecialchars($cours['id_cours'], ENT_QUOTES, 'UTF-8'); ?>">🗑️</button>
+                   <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo $cours['id_cours']; ?>">🗑️</button>
                    </div>
                     </form>
 

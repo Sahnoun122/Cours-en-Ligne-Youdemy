@@ -11,6 +11,7 @@ class Coursvideo extends Cours{
     public function afficherCours(){
     try{
             $sql="SELECT 
+            Cours.id_cours,
             Cours.Titre,
             Cours.DESCRIPTION,
             Cours.video,
