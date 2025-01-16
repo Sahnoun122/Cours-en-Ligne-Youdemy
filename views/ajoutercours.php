@@ -1,16 +1,10 @@
 <?php
+session_start();
 require_once '../database/db.php';
 require_once '../classes/enseignant.php';
 require_once '../classes/tags.php';
 require_once '../classes/category.php';
 require_once '../classes/coursvideo.php';
-
-session_start();
-
-// if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'enseignant') {
-//     header("Location: connecter.php");
-//     exit;
-// }
 
 $db= new DbConnection();
 $pdo= $db->getConnection();
@@ -21,45 +15,11 @@ $tags= new Tags($pdo);
  
 $category = new Category($pdo);
 
-if (isset($_POST['id_user'])) {
-    $id_auteur = $_POST['id_user'];
-} else {
-    
-    $id_auteur = null;
-}
-
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Titre'])) {
-    $id_enseignant = $_SESSION['id_user'];
-    $titre = $_POST['Titre'];
-    $description = $_POST['DESCRIPTION'];
-    $video = $_POST['video'];
-    $pdf = $_POST['pdf'];
-    $id_category = $_POST['id_category'];
-    $id_tag = $_POST['id_tag'];
-
-    $enseignant->ajouterCours($id_enseignant, $titre, $description, $video, $pdf, $id_category, $id_tag);
-    header("Location: ajoutercours.php");
-    exit;
-}
-
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
-    echo $_POST['delete'];
-    $cours= intval($_POST['delete']);
-    $enseignant->supprimeCours($cours);
-    header("Location: ajoutercours.php");
-    exit;
-}
-
 $coursvideo= new Coursvideo($pdo);
 
 $coursvideo_ = $coursvideo->afficherCours();
 
 $tags= $tags-> afficherTags();
-
 $category= $category->affichercategory();
 
 
@@ -156,7 +116,7 @@ if (($coursvideo_)) {
                 <p class="text-lg text-white"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
 
                 
-                <form method="POST" onsubmit="return confirm('Are you sure you want to delete this course?');">
+                <form method="POST" action="../action//EnseignantActions.php" onsubmit="return confirm('Are you sure you want to delete this course?');">
                        <div class="flex items-center justify-center mt-4">
                    <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo $cours['id_cours']; ?>">🗑️</button>
                    </div>
@@ -187,7 +147,7 @@ if (($coursvideo_)) {
         <div class="w-full mx-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12">
             <div class="p-10 bg-white shadow-2xl rounded-xl relative z-10" data-aos="fade-right">
 
-                <form method="POST"  class="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
+                <form method="POST" action="../action/EnseignantActions.php" class="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an category</label>
             <select id="category" name="id_category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
        <?php
@@ -214,7 +174,6 @@ if (($coursvideo_)) {
 
 
 
-            
 
                     <div class="relative">
                         <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
