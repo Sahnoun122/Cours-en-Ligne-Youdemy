@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Nom'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     $category = $_POST['delete'];
-    $id =  $_SESSION['id_user'];
+    $id = $_SESSION['id_user'];
     
    $admin->supprimercategory($id);
     header("Location: ajoutercategory.php");
@@ -147,14 +147,14 @@ $category = $category->affichercategory();
 
                 <form method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
                     <div class="flex items-center justify-center mt-4">
-                        <button type="submit" class="text-xl hover:scale-105"name="delete" value="<?php echo $category['id_category']; ?>">🗑️</button>
+                        <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo $category['id_category']; ?>">🗑️</button>
                     </div>
                     <!-- <button type="submit" name="update" value="" class="text-xl hover:scale-105">🗑️</button> -->
 
                    
                 </form>
 
-                <form action="./updatecategory.php?id=<?php echo    $category['id_category']; ?>" method="POST">
+                <form action="./updatecategory.php?id=<?php echo  $category['id_category']; ?>" method="POST">
                     <button name="update" class="text-xl hover:scale-105">🗑️</button>
                 </form>
 

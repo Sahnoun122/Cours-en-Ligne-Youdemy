@@ -43,11 +43,21 @@ if($_SERVER['REQUEST_METHOD']=== 'POST' && isset($_POST['Titre'])){
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
+    $id = $_POST['delete'];
+    $enseignant->supprimeCours($id);
+    header("Location: ajoutercours.php");
+    exit;
+}
+
+
+
 $coursvideo= new Coursvideo($pdo);
 
 $coursvideo_ = $coursvideo->afficherCours();
 
 $tags= $tags-> afficherTags();
+
 $category= $category->affichercategory();
 
 
@@ -122,37 +132,46 @@ $category= $category->affichercategory();
 
     </div>
 </div>
+<div class="p-4 sm:ml-80">
 
+<div class="" id="articlesContainer" style="align-items: start;">
 
 <?php
 
-
 if (($coursvideo_)) {
-   echo var_dump($coursvideo_);
     foreach ($coursvideo_ as $cours) {
+        
         ?>
-        <div class="" data-category="<?php echo htmlspecialchars($cours['id_category'], ENT_QUOTES, 'UTF-8'); ?>" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-            <div class="p-6">
-                <h3 class="text-4xl mb-4 font-semibold text-black"><?php echo htmlspecialchars($cours['Titre'], ENT_QUOTES, 'UTF-8'); ?></h3>
-                <p class="text-lg text-black"><?php echo htmlspecialchars($cours['DESCRIPTION'], ENT_QUOTES, 'UTF-8'); ?></p>
-                <a href="#"><img src="<?php echo htmlspecialchars($cours['video'], ENT_QUOTES, 'UTF-8'); ?>" alt="video" class="w-full h-48 object-cover"></a>
-                <p class="text-lg text-black"><?php echo htmlspecialchars($cours['NomCategorie'], ENT_QUOTES, 'UTF-8'); ?></p>
-                <p class="text-lg text-black"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12" style="align-items: start;">
 
-                <form method="POST" action="ajoutercours.php">
-                    <div class="flex items-center justify-center mt-4">
-                        <button type="submit" name="delete" class="text-xl hover:scale-105" value="<?php echo htmlspecialchars($cours['id_cours'], ENT_QUOTES, 'UTF-8'); ?>">🗑️</button>
-                    </div>
-                </form>
-                <a href="modifierarticle.php?id=<?php echo htmlspecialchars($cours['id_cours'], ENT_QUOTES, 'UTF-8'); ?>">🔏</a>
+        <div  class="bg-black shadow-lg rounded-lg overflow-hidden"  data-category="<?php echo htmlspecialchars($cours['id_category'], ENT_QUOTES, 'UTF-8'); ?>" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+            <div class="p-1">
+                <h3 class="text-4xl mb-4 font-semibold text-white"><?php echo htmlspecialchars($cours['Titre'], ENT_QUOTES, 'UTF-8'); ?></h3>
+                <p class="text-lg text-white"><?php echo htmlspecialchars($cours['DESCRIPTION'], ENT_QUOTES, 'UTF-8'); ?></p>
+                <a href="#"><img src="<?php echo htmlspecialchars($cours['video'], ENT_QUOTES, 'UTF-8'); ?>" alt="video" class="w-full h-48 object-cover"></a>
+                <p class="text-lg text-white"><?php echo htmlspecialchars($cours['NomCategorie'], ENT_QUOTES, 'UTF-8'); ?></p>
+                <p class="text-lg text-white"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
+
+                
+                <form method="POST" onsubmit="return confirm('Are you sure you want to delete this course?');">
+    <div class="flex items-center justify-center mt-4">
+        <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo htmlspecialchars($cours['id_cours'], ENT_QUOTES, 'UTF-8'); ?>">🗑️</button>
+    </div>
+</form>
+
             </div>
         </div>
+     </div>
         <?php
     }
 } else {
     echo "No data available or incorrect data format.";
 }
 ?>
+
+</div>
+</div>
+
 
 <!-- Main -->
 

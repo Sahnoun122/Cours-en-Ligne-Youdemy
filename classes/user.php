@@ -67,7 +67,7 @@ public function getEmail(){
  }
 
      
- public function register($nom,$prenom,$email,$Motdepasse,$role , $profile){
+ public function register( $nom,$prenom,$email,$Motdepasse,$role , $profile){
 
     try{
     $toutsrole=['admin', 'etudiant' ,'enseignant'];

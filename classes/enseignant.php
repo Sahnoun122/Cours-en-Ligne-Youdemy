@@ -61,18 +61,17 @@
     }
     
 
-    public function supprimeCours( $id_article){
-        try{
+    public function supprimeCours($id) {
+        try {
             $sql = "DELETE FROM Cours WHERE id_cours = :id_cours";
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(":id_cours", $id_article, PDO::PARAM_INT);
+            $stmt->bindParam(":id_cours", $id, PDO::PARAM_INT);
             $stmt->execute();
-
-            header("location: ");
         } catch (PDOException $e) {
-            return "Erreur lors de la suppression de cours : ". $e->getMessage();
+            return "Erreur lors de la suppression de cours : " . $e->getMessage();
         }
     }
+    
  }
 
 ?>

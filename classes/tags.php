@@ -26,26 +26,23 @@
         }
 
 
-        public function afficherTags() {
-            try {
-                $sql = "SELECT * FROM tags";
-                $stmt = $this->db->prepare($sql);
-                $stmt->execute();
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
-            } catch (PDOException $e) {
-                echo "error: " . $e->getMessage();
+       
+        
+            public function afficherTags() {
+                try {
+                    $sql = "SELECT * FROM tags";
+                    $stmt = $this->db->prepare($sql);
+                    $stmt->execute();
+                    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                } catch (PDOException $e) {
+                    echo "Error: " . $e->getMessage();
+                }
             }
         }
         
-        
- 
-
-
-
-
 
         
-    }
+
 
 
 

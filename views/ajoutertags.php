@@ -16,7 +16,9 @@ $pdo= $db->getConnection();
 
 $admin= new Admin($pdo);
 
-$tags= new Tags($pdo);
+$tags = new Tags($pdo);
+
+$tags_ = $tags->afficherTags();
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -29,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $tags= $tags-> afficherTags();
 
 
     if (isset($_POST['delete'])) {
@@ -41,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
+
 
 
 
@@ -130,11 +132,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="p-8 sm:ml-80">
 
     <h2 class="text-4xl font-semibold text-black mb-10">Tags</h2>
-
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12" style="align-items: start;">
     <?php
-    if (isset($tags) && is_array($tags)) {
-        foreach ($tags as $tag) {
+    // Check if there are any tags
+    if (!empty($tags_)) {
+        // Iterate through each tag and display it
+        foreach ($tags_ as $tag) {
     ?>
     <div class="bg-black shadow-lg rounded-lg overflow-hidden" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
         <div class="p-6">
@@ -149,10 +152,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php
         }
     } else {
-        echo "No tags found.";
+        echo "<p class='text-white'>No tags found.</p>";
     }
     ?>
 </div>
+
 
 
 </div>
