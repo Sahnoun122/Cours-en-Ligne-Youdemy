@@ -29,6 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    $tags= $tags-> afficherTags();
+
+
     if (isset($_POST['delete'])) {
         $activityId = $_POST['delete'];
         $id = $_SESSION['id_user'];
@@ -127,6 +130,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="p-8 sm:ml-80">
 
     <h2 class="text-4xl font-semibold text-black mb-10">Tags</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12" style="align-items: start;">
+    <?php
+    if (isset($tags) && is_array($tags)) {
+        foreach ($tags as $tag) {
+    ?>
+    <div class="bg-black shadow-lg rounded-lg overflow-hidden" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+        <div class="p-6">
+            <h3 class="text-4xl mb-4 font-semibold text-white"><?php echo htmlspecialchars($tag['Nom']); ?></h3>
+            <form method="POST" onsubmit="return confirm('Are you sure you want to delete this tag?');">
+                <div class="flex items-center justify-center mt-4">
+                    <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo htmlspecialchars($tag['id_tag']); ?>">🗑️</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <?php
+        }
+    } else {
+        echo "No tags found.";
+    }
+    ?>
+</div>
+
 
 </div>
 

@@ -72,7 +72,7 @@ public function modifietags($id, $nom){
     try {
         $sql = "UPDATE tags SET Nom = :Nom  WHERE id_admin = :id_admin";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":iid_admin", $id, PDO::PARAM_INT);
+        $stmt->bindParam(":id_admin", $id, PDO::PARAM_INT);
         $stmt->bindParam(":Nom", $nom, PDO::PARAM_STR);
         $stmt->execute();
         header("location: ../views/ajoutertags.php");
@@ -94,6 +94,18 @@ public function supprimertags($id){
     }
 }
 
+
+
+public function afficherTags() {
+    try {
+        $sql = "SELECT * FROM tags";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "error: " . $e->getMessage();
+    }
+}
 
 
 

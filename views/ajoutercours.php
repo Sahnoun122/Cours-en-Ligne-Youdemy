@@ -1,6 +1,8 @@
 <?php
 require_once '../database/db.php';
 require_once '../classes/enseignant.php';
+require_once '../classes/tags.php';
+require_once '../classes/category.php';
 require_once '../classes/coursvideo.php';
 
 session_start();
@@ -15,7 +17,9 @@ $pdo= $db->getConnection();
 
 $enseignant= new Enseignant($pdo);
 
-
+$tags= new Tags($pdo);
+ 
+$category = new Category($pdo);
 
 if (isset($_POST['id_user'])) {
     $id_auteur = $_POST['id_user'];
@@ -43,6 +47,8 @@ $coursvideo= new Coursvideo($pdo);
 
 $coursvideo->afficherCours();
 
+$tags= $tags-> afficherTags();
+$category= $category->affichercategory();
 
 
 ?>
@@ -166,7 +172,7 @@ if (!empty($coursvideo) && (is_array($coursvideo) || is_object($coursvideo))) {
             <select id="category" name="id_category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
        <?php
         
-      foreach ($result as $row) {
+      foreach ($category as $row) {
       echo "<option value=".$row['id_category'] . ">" . $row['Nom'] . "</option>";
        }
         ?>
@@ -174,15 +180,18 @@ if (!empty($coursvideo) && (is_array($coursvideo) || is_object($coursvideo))) {
 
 
 
-  <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an tags</label>
-            <select id="category" name="id_tag" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-       <?php
-        
-      foreach ($result1 as $row) {
-      echo "<option value=".$row['id_tag'] . ">" . $row['Nom'] . "</option>";
-       }
-        ?>
-  </select>
+  <label for="tags" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select tags</label>
+<div id="tags" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    <?php
+    foreach ($tags as $row) {
+        echo '<div class="flex items-center mb-2">';
+        echo '<input id="tag-' . $row['id_tag'] . '" type="checkbox" name="id_tag[]" value="' . $row['id_tag'] . '" class="mr-2">';
+        echo '<label for="tag-' . $row['id_tag'] . '" class="text-gray-900 dark:text-white">' . $row['Nom'] . '</label>';
+        echo '</div>';
+    }
+    ?>
+</div>
+
 
 
             
