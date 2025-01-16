@@ -12,42 +12,11 @@ session_start();
 //     exit;
 // }
 
-
-echo $_SESSION['id_user'];
-
-if (isset($_POST['id_user'])) {
-    $id_admin = $_POST['id_user'];
-} else {
-    
-    $id_admin = null;
-}
-
 $db= new DbConnection();
 $pdo = $db->getConnection();
 
 $admin = new Admin($pdo);
 $category = new Category($pdo);
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Nom'])) {
-
-    $id_admin =$_SESSION['id_user'];
-    $nom = $_POST['Nom'];
-   
-    $admin->ajoutercategory($id_admin , $nom);
-
-    header("Location:ajoutercategory.php");
-    exit;
-}
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
-    $category = $_POST['delete'];
-    $id = $_SESSION['id_user'];
-    
-   $admin->supprimercategory($id);
-    header("Location: ajoutercategory.php");
-    exit;
-}
 
 
 $category = $category->affichercategory();
@@ -145,7 +114,7 @@ $category = $category->affichercategory();
                 <h3 class="text-4xl mb-4 font-semibold text-white"><?php echo $category ['Nom']; ?></h3>
 
 
-                <form method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
+                <form method="POST" action="../action/adminaction.php" onsubmit="return confirm('Are you sure you want to delete this category?');">
                     <div class="flex items-center justify-center mt-4">
                         <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo $category['id_category']; ?>">🗑️</button>
                     </div>
@@ -165,7 +134,7 @@ $category = $category->affichercategory();
         <div class="w-full mx-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12">
             <div class="p-10 bg-white shadow-2xl rounded-xl relative z-10" data-aos="fade-right">
 
-                <form method="POST" class="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
+                <form method="POST" action="../action/adminaction.php" class="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
                     <div class="relative">
                         <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                             absolute">category Name</p>
