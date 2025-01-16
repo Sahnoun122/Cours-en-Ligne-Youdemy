@@ -15,9 +15,13 @@ require_once '../database/db.php';
     private $db;
 
 public function __construct($db)
+
 {
     $this->db= $db;
 }
+
+
+
 
 public function getIduser(){
     return $this->id_user;

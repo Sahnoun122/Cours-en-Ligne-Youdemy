@@ -3,15 +3,15 @@ session_start();
 
 require_once '../database/db.php';
  require_once '../classes/coursvideo.php';
+ require_once '../classes/etudiant.php';
 
+ echo $_SESSION['id_user'];
 $db= new DbConnection();
 $pdo= $db->getConnection();
 
 $coursvideo= new Coursvideo($pdo);
 
 $coursvideo_ = $coursvideo->afficherCours();
-
-
 
 ?>
 
@@ -91,11 +91,15 @@ $coursvideo_ = $coursvideo->afficherCours();
 
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomCategorie'], ENT_QUOTES, 'UTF-8'); ?></p>
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
-                    <form method="POST" action="../action/EnseignantActions.php" onsubmit="return confirm('Are you sure you want to delete this course?');">
-                        <div class="flex items-center justify-center mt-2">
-                            <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo $cours['id_cours']; ?>">🗑️</button>
-                        </div>
-                    </form>
+
+
+                    <form method="POST" action="../action/etudiantiaction.php" class="mt-4">
+                    <input type="hidden" name="inscrire" value="1"> 
+                    <input type="hidden" name="id_cours" value="<?php echo htmlspecialchars($cours['id_cours'], ENT_QUOTES, 'UTF-8'); ?>">
+                    <div class="flex items-center space-x-4">
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">S'inscrire</button>
+                    </div>
+                </form>
                 </div>
             </div>
             <?php

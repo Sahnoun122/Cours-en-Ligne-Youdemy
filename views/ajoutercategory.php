@@ -1,11 +1,12 @@
 
 <?php
+session_start();
+
 require_once '../database/db.php';
 require_once '../classes/admin.php';
 require_once '../classes/category.php';
 
 
-session_start();
 
 // if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 //     header("Location: connecter.php");

@@ -15,10 +15,6 @@ session_start();
 //     exit;
 // }
 
-
-
-
-
 $db= new DbConnection();
 $pdo = $db->getConnection();
 

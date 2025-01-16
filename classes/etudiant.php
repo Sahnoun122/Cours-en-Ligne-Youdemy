@@ -9,24 +9,22 @@
     {
      $this->db= $db;
     }
-
-    public function Inscription( $id_user, $dateInscrire) {
-        $sql = "INSERT INTO inscription (id_user, `status`, dateInsrire) 
-                VALUES (:id_user, :status, :dateInsrire)";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-            ':id_user' => $id_user,
-            ':status' => 'Soumiss',
-            ':resDate' => $dateInscrire
-        ]);
-        return $stmt->rowCount() > 0;
+    
+    public function Inscription($id_user, $id_cours) {
+        try {
+            $sql = "INSERT INTO inscription (id_user, id_cours) 
+                    VALUES (:id_user, :id_cours)";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(":id_user", $id_user, PDO::PARAM_INT);
+            $stmt->bindParam(":id_cours", $id_cours, PDO::PARAM_INT);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
     }
-
- 
     
-    
-
-
 
  }
  
