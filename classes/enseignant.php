@@ -22,9 +22,9 @@
             $stmt->bindParam(":DESCRIPTION", $description);
             $stmt->bindParam(":video", $video);
             $stmt->bindParam(":pdf", $pdf);
-            $stmt->bindParam(":id_tag",   $id_tag);
-            $stmt->bindParam(":id_enseignant", $id_enseignant);
-            $stmt->bindParam(":id_category", $id_category);
+            $stmt->bindParam(":id_tag",   $id_tag , PDO::PARAM_INT);
+            $stmt->bindParam(":id_enseignant", $id_enseignant , PDO::PARAM_INT);
+            $stmt->bindParam(":id_category", $id_category , PDO::PARAM_INT);
             echo "before ex";
 
             $stmt->execute();
