@@ -1,6 +1,8 @@
 
 <?php
-
+require_once '../database/db.php';
+require_once '../classes/admin.php';
+require_once '../classes/tags.php';
 
 session_start();
 
@@ -8,6 +10,35 @@ session_start();
 //     header("Location: connecter.php");
 //     exit;
 // }
+
+$db = new DbConnection();
+$pdo= $db->getConnection();
+
+$admin= new Admin($pdo);
+
+$tags= new Tags($pdo);
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['Nom'])) {
+        $nom = $_POST['Nom'];
+        $id_admin = $_SESSION['id_user'];
+        $admin->ajoutertags($id_admin, $nom);
+
+        header("Location:ajoutertags.php");
+        exit;
+    }
+
+    if (isset($_POST['delete'])) {
+        $activityId = $_POST['delete'];
+        $id = $_SESSION['id_user'];
+
+        $admin->supprimertags($id);
+        header("Location:ajoutertags.php");
+        exit;
+    }
+}
+
 
 
 ?>
@@ -40,11 +71,7 @@ session_start();
 <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
     <div class="h-full overflow-y-auto bg-black">
     <!-- Sidebar Menu -->
-    <div class="flex flex-col items-center mt-6 -mx-2">
-        <img class="object-cover w-24 h-24 mx-2 rounded-full" src="<?php echo $_SESSION['profile'] ?>" alt="<?php echo $_SESSION['profile'] ?>">
-        <h4 class="mx-2 mt-2 font-medium" style="color: white;"><?php echo $_SESSION['Nom']?></h4>
-        <p class="mx-2 mt-1 text-sm font-medium" style="color: white;"><?php echo $_SESSION['email']?></p>
-    </div>
+   
 
       <ul class="space-y-2 font-medium px-3 pb-4">
         <li>
@@ -101,27 +128,6 @@ session_start();
 
     <h2 class="text-4xl font-semibold text-black mb-10">Tags</h2>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12" style="align-items: start;">
-        <?php
-            $activities_sql = "SELECT * FROM tags";
-            $stmt_activities = $pdo->query($activities_sql);
-            $activities = $stmt_activities->fetchAll(PDO::FETCH_ASSOC);
-
-            foreach ($activities as $activity):
-        ?>
-        <div class="bg-black shadow-lg rounded-lg overflow-hidden" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-            <div class="p-6">
-                <h3 class="text-4xl mb-4 font-semibold text-white"><?php echo htmlspecialchars($activity['Nom']); ?></h3>
-
-                <form method="POST" onsubmit="return confirm('Are you sure you want to delete this activity?');">
-                    <div class="flex items-center justify-center mt-4">
-                        <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo htmlspecialchars($activity['id_tag']); ?>">🗑️</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <?php endforeach; ?>
-    </div>
 </div>
 
 
@@ -130,7 +136,7 @@ session_start();
         <div class="w-full mx-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12">
             <div class="p-10 bg-white shadow-2xl rounded-xl relative z-10" data-aos="fade-right">
 
-                <form method="POST" action="./creetag.php" class="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
+                <form method="POST" action="./ajoutertags.php" class="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
                     <div class="relative">
                         <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                             absolute">Tags Name</p>

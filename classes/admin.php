@@ -10,7 +10,6 @@ class Admin extends User{
    }
 
    public function ajoutercategory($id_admin , $nom){
-    echo "sahnoun";
     try{
         $sql= "INSERT INTO Category (id_admin , Nom) VALUES (:id_admin , :Nom)";
         $stmt= $this->db->prepare($sql);
@@ -23,7 +22,6 @@ class Admin extends User{
         echo "Erreur lors de l'ajout de la catégorie : " .$e->getMessage();
     }
 
-    echo " f ek,ke";
    }
 
 
@@ -63,7 +61,7 @@ public function ajoutertags($id_admin, $nom) {
         $stmt->bindParam(":id_admin", $id_admin, PDO::PARAM_INT);
         $stmt->bindParam(":Nom", $nom, PDO::PARAM_STR);
         $stmt->execute();
-        header("location: ../views/creetag.php");
+        header("location: ../views/ajoutertags.php");
     } catch (PDOException $e) {
         return "Erreur lors de l'ajout de la catégorie : " . $e->getMessage();
     }
@@ -77,7 +75,7 @@ public function modifietags($id, $nom){
         $stmt->bindParam(":iid_admin", $id, PDO::PARAM_INT);
         $stmt->bindParam(":Nom", $nom, PDO::PARAM_STR);
         $stmt->execute();
-        header("location: ../views/addcategory.php");
+        header("location: ../views/ajoutertags.php");
     } catch (PDOException $e) {
         return "Erreur lors de Modification de la catégorie :". $e->getMessage();
     }
@@ -90,7 +88,7 @@ public function supprimertags($id){
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":id_admin", $id, PDO::PARAM_INT);
         $stmt->execute();
-        header("location: ../views/addcategory.php");
+        header("location: ../views/ajoutertags.php");
     } catch (PDOException $e) {
         return "Erreur lors de la suppression de la catégorie : " . $e->getMessage();
     }
