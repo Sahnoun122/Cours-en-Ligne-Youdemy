@@ -1,15 +1,10 @@
 
 <?php
+session_start();
+
 require_once '../database/db.php';
 require_once '../classes/admin.php';
 require_once '../classes/tags.php';
-
-session_start();
-
-// if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-//     header("Location: connecter.php");
-//     exit;
-// }
 
 $db = new DbConnection();
 $pdo= $db->getConnection();
@@ -19,32 +14,6 @@ $admin= new Admin($pdo);
 $tags = new Tags($pdo);
 
 $tags_ = $tags->afficherTags();
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['Nom'])) {
-        $nom = $_POST['Nom'];
-        $id_admin = $_SESSION['id_user'];
-        $admin->ajoutertags($id_admin, $nom);
-
-        header("Location:ajoutertags.php");
-        exit;
-    }
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
-    $id_tag = $_POST['delete'];
-
-    if ($admin->supprimertags( $id_tag)) {
-        header("Location:ajoutertags.php");
-        exit;
-    } else {
-        echo "Failed to delete the tag.";
-    }
-}
-
-
-
 
 ?>
 
@@ -144,9 +113,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
             <h3 class="text-4xl mb-4 font-semibold text-white"><?php echo htmlspecialchars($tag['Nom']); ?></h3>
             
         </div>
-        <form method="POST" onsubmit="return confirm('Are you sure you want to delete this tag?');">
+        <form method="POST" action="../action/adminaction.php" onsubmit="return confirm('Are you sure you want to delete this tag?');">
                 <div class="flex items-center justify-center mt-4">
-                    <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo htmlspecialchars($tag['id_tag']); ?>">🗑️</button>
+                    <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo $tag['id_tag']; ?>">🗑️</button>
                 </div>
             </form>
     </div>
@@ -164,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     <div class="flex items-center justify-center my-8 bg-gray-100">
         <div class="w-full mx-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12">
             <div class="p-10 bg-white shadow-2xl rounded-xl relative z-10" data-aos="fade-right">
-            <form method="POST">
+            <form method="POST" action="../action/adminaction.php">
     <h2>Ajouter des tags</h2>
     <textarea name="tags" rows="5" cols="30" placeholder="Entrez les tags séparés par des virgules"></textarea><br><br>
     <input type="submit" name="add_tags" value="Ajouter les tags">
