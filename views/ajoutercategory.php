@@ -2,6 +2,7 @@
 <?php
 require_once '../database/db.php';
 require_once '../classes/admin.php';
+require_once '../classes/category.php';
 
 
 session_start();
@@ -25,6 +26,7 @@ $db= new DbConnection();
 $pdo = $db->getConnection();
 
 $admin = new Admin($pdo);
+$category = new Category($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Nom'])) {
 
@@ -37,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Nom'])) {
     exit;
 }
 
-
+$category = $category->affichercategory();
 ?>
 
 <!DOCTYPE html>
@@ -121,6 +123,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Nom'])) {
 <div class="p-8 sm:ml-80">
 
     <h2 class="text-4xl font-semibold text-black mb-10">category</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12" style="align-items: start;">
+        <?php
+        
+        foreach ($category  as $category ):
+        ?>
+        <div class="bg-black shadow-lg rounded-lg overflow-hidden" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+            <div class="p-6">
+                <h3 class="text-4xl mb-4 font-semibold text-white"><?php echo $category ['Nom']; ?></h3>
+
+
+                <form method="POST" onsubmit="return confirm('Are you sure you want to delete this activity?');">
+                    <div class="flex items-center justify-center mt-4">
+                        <button type="submit" class="text-xl hover:scale-105"  name="delete" value="<?php echo $activity['id_category']; ?>">🗑️</button>
+                    </div>
+                    <!-- <button type="submit" name="update" value="" class="text-xl hover:scale-105">🗑️</button> -->
+
+                   
+                </form>
+
+                <form action="./updatecategory.php?id=<?php echo $activity['id_category']; ?>" method="POST">
+                    <button name="update" class="text-xl hover:scale-105">🗑️</button>
+                </form>
+
+            </div>
+        </div>
+        <?php endforeach; ?>
+
+    </div>
+
 
 
 
