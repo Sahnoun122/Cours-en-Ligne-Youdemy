@@ -1,10 +1,11 @@
 <?php
-session_start();
+
 require_once '../database/db.php';
 require_once '../classes/enseignant.php';
 require_once '../classes/tags.php';
 require_once '../classes/category.php';
 require_once '../classes/coursvideo.php';
+
 
 $db= new DbConnection();
 $pdo= $db->getConnection();
@@ -20,6 +21,7 @@ $coursvideo= new Coursvideo($pdo);
 $coursvideo_ = $coursvideo->afficherCours();
 
 $tags= $tags-> afficherTags();
+
 $category= $category->affichercategory();
 
 
@@ -96,44 +98,34 @@ $category= $category->affichercategory();
 </div>
 
 <div class="p-4 sm:ml-80">
+<div id="articlesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+    <?php
+    if (is_array($coursvideo_) || is_object($coursvideo_)) {
+        foreach ($coursvideo_ as $cours) {
+            ?>
+            <div class="bg-black shadow-lg rounded-lg overflow-hidden" data-category="<?php echo htmlspecialchars($cours['id_category'], ENT_QUOTES, 'UTF-8'); ?>" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                <div class="p-4">
+                    <h3 class="text-2xl mb-2 font-semibold text-white"><?php echo htmlspecialchars($cours['Titre'], ENT_QUOTES, 'UTF-8'); ?></h3>
+                    <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['DESCRIPTION'], ENT_QUOTES, 'UTF-8'); ?></p>
+                    <video src="<?php echo htmlspecialchars($cours['video'], ENT_QUOTES, 'UTF-8'); ?>" alt="video" class="w-full h-32 object-cover rounded-md mb-2"></video>
 
-<div class="" id="articlesContainer" style="align-items: start;">
-
-<?php
-
-if (($coursvideo_)) {
-    foreach ($coursvideo_ as $cours) {
-        
-        ?>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12" style="align-items: start;">
-
-        <div  class="bg-black shadow-lg rounded-lg overflow-hidden"  data-category="<?php echo htmlspecialchars($cours['id_category'], ENT_QUOTES, 'UTF-8'); ?>" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-            <div class="p-1">
-                <h3 class="text-4xl mb-4 font-semibold text-white"><?php echo htmlspecialchars($cours['Titre'], ENT_QUOTES, 'UTF-8'); ?></h3>
-                <p class="text-lg text-white"><?php echo htmlspecialchars($cours['DESCRIPTION'], ENT_QUOTES, 'UTF-8'); ?></p>
-                <a href="#"><img src="<?php echo htmlspecialchars($cours['video'], ENT_QUOTES, 'UTF-8'); ?>" alt="video" class="w-full h-48 object-cover"></a>
-                <p class="text-lg text-white"><?php echo htmlspecialchars($cours['NomCategorie'], ENT_QUOTES, 'UTF-8'); ?></p>
-                <p class="text-lg text-white"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
-
-                
-                <form method="POST" action="../action/EnseignantActions.php" onsubmit="return confirm('Are you sure you want to delete this course?');">
-                       <div class="flex items-center justify-center mt-4">
-                   <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo $cours['id_cours']; ?>">🗑️</button>
-                   </div>
+                    <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomCategorie'], ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
+                    <form method="POST" action="../action/EnseignantActions.php" onsubmit="return confirm('Are you sure you want to delete this course?');">
+                        <div class="flex items-center justify-center mt-2">
+                            <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo $cours['id_cours']; ?>">🗑️</button>
+                        </div>
                     </form>
-
-
+                </div>
             </div>
-        </div>
-     </div>
-        <?php
+            <?php
+        }
+    } else {
+        echo "No data available or incorrect data format.";
     }
-} else {
-    echo "No data available or incorrect data format.";
-}
-?>
-
+    ?>
 </div>
+
 </div>
 
 
@@ -194,7 +186,7 @@ if (($coursvideo_)) {
                     <div class="relative">
                         <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                             absolute">Contenu Video</p>
-                        <input type="URL" id="video" name="video" required class="border placeholder-gray-400 focus:outline-none
+                        <input type="url" id="video" name="video" required class="border placeholder-gray-400 focus:outline-none
                             focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                             border-gray-300 rounded-md"/>
                     </div>
