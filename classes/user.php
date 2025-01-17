@@ -111,7 +111,7 @@ public function getEmail(){
   
 public function login($email , $Motdepasse){
     try{
-        $sql= "SELECT id_user , Email , Motdepasse , ROLE , profile  , Nom FROM user WHERE Email = :Email";
+        $sql= "SELECT * FROM user WHERE Email = :Email";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':Email' => $email]);
 
@@ -122,7 +122,7 @@ public function login($email , $Motdepasse){
         $this->id_user =  $user['id_user'];
         $this->prenom =  $user['Prenom'];
         $this->nom =  $user['Nom'];
-        $this->email =  $user['email'];
+        $this->email =  $user['Email'];
         $this->role =  $user['ROLE'];
         $this->profile =  $user['profile'];
 

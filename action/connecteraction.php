@@ -13,19 +13,19 @@ require_once '../database/db.php';
       
       try{
         $auth = new User($pdo , null , null ,$email,$Motdepasse ,null,null);
-        $user= $auth->login($user->getEmail(), $auth-> getMotdepasse());
+        $user= $auth->login($auth->getEmail(), $auth-> getMotdepasse());
 
-        $_SESSION ['id_user'] = $user['id_user'];
-        $_SESSION['Email'] = $user['Email'];
-        $_SESSION['Nom']= $user['Nom'];
-        $_SESSION['ROLE']= $user['ROLE'];
+        $_SESSION ['id_user'] = $user->getIduser();
+        $_SESSION['Email'] = $user->getEmail();
+        $_SESSION['Nom']= $user->getNom();
+        $_SESSION['ROLE']= $user->getRole();
 
-        if($user['ROLE']=== 'admin'){
-            header('Location:dashbordadmin.php');
-        }else if($user ['ROLE'] === 'etudiant'){
-            header('Location:dashbordetudiant.php');
-        }else if ($user['ROLE'] === 'enseignant'){
-            header('Location:dasbordenseignant.php');
+        if($user->getRole()=== 'admin'){
+            header('Location:../views/dashbordadmin.php');
+        }else if($user->getRole()=== 'etudiant'){
+            header('Location:../views/dashbordetudiant.php');
+        }else if ($user->getRole() === 'enseignant'){
+            header('Location:../views/dasbordenseignant.php');
         }
         exit();
     }catch (Exception $e){
