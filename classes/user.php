@@ -10,7 +10,7 @@ require_once '../database/db.php';
     private $email;
     private $profile;
     private $Motdepasse;
-    private PDO $role;
+    private $role;
 
     private $db;
 
@@ -87,16 +87,16 @@ public function getEmail(){
 
      $Motdepasse = password_hash($Motdepasse, PASSWORD_BCRYPT);
     $sqluser = "INSERT INTO user (Nom , Prenom , Email , Motdepasse , ROLE , profile  ) VALUES (:Nom , :Prenom , :Email , :Motdepasse , :ROLE  , :profile)  ";
-    $stmt = $this->db->prepare($sqluser);
     
-    $stmt->execute([
-             ':Nom'=> $nom,
-             ':Prenom'=> $prenom,
-             ':Email'=> $email,
-             ':Motdepasse' => $Motdepasse,
-             ':ROLE'=> $role,
-             ':profile'=> $profile
-    ]);
+    $stmt = $this->db->prepare($sqluser);
+    $stmt->bindParam(":Nom", $nom, PDO::PARAM_STR);
+    $stmt->bindParam(":Prenom", $prenom, PDO::PARAM_STR);
+    $stmt->bindParam(":Email", $email, PDO::PARAM_STR);
+    $stmt->bindParam(":Motdepasse", $Motdepasse, PDO::PARAM_STR);
+    $stmt->bindParam(":ROLE", $role, PDO::PARAM_STR);
+    $stmt->bindParam(":profile",  $profile, PDO::PARAM_STR);
+
+    $stmt->execute();
 
 
     $userid= $this->db->lastInsertId();
@@ -123,8 +123,8 @@ public function login($email , $Motdepasse){
         $this->prenom =  $user['Prenom'];
         $this->nom =  $user['Nom'];
         $this->email =  $user['email'];
-        $this->role =  $user['label'];
-        $this->profile =  $user['photo'];
+        $this->role =  $user['ROLE'];
+        $this->profile =  $user['profile'];
 
         return $this;
        }else{

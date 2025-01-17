@@ -11,7 +11,6 @@ if (empty($_SESSION['csrf_token'])) {
 
 $db = new DbConnection();
 $pdo = $db->getConnection();
-$auth = new User($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -31,19 +30,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         die('Format d\'email invalide.');
     }
+    
     $profile = pathinfo($_FILES['PROFILE']['tmp_name'], PATHINFO_FILENAME);
     $file_extension = pathinfo($_FILES['PROFILE']['name'], PATHINFO_EXTENSION);
     $new_image_name = $profile .'_'.date("ymd_His").'.'. $file_extension;
-
+    
     $target_direct = "C:/laragon/www/Youdemy/assets/uploade/";
     $target_path = $target_direct . $new_image_name;
-
+    
     if (!move_uploaded_file($_FILES['PROFILE']['tmp_name'], $target_path)) {
         die('Erreur lors du téléchargement du fichier.');
     }
-
+    
     try {
-        $userid = $auth->register($nom, $prenom, $email, $Motdepasse, $role, $new_image_name);
+        $auth = new User($pdo , $nom , $prenom ,$email,$Motdepasse ,$profile,$role);
+        
+        $userid = $auth->register($auth->getNom(), $auth->getPrenom(), $auth->getEmail(), $auth-> getMotdepasse(), $auth->getRole(), $auth->getProfile());
         header('Location:../views/connecter.php');
         exit();
     } catch (Exception $e) {
