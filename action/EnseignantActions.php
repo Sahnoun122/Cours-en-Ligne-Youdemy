@@ -25,17 +25,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Titre'])) {
     $id_enseignant = $_SESSION['id_user'];
     $titre = $_POST['Titre'];
     $description = $_POST['DESCRIPTION'];
-    $video = $_POST['video'];
-    $pdf = $_POST['pdf'];
     $id_category = $_POST['id_category'];
     $id_tag = $_POST['id_tag'];
 
-    $enseignant->ajouterCours($id_enseignant, $titre, $description, $video, $pdf, $id_category, $id_tag);
+    $video = pathinfo($_FILES['video_up']['tmp_name'], PATHINFO_FILENAME);
+    $file_extension = pathinfo($_FILES['video_up']['name'], PATHINFO_EXTENSION);
+    $new_vid_name =  $video .'_'.date("ymd_His").'.'. $file_extension;
+    
+    $target_direct = "../assets/video/";
+    $target_path = $target_direct . $new_vid_name;
+   
+     
+    if (!move_uploaded_file($_FILES['video_up']['tmp_name'], $target_path)) {
+        die('Erreur lors du téléchargement du fichier.');
+    }
+
+    $enseignant->ajouterCours($id_enseignant, $titre, $description, $target_path, $pdf, $id_category, $id_tag);
     header("Location:../views/ajoutercours.php");
     exit;
 }
-
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     echo $_POST['delete'];
