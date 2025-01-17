@@ -10,7 +10,6 @@ $db = new DbConnection();
 $pdo = $db->getConnection();
 $auth = new User($pdo);
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,8 +91,6 @@ $auth = new User($pdo);
         </div>
     </div>
 </div>
-
-
 
 <script>
 

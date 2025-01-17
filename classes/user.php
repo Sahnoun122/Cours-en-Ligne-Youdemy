@@ -14,9 +14,14 @@ require_once '../database/db.php';
 
     private $db;
 
-public function __construct($db)
-
+public function __construct($db , $nom , $prenom ,$email,$Motdepasse ,$profile,$role)
 {
+    $this->nom = $nom;
+    $this->prenom = $prenom;
+    $this->email = $email;
+    $this->Motdepasse = $Motdepasse;
+    $this->role = $role;
+    $this->profile = $profile;
     $this->db= $db;
 }
 
@@ -83,6 +88,7 @@ public function getEmail(){
      $Motdepasse = password_hash($Motdepasse, PASSWORD_BCRYPT);
     $sqluser = "INSERT INTO user (Nom , Prenom , Email , Motdepasse , ROLE , profile  ) VALUES (:Nom , :Prenom , :Email , :Motdepasse , :ROLE  , :profile)  ";
     $stmt = $this->db->prepare($sqluser);
+    
     $stmt->execute([
              ':Nom'=> $nom,
              ':Prenom'=> $prenom,
@@ -91,6 +97,8 @@ public function getEmail(){
              ':ROLE'=> $role,
              ':profile'=> $profile
     ]);
+
+
     $userid= $this->db->lastInsertId();
     
    $this->db->commit();
@@ -110,22 +118,20 @@ public function login($email , $Motdepasse){
         if($stmt -> rowCount()>0){
        $user= $stmt ->fetch(PDO::FETCH_ASSOC);
        if(password_verify($Motdepasse, $user['Motdepasse'])){
-        return[
-            'id_user'=>$user['id_user'],
-            'Email'=>$user['Email'],
-            'profile'=>$user['profile'],
-            'ROLE'=>$user['ROLE'],
-            'Nom'=>$user['Nom'],
-        ];
 
+        $this->id_user =  $user['id_user'];
+        $this->prenom =  $user['Prenom'];
+        $this->nom =  $user['Nom'];
+        $this->email =  $user['email'];
+        $this->role =  $user['label'];
+        $this->profile =  $user['photo'];
+
+        return $this;
        }else{
         throw new Exception('mot de passe Incorrect !');
        }
-
         }  
         
-        
-
     }catch (Exception $e){
        throw $e;
     }
