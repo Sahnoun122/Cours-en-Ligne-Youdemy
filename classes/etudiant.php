@@ -24,8 +24,43 @@
             return false;
         }
     }
-     
 
+    
+    public function afficherinscription() {
+        try {
+            $sql = "SELECT 
+                Cours.Titre,
+                inscription.dateInsrire,
+                user.Nom
+            FROM 
+                inscription 
+            JOIN 
+                Cours
+            ON 
+                inscription.id_cours = Cours.id_cours
+            JOIN 
+                user 
+            ON 
+                inscription.id_user= user.id_user
+            WHERE 
+                user.ROLE = 'etudiant'";
+         
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+             
+            if($stmt->rowCount() > 0) {
+                $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $resultat;
+            } else {
+                return false;
+            }
+             
+        } catch(Exception $e) {
+            echo "error: " . $e->getMessage();
+        }
+    }
+    
+    
  }
  
 ?>

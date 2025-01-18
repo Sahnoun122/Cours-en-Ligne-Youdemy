@@ -1,27 +1,23 @@
-
 <?php
 session_start();
 
 require_once '../database/db.php';
-require_once '../classes/admin.php';
-require_once '../classes/category.php';
+require_once '../classes/enseignant.php';
+require_once '../classes/etudiant.php';
 
 
-
-// if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-//     header("Location: connecter.php");
-//     exit;
-// }
 
 $db= new DbConnection();
-$pdo = $db->getConnection();
+$pdo= $db->getConnection();
 
-$admin = new Admin($pdo);
-$category = new Category($pdo);
+$etudiant = new Etudiant($pdo);
 
 
-$category = $category->affichercategory();
+$etudiant_ = $etudiant->afficherinscription();
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +29,7 @@ $category = $category->affichercategory();
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-        <!-- AOS Animation CDN -->
+            <!-- AOS Animation CDN -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 </head>
@@ -50,6 +46,7 @@ $category = $category->affichercategory();
 <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
     <div class="h-full overflow-y-auto bg-black">
     <!-- Sidebar Menu -->
+    <div class="flex flex-col">
     
       <ul class="space-y-2 font-medium px-3 pb-4">
         <li>
@@ -69,8 +66,8 @@ $category = $category->affichercategory();
                <span class="ms-3">category</span>
             </a>
         </li>
-        </li>
-        <a href="ajoutertags.php" class="flex items-center p-2 text-white rounded-lg hover:bg-gray-100 hover:text-black group">
+        <li>
+            <a href="ajoutertags.php" class="flex items-center p-2 text-white rounded-lg hover:bg-gray-100 hover:text-black group">
                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
                   <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z"/>
                </svg>
@@ -93,7 +90,7 @@ $category = $category->affichercategory();
                <span class="ms-3">les profils</span>
             </a>
         </li>
-   
+      
         <li>
             <a href="logout.php" class="flex items-center p-2 text-white rounded-lg hover:bg-gray-100 hover:text-black group">
                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
@@ -107,62 +104,49 @@ $category = $category->affichercategory();
 </aside>
 
 
-
-<!-- Main -->
 <div class="p-8 sm:ml-80">
+    <h2 class="text-4xl font-semibold text-black mb-6">Cours</h2>
 
-    <h2 class="text-4xl font-semibold text-black mb-10">category</h2>
+    </div>
+</div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12" style="align-items: start;">
-        <?php
-        
-        foreach ($category  as $category ):
+<div class="p-8 sm:ml-80">
+<div class="flex items-center justify-center overflow-x-auto shadow-lg rounded-lg" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+    <table class="min-w-full table-auto border-collapse bg-white">
+        <thead class="bg-black">
+            <tr>
+                <th class="px-6 py-3 text-left text-sm font-medium text-white">Nom Etudiant</th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-white">Titre cours</th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-white">Dateinscription</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        <?php 
+        if (is_array($etudiant_) || is_object($etudiant_)) {
+            foreach ($etudiant_ as $etudiant) {
+                    echo '<tr class="border-b hover:bg-gray-50">
+                        <td class="px-6 py-4 text-sm">'. htmlspecialchars($etudiant['Nom']) .'</td>
+                        <td class="px-6 py-4 text-sm">'. htmlspecialchars($etudiant['Titre']) .'</td>
+                        <td class="px-6 py-4 text-sm">'. htmlspecialchars($etudiant['dateInsrire']) .'</td>
+                    </tr>';
+          
+                }
+            }
+         else {
+            echo "<tr><td class='px-6 py-4 text-sm' colspan='3'>No user found.</td></tr>";
+        }
         ?>
-        <div class="bg-black shadow-lg rounded-lg overflow-hidden" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-            <div class="p-6">
-                <h3 class="text-4xl mb-4 font-semibold text-white"><?php echo $category ['Nom']; ?></h3>
+        
+        </tbody>
+    </table>
+</div>
 
 
-                <form method="POST" action="../action/adminaction.php" onsubmit="return confirm('Are you sure you want to delete this category?');">
-                    <div class="flex items-center justify-center mt-4">
-                        <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo $category['id_category']; ?>">🗑️</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-        <?php endforeach; ?>
-
-    </div>
-
-
-
-
-    <h2 class="text-4xl font-semibold text-black mb-6">Add New Activity</h2>
-    <div class="flex items-center justify-center my-8 bg-gray-100">
-        <div class="w-full mx-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12">
-            <div class="p-10 bg-white shadow-2xl rounded-xl relative z-10" data-aos="fade-right">
-
-                <form method="POST" action="../action/adminaction.php" class="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
-                    <div class="relative">
-                        <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
-                            absolute">category Name</p>
-                        <input type="text" id="Nom" name="Nom" required class="border placeholder-gray-400 focus:outline-none
-                            focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                            border-gray-300 rounded-md"/>
-                    
-                    <div class="relative">
-                        <button type="submit" class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-green-500
-                            rounded-lg transition duration-200 hover:bg-green-600 ease">Add Category</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
 
 </div>
 
+</div>
 <script>
   AOS.init();
 </script>

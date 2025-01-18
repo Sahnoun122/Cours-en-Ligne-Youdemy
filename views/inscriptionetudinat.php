@@ -2,16 +2,19 @@
 session_start();
 
 require_once '../database/db.php';
- require_once '../classes/coursvideo.php';
- require_once '../classes/etudiant.php';
+require_once '../classes/enseignant.php';
+require_once '../classes/etudiant.php';
 
- echo $_SESSION['id_user'];
+
+
 $db= new DbConnection();
 $pdo= $db->getConnection();
 
-$coursvideo= new Coursvideo($pdo);
+$etudiant = new Etudiant($pdo);
 
-$coursvideo_ = $coursvideo->affichercoursetudiants();
+
+$etudiant_ = $etudiant->afficherinscription();
+
 
 ?>
 
@@ -89,42 +92,41 @@ $coursvideo_ = $coursvideo->affichercoursetudiants();
     </div>
 </div>
 
-<div class="p-4 sm:ml-80">
-<div id="articlesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-    <?php
-    if (is_array($coursvideo_) || is_object($coursvideo_)) {
-        foreach ($coursvideo_ as $cours) {
-            ?>
-            <div class="bg-black shadow-lg rounded-lg overflow-hidden" >
-                <div class="p-4">
-                    <h3 class="text-2xl mb-2 font-semibold text-white"><?php echo htmlspecialchars($cours['Titre'], ENT_QUOTES, 'UTF-8'); ?></h3>
-                    <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['DESCRIPTION'], ENT_QUOTES, 'UTF-8'); ?></p>
-                    <video src="<?php echo htmlspecialchars($cours['video'], ENT_QUOTES, 'UTF-8'); ?>" alt="video" class="w-full h-52 object-cover rounded-md mb-2"></video>
+<div class="p-8 sm:ml-80">
+<div class="flex items-center justify-center overflow-x-auto shadow-lg rounded-lg" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+    <table class="min-w-full table-auto border-collapse bg-white">
+        <thead class="bg-black">
+            <tr>
+                <th class="px-6 py-3 text-left text-sm font-medium text-white">Nom Etudiant</th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-white">Titre cours</th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-white">Dateinscription</th>
+            </tr>
+        </thead>
+        <tbody>
 
-                    <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomCategorie'], ENT_QUOTES, 'UTF-8'); ?></p>
-                    <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
-
-
-                    <form method="POST" action="../action/etudiantiaction.php" class="mt-4">
-                    <input type="hidden" name="inscrire" value="1"> 
-                    <input type="hidden" name="id_cours" value="<?php echo htmlspecialchars($cours['id_cours'], ENT_QUOTES, 'UTF-8'); ?>">
-                    <div class="flex items-center space-x-4">
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">S'inscrire</button>
-                    </div>
-                </form>
-                </div>
-            </div>
-            <?php
+        <?php 
+        if (is_array($etudiant_) || is_object($etudiant_)) {
+            foreach ($etudiant_ as $etudiant) {
+                    echo '<tr class="border-b hover:bg-gray-50">
+                        <td class="px-6 py-4 text-sm">'. htmlspecialchars($etudiant['Nom']) .'</td>
+                        <td class="px-6 py-4 text-sm">'. htmlspecialchars($etudiant['Titre']) .'</td>
+                        <td class="px-6 py-4 text-sm">'. htmlspecialchars($etudiant['dateInsrire']) .'</td>
+                    </tr>';
+          
+                }
+            }
+         else {
+            echo "<tr><td class='px-6 py-4 text-sm' colspan='3'>No user found.</td></tr>";
         }
-    } else {
-        echo "No data available or incorrect data format.";
-    }
-    ?>
+        ?>
+        
+        </tbody>
+    </table>
 </div>
 
-</div>
 
- 
+
+</div>
 
 </div>
 
