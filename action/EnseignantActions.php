@@ -53,3 +53,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_cours'], $_GET['Titre'], $_GET['DESCRIPTION'], $_GET['video'], $_GET['id_category'], $_GET['id_tag'])) {
+    $id_cours= (int)$_GET['id_cours'];
+    $titre = $_GET['Titre'];
+    $description = $_GET['DESCRIPTION'];
+    $video = $_GET['video'];
+    $id_category = (int)$_GET['id_category'];
+    $id_tag = (int)$_GET['id_tag'];
+    if ($enseignant-> modifierCours($id_cours, $titre,$description,$video, $id_category, $id_tag)) {
+        header("Location:../views/ajoutercours.php");
+        exit;
+    } else {
+        echo "Error updating article.";
+    }
+} else {
+    echo "Invalid request.";
+}
+
+
+

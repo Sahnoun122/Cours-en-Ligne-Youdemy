@@ -83,11 +83,11 @@ $coursvideo_ = $coursvideo->afficherCours();
     if (is_array($coursvideo_) || is_object($coursvideo_)) {
         foreach ($coursvideo_ as $cours) {
             ?>
-            <div class="bg-black shadow-lg rounded-lg overflow-hidden" data-category="<?php echo htmlspecialchars($cours['id_category'], ENT_QUOTES, 'UTF-8'); ?>" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+            <div class="bg-black shadow-lg rounded-lg overflow-hidden"  >
                 <div class="p-4">
                     <h3 class="text-2xl mb-2 font-semibold text-white"><?php echo htmlspecialchars($cours['Titre'], ENT_QUOTES, 'UTF-8'); ?></h3>
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['DESCRIPTION'], ENT_QUOTES, 'UTF-8'); ?></p>
-                    <video src="<?php echo htmlspecialchars($cours['video'], ENT_QUOTES, 'UTF-8'); ?>" alt="video" class="w-full h-32 object-cover rounded-md mb-2"></video>
+                    <video src="<?php echo htmlspecialchars($cours['video'], ENT_QUOTES, 'UTF-8'); ?>" alt="video" class="w-full h-52 object-cover rounded-md mb-2"></video>
 
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomCategorie'], ENT_QUOTES, 'UTF-8'); ?></p>
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
@@ -100,6 +100,7 @@ $coursvideo_ = $coursvideo->afficherCours();
         echo "No data available or incorrect data format.";
     }
     ?>
+    
 </div>
 
 </div>

@@ -2,14 +2,12 @@
 
     require_once '../database/db.php';
 
-  abstract   class Cours {
+  abstract  class Cours {
 
 
         private  $id_cours;
         private  $titre;
         private  $description;
-        private  $image;
-        private  $contenu;
         private  $video;
         private  $status;
         private  $date;
@@ -30,15 +28,11 @@
         public function getDescription(){
             return $this->description;
         }
-        public function getContenu(){
-            return $this->contenu;
-        }
+     
         public function getVideo(){
             return $this->video;
         }
-        public function getCouvertur(){
-            return $this->image;
-        }
+    
         public function getStatus(){
             return $this->status;
         }
@@ -53,15 +47,11 @@
         public function setDescription($description){
             $this->description = $description;
         }
-        public function setContenu($contenu){
-            $this->contenu = $contenu;
-        }
+      
         public function setVideo($video){
             $this->video = $video;
         }
-        public function setImage($image){
-            $this->image = $image;
-        }
+       
         public function setStatus($status){
             $this->status = $status;
         }
@@ -70,7 +60,9 @@
         }
 
         abstract public function afficherCours();
-        
+
+
+       abstract public function getIdcours($id_cours);
     }
 
 

@@ -33,15 +33,13 @@
     }
     
 
-    public function modifierCours($id_cours, $titre, $contenu,$description, $image,$video, $id_category, $id_tag) {
+    public function modifierCours($id_cours, $titre,$description,$video, $id_category, $id_tag) {
         try {
-        $sql = "UPDATE Cours SET Titre = :Titre, Contenu = :Contenu, DESCRIPTION= :DESCRIPTION, Image = :Image,video=:video id_category = :id_category, id_tag = :id_tag WHERE id_cours = :id_cours";
+        $sql = "UPDATE Cours SET Titre = :Titre, DESCRIPTION= :DESCRIPTION ,video=:video ,id_category = :id_category, id_tag = :id_tag WHERE id_cours = :id_cours";
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":Titre", $titre, PDO::PARAM_STR);
-        $stmt->bindParam(":Contenu", $contenu, PDO::PARAM_STR);
         $stmt->bindParam(":video", $video, PDO::PARAM_STR);
         $stmt->bindParam(":DESCRIPTION", $description, PDO::PARAM_STR);
-        $stmt->bindParam(":Image", $image, PDO::PARAM_STR);
         $stmt->bindParam(":id_category", $id_category, PDO::PARAM_INT);
         $stmt->bindParam(":id_tag", $id_tag, PDO::PARAM_INT);
         $stmt->bindParam(":id_cours", $id_cours, PDO::PARAM_INT);
