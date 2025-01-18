@@ -32,7 +32,6 @@ CREATE TABLE Cours (
     Titre VARCHAR(255) NOT NULL,
     DESCRIPTION TEXT NOT NULL,
     video TEXT NOT NULL ,
-    pdf BLOB ,
     id_enseignant INT,
     id_category INT,
     id_tag INT ,
@@ -44,6 +43,7 @@ CREATE TABLE Cours (
     FOREIGN KEY (id_tag) REFERENCES tags(id_tag) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (id_enseignant) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 
 
 

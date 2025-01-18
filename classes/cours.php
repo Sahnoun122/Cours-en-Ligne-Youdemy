@@ -63,6 +63,8 @@
 
 
        abstract public function getIdcours($id_cours);
+
+       abstract function affichercoursetudiants();
     }
 
 

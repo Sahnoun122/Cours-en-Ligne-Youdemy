@@ -22,7 +22,9 @@ class Coursvideo extends Cours{
             INNER JOIN 
                 Category ON Cours.id_category = Category.id_category
             INNER JOIN 
-                tags ON Cours.id_tag = tags.id_tag;
+                tags ON Cours.id_tag = tags.id_tag 
+                
+                ;
         ";
         $stmt= $this->db->prepare($sql);
         $stmt->execute();
@@ -58,6 +60,37 @@ class Coursvideo extends Cours{
     }
     
 
+    function affichercoursetudiants(){
+        try{
+            $sql="SELECT 
+            Cours.id_cours,
+            Cours.Titre,
+            Cours.DESCRIPTION,
+            Cours.video,
+            Category.Nom AS NomCategorie,
+            tags.Nom AS NomTag
+            FROM 
+                Cours
+            INNER JOIN 
+                Category ON Cours.id_category = Category.id_category
+            INNER JOIN 
+                tags ON Cours.id_tag = tags.id_tag 
+                WHERE Statut = 'Accepté'
+                ;
+        ";
+        $stmt= $this->db->prepare($sql);
+        $stmt->execute();
+        if($stmt->rowcount()>0){
+            $result= $stmt->fetchAll();
+            return $result;
+        }else{
+            return "Aucun cours trouvé" ;
+        }
+
+    }catch(PDOException $e){
+            echo "Erreur lors de la récupération des cours : " .$e->getMessage();
+        }
+    }
 
 
 }

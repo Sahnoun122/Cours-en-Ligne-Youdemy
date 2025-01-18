@@ -9,7 +9,7 @@ $db= new DbConnection();
 $pdo= $db->getConnection();
 
 $coursvideo= new Coursvideo($pdo);
-$coursvideo_ = $coursvideo->afficherCours();
+$coursvideo_ = $coursvideo->affichercoursetudiants();
 
 ?>
 

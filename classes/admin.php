@@ -115,14 +115,11 @@ public function acceptercours($id_cours){
 }
 
 
-
-
-
-public function refusecours( $id_article){
+public function refusecours( $id_cours){
     try {
         $sql = "UPDATE Cours SET  Statut = 'Refusé' WHERE id_cours = :id_cours";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":id_cours", $id_article, PDO::PARAM_INT);
+        $stmt->bindParam(":id_cours", $id_cours, PDO::PARAM_INT);
         $stmt->execute();
         header("location: ");
     } catch (PDOException $e) {
