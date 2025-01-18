@@ -11,6 +11,8 @@ session_start();
  require_once '../classes/user.php';
  require_once '../database/db.php';
 require_once '../classes/coursvideo.php';
+require_once '../classes/enseignant.php';
+
  echo $_SESSION['id_user'];
 
  $db = new DbConnection();
@@ -18,11 +20,15 @@ require_once '../classes/coursvideo.php';
 
  $status = new Coursvideo($pdo);
 
+ $enseignant = new Enseignant($pdo);
+
+
  $status_ = $status-> afficherstatu();
 
+ $profile= $enseignant->voirinscription();
+
+
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -96,38 +102,53 @@ require_once '../classes/coursvideo.php';
 
 
 <!-- Main -->
+
 <div class="p-8 sm:ml-80">
 
-    <h2 class="text-4xl font-semibold text-black mb-6">Cours</h2>
-    <div class="flex items-center justify-center overflow-x-auto shadow-lg rounded-lg" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-        <table class="min-w-full table-auto border-collapse bg-white">
-            <thead class="bg-black">
-                <tr>
-                    <th class="px-6 py-3 text-left text-sm font-medium text-white">Titre</th>
-                    <th class="px-6 py-3 text-left text-sm font-medium text-white">DateCreation</th>
-                    <th class="px-6 py-3 text-left text-sm font-medium text-white">Statu</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                
-                if(is_array( $status_ ) || is_object( $status_ )) {
-                    foreach( $status_   as  $status ) {
-                        echo '<tr class="border-b hover:bg-gray-50">
-                            <td class="px-6 py-4 text-sm">'. $status['Titre'].'</td>
-                            <td class="px-6 py-4 text-sm">'. $status['DateCréation'].'</td>
-                            <td class="px-6 py-4 text-sm">'. $status['Statut'].'</td>
-                        </tr>';
-                    }
-                } else {
-                    echo "No articles found.";
-                }
-                ?>
-                
-            
-            </tbody>
-        </table>
-    </div>
+<div class="flex items-center justify-center overflow-x-auto shadow-lg rounded-lg" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+    <table class="min-w-full table-auto border-collapse bg-white">
+        <thead class="bg-black">
+            <tr>
+                <th class="px-6 py-3 text-left text-sm font-medium text-white">Nom</th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-white">Prenom</th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-white">Email</th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-white">Role</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+
+        <?php 
+if (is_array($profile) || is_object($profile)) {
+    foreach ($profile as  $profile) {
+        if (isset( $profile['id_user'])) {
+            echo '<tr class="border-b hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm">'. $profile['Nom'].'</td>
+                <td class="px-6 py-4 text-sm">'. $profile['Prenom'].'</td>
+                <td class="px-6 py-4 text-sm">'. $profile['Email'].'</td>
+                <td class="px-6 py-4 text-sm">'. $profile['ROLE'].'</td>
+                <td class="px-6 py-4 text-sm">
+                 
+                </td>
+            </tr>';
+        } else {
+            echo '<tr class="border-b hover:bg-gray-50">
+                <td class="px-6 py-4 text-sm" colspan="5">ID de l\'utilisateur non trouvé.</td>
+            </tr>';
+        }
+    }
+} else {
+    echo "No articles found.";
+}
+?>
+
+?>
+
+        
+        </tbody>
+    </table>
+</div>
 
 </div>
 

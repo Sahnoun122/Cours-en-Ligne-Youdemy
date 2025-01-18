@@ -141,7 +141,7 @@ public function login($email , $Motdepasse){
 
  public function getData(){
     $id_user = $_SESSION['id_user'];
-    $query ="SELECT * FROM user WHERE id_user = :id_user";
+    $query ="SELECT * FROM user WHERE id_user = :id_user ";
     $stmt= $this->db->prepare($query);
     $stmt->execute([':id_user'=> $id_user]);
     return $stmt->fetch(PDO::FETCH_ASSOC);

@@ -145,10 +145,20 @@ public function accepterProfil($id) {
     return $stmt->rowCount(); 
 }
 
-public function consulterstatistique(){
-     
+
+
+    
+public function voirprofile() {
+    $sql = "SELECT * FROM user WHERE ROLE = 'etudiant' , 'enseignant'  ";
+    $stmt = $this->db->prepare($sql);
+    $stmt->execute();
+    
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 }
+
+
+
 
 ?>

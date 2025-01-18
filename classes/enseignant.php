@@ -66,6 +66,18 @@
             return "Erreur lors de la suppression de cours : " . $e->getMessage();
         }
     }
+
+
+
+    public function voirinscription() {
+        $sql = "SELECT * FROM user WHERE ROLE = 'etudiant' ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     
  }
 
