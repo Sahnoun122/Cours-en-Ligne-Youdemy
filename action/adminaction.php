@@ -88,3 +88,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_cours'], $_POST['a
     header("Location:../views/dashbordadmin.php");
     exit;
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
+    $id = $_POST['supprimer'];
+    $admin->supprimerProfil($id) ;
+    header("Location:../views/consulterprofile.php");
+    exit;
+}

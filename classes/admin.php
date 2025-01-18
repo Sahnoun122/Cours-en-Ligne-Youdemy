@@ -127,14 +127,15 @@ public function refusecours( $id_cours){
     }
 }
 
-public function supprimerProfil($id) {
-    $sql = "DELETE FROM user WHERE id_user = :id_user";
+    
+public function voirprofile() {
+    $sql = "SELECT * FROM user WHERE ROLE IN ('etudiant', 'enseignant')";
     $stmt = $this->db->prepare($sql);
-    $stmt->bindParam(':id_user', $id, PDO::PARAM_INT);
     $stmt->execute();
     
-    return $stmt->rowCount(); 
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 public function accepterProfil($id) {
     $sql = "DELETE FROM user WHERE id_user = :id_user";
@@ -146,14 +147,13 @@ public function accepterProfil($id) {
 }
 
 
-
-    
-public function voirprofile() {
-    $sql = "SELECT * FROM user WHERE ROLE = 'etudiant' , 'enseignant'  ";
+public function supprimerProfil($id) {
+    $sql = "DELETE FROM user WHERE id_user = :id_user";
     $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':id_user', $id, PDO::PARAM_INT);
     $stmt->execute();
     
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt->rowCount(); 
 }
 
 }
