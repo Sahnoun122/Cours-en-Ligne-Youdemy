@@ -92,6 +92,25 @@ class Coursvideo extends Cours{
         }
     }
 
+    
+    public function afficherstatu() {
+        try {
+            $query = "SELECT Titre, Statut, DateCréation
+                      FROM Cours
+                      ORDER BY DateCréation DESC";
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $result;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            return "Erreur lors de la Récupération des Articles: " . $e->getMessage();
+        }
+    }
+
 
 }
 

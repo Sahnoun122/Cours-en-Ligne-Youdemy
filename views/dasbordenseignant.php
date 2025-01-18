@@ -10,8 +10,15 @@ session_start();
 
  require_once '../classes/user.php';
  require_once '../database/db.php';
+require_once '../classes/coursvideo.php';
  echo $_SESSION['id_user'];
 
+ $db = new DbConnection();
+ $pdo = $db->getConnection();
+
+ $status = new Coursvideo($pdo);
+
+ $status_ = $status-> afficherstatu();
 
 ?>
 
@@ -96,12 +103,12 @@ session_start();
             <tbody>
                 <?php 
                 
-                if(is_array($toutarticles) || is_object($toutarticles)) {
-                    foreach($toutarticles  as $toutarticle  ) {
+                if(is_array( $status_ ) || is_object( $status_ )) {
+                    foreach( $status_   as  $status ) {
                         echo '<tr class="border-b hover:bg-gray-50">
-                            <td class="px-6 py-4 text-sm">'.$toutarticle['Titre'].'</td>
-                            <td class="px-6 py-4 text-sm">'.$toutarticle['DateCréation'].'</td>
-                            <td class="px-6 py-4 text-sm">'.$toutarticle['Statut'].'</td>
+                            <td class="px-6 py-4 text-sm">'. $status['Titre'].'</td>
+                            <td class="px-6 py-4 text-sm">'. $status['DateCréation'].'</td>
+                            <td class="px-6 py-4 text-sm">'. $status['Statut'].'</td>
                         </tr>';
                     }
                 } else {
