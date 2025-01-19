@@ -45,9 +45,6 @@ CREATE TABLE Cours (
 );
 
 
-
-
-
 CREATE TABLE inscription (
     id_inscrire INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT NOT NULL,

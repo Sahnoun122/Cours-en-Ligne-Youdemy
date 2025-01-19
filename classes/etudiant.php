@@ -9,6 +9,22 @@
     {
      $this->db= $db;
     }
+
+
+    
+    private $table_name = "Cours";
+ 
+    public function searchCourses($query) {
+        $query = "%" . $query . "%";
+        $sql = "SELECT Titre, DESCRIPTION FROM " . $this->table_name . " WHERE Titre LIKE :query OR DESCRIPTION LIKE :query";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":query", $query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
     
     public function Inscription($id_user, $id_cours) {
         try {

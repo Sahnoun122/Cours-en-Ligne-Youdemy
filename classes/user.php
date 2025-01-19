@@ -147,17 +147,6 @@ public function login($email , $Motdepasse){
     return $stmt->fetch(PDO::FETCH_ASSOC);
  }
 
-
- public function supprimerData(){
-
  }
-
- public function activeData(){
-
- }
-
-
-}
-
 
 ?>
