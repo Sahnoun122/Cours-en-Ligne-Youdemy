@@ -186,7 +186,7 @@ public function getTopTeachers() {
             ORDER BY 
                 number_of_courses DESC 
             LIMIT 3;";
-            
+
     $stmt = $this->db->prepare($sql);
     
     if ($stmt->execute()) {
@@ -195,6 +195,31 @@ public function getTopTeachers() {
         var_dump($stmt->errorInfo());
         return false;
     }
+}
+
+
+    public function getCourpopulaire() {
+        $sql = "SELECT 
+                    Cours.Titre AS course_title, 
+                    COUNT(inscription.id_inscrire) AS number_of_students 
+                FROM 
+                    inscription 
+                JOIN 
+                    Cours ON inscription.id_cours = Cours.id_cours 
+                GROUP BY 
+                    Cours.Titre 
+                ORDER BY 
+                    number_of_students DESC 
+                LIMIT 1;";
+        $stmt = $this->db->prepare($sql);
+        
+        if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            var_dump($stmt->errorInfo()); 
+            return false;
+        }
+    
 }
 
 

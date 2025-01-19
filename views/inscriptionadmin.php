@@ -4,6 +4,7 @@ session_start();
 require_once '../database/db.php';
 require_once '../classes/enseignant.php';
 require_once '../classes/etudiant.php';
+require_once '../classes/admin.php';
 
 
 
@@ -12,9 +13,11 @@ $pdo= $db->getConnection();
 
 $etudiant = new Etudiant($pdo);
 
-
+$admin = new Admin($pdo);
 $etudiant_ = $etudiant->afficherinscription();
 
+$Courpopulaire = $admin-> getCourpopulaire() ;
+var_dump($Courpopulaire ); 
 
 ?>
 
@@ -104,7 +107,19 @@ $etudiant_ = $etudiant->afficherinscription();
 </aside>
 
 
-<div class="p-8 sm:ml-80">
+
+
+    <?php
+// Ajout de débogage
+
+if ($Courpopulaire ) {
+    echo "<h2 class='text-4xl font-semibold text-black mb-6'>Cours avec le plus d'étudiants</h2>";
+    echo "<p>" . htmlspecialchars($Courpopulaire ['course_title'], ENT_QUOTES, 'UTF-8') . " - " . htmlspecialchars($Courpopulaire ['number_of_students'], ENT_QUOTES, 'UTF-8') . " étudiants</p>";
+} else {
+    echo "<h2 class='text-4xl font-semibold text-black mb-6'>Erreur de récupération du cours avec le plus d'étudiants</h2>";
+}
+?>
+ <div class="p-8 sm:ml-80">
     <h2 class="text-4xl font-semibold text-black mb-6">Cours</h2>
 
     </div>
