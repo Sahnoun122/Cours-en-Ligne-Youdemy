@@ -17,7 +17,6 @@ $admin = new Admin($pdo);
 $etudiant_ = $etudiant->afficherinscription();
 
 $Courpopulaire = $admin-> getCourpopulaire() ;
-var_dump($Courpopulaire ); 
 
 ?>
 
@@ -108,18 +107,31 @@ var_dump($Courpopulaire );
 
 
 
+<div class="p-8 sm:ml-80">
 
+<div class="container mx-auto p-8">
     <?php
-// Ajout de débogage
+    if ($Courpopulaire) {
+        echo "<h2 class='text-4xl font-semibold text-black mb-6'>Cours avec le plus d'étudiants</h2>";
+        echo "<table class='table-auto w-full bg-white shadow-md rounded-lg'>";
+        echo "<thead>";
+        echo "<tr class='bg-gray-200 text-left'>";
+        echo "<th class='px-4 py-2'>Titre du cours</th>";
+        echo "<th class='px-4 py-2'>Nombre d'étudiants</th>";
+        echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
+        echo "<tr>";
+        echo "<td class='border px-4 py-2'>" . htmlspecialchars($Courpopulaire['course_title'], ENT_QUOTES, 'UTF-8') . "</td>";
+        echo "<td class='border px-4 py-2'>" . htmlspecialchars($Courpopulaire['number_of_students'], ENT_QUOTES, 'UTF-8') . "</td>";
+        echo "</tr>";
+        echo "</tbody>";
+        echo "</table>";
+    } else {
+        echo "<h2 class='text-4xl font-semibold text-black mb-6'>Erreur de récupération du cours avec le plus d'étudiants</h2>";
+    }
+    ?>
 
-if ($Courpopulaire ) {
-    echo "<h2 class='text-4xl font-semibold text-black mb-6'>Cours avec le plus d'étudiants</h2>";
-    echo "<p>" . htmlspecialchars($Courpopulaire ['course_title'], ENT_QUOTES, 'UTF-8') . " - " . htmlspecialchars($Courpopulaire ['number_of_students'], ENT_QUOTES, 'UTF-8') . " étudiants</p>";
-} else {
-    echo "<h2 class='text-4xl font-semibold text-black mb-6'>Erreur de récupération du cours avec le plus d'étudiants</h2>";
-}
-?>
- <div class="p-8 sm:ml-80">
     <h2 class="text-4xl font-semibold text-black mb-6">Cours</h2>
 
     </div>
