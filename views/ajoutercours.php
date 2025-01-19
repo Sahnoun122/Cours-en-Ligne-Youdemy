@@ -117,6 +117,7 @@ $category= $category->affichercategory();
 </div>
 
 <div class="p-4 sm:ml-80">
+   
 <div id="articlesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
     <?php
     if (is_array($coursvideo_) || is_object($coursvideo_)) {
@@ -145,7 +146,6 @@ $category= $category->affichercategory();
     }
     ?>
 </div>
-
 </div>
 
 

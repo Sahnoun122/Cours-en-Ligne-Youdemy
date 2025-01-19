@@ -12,14 +12,13 @@
 
 
     
-    public function ajouterCours($id_enseignant, $titre, $description, $video, $pdf, $id_category, $id_tag) {
+    public function ajouterCours($id_enseignant, $titre, $description, $video, $id_category, $id_tag) {
         try {
-            $sql = 'INSERT INTO Cours (id_enseignant, Titre, pdf, DESCRIPTION, video, id_category, id_tag) VALUES (:id_enseignant, :Titre, :pdf, :DESCRIPTION, :video, :id_category, :id_tag)';
+            $sql = 'INSERT INTO Cours (id_enseignant, Titre, DESCRIPTION, video, id_category, id_tag) VALUES (:id_enseignant, :Titre, :DESCRIPTION, :video, :id_category, :id_tag)';
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(":Titre", $titre , PDO::PARAM_STR);
             $stmt->bindParam(":DESCRIPTION", $description , PDO::PARAM_STR);
             $stmt->bindParam(":video", $video);
-            $stmt->bindParam(":pdf", $pdf);
             $stmt->bindParam(":id_tag", $id_tag, PDO::PARAM_INT);
             $stmt->bindParam(":id_enseignant", $id_enseignant, PDO::PARAM_INT);
             $stmt->bindParam(":id_category", $id_category, PDO::PARAM_INT);

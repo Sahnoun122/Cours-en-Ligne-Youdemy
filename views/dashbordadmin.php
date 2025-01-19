@@ -112,20 +112,22 @@ $coursvideo_ = $coursvideo->afficherCours();
 </aside>
 
 
-<!-- Main -->
-<div class="p-8 sm:ml-80">
+   <!-- Main -->
 
     <h2 class="text-4xl font-semibold text-black mb-6">Cours</h2>
 
     
        
 <div class="p-4 sm:ml-80">
+    
 <div id="articlesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
     <?php
+
+    
     if (is_array($coursvideo_) || is_object($coursvideo_)) {
         foreach ($coursvideo_ as $cours) {
             ?>
-            <div class="bg-black shadow-lg rounded-lg overflow-hidden" >
+            <div class="bg-black shadow-lg rounded-lg overflow-hidden" data-aos="fade-up" data-aos-anchor-placement="top-bottom" >
                 <div class="p-4">
                     <h3 class="text-2xl mb-2 font-semibold text-white"><?php echo htmlspecialchars($cours['Titre'], ENT_QUOTES, 'UTF-8'); ?></h3>
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['DESCRIPTION'], ENT_QUOTES, 'UTF-8'); ?></p>

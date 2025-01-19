@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Titre'])) {
         die('Erreur lors du téléchargement du fichier.');
     }
 
-    $enseignant->ajouterCours($id_enseignant, $titre, $description, $target_path, $pdf, $id_category, $id_tag);
+    $enseignant->ajouterCours($id_enseignant, $titre, $description, $target_path, $id_category, $id_tag);
     header("Location:../views/ajoutercours.php");
     exit;
 }
