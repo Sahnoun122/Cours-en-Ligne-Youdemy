@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -30,10 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         die('Format d\'email invalide.');
     }
-    
+
+    // Password hashing
+    $hashed_password = password_hash($Motdepasse, PASSWORD_DEFAULT);
+
+    // File upload validation
+    $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
+    $file_extension = strtolower(pathinfo($_FILES['PROFILE']['name'], PATHINFO_EXTENSION));
+    if (!in_array($file_extension, $allowed_types)) {
+        die('Type de fichier non autorisé.');
+    }
+
     $profile = pathinfo($_FILES['PROFILE']['tmp_name'], PATHINFO_FILENAME);
-    $file_extension = pathinfo($_FILES['PROFILE']['name'], PATHINFO_EXTENSION);
-    $new_image_name = $profile .'_'.date("ymd_His").'.'. $file_extension;
+    $new_image_name = $profile . '_' . date("ymd_His") . '.' . $file_extension;
     
     $target_direct = "C:/laragon/www/Youdemy/assets/uploade/";
     $target_path = $target_direct . $new_image_name;
@@ -43,14 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     try {
-        $auth = new User($pdo , $nom , $prenom ,$email,$Motdepasse ,$profile,$role);
-        
-        $userid = $auth->register($auth->getNom(), $auth->getPrenom(), $auth->getEmail(), $auth-> getMotdepasse(), $auth->getRole(), $auth->getProfile());
-        header('Location:../views/connecter.php');
+        $auth = new User($pdo, $nom, $prenom, $email, $hashed_password, $new_image_name, $role);
+        $userid = $auth->register($auth->getNom(), $auth->getPrenom(), $auth->getEmail(), $auth->getMotdepasse(), $auth->getRole(), $auth->getProfile());
+        header('Location: ../views/connecter.php');
         exit();
     } catch (Exception $e) {
         echo "Erreur : " . $e->getMessage();
     }
 }
-
 ?>
