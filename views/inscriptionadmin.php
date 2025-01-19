@@ -14,6 +14,7 @@ $pdo= $db->getConnection();
 $etudiant = new Etudiant($pdo);
 
 $admin = new Admin($pdo);
+
 $etudiant_ = $etudiant->afficherinscription();
 
 $Courpopulaire = $admin-> getCourpopulaire() ;
