@@ -1,7 +1,7 @@
 <?php
 
 require_once '../database/db.php';
-
+require_once '../classes/etudiant.php';
 require_once '../classes/coursvideo.php';
 
 
@@ -10,6 +10,23 @@ $pdo= $db->getConnection();
 
 $coursvideo= new Coursvideo($pdo);
 $coursvideo_ = $coursvideo->affichercoursetudiants();
+
+$etudiant = new Etudiant($pdo);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    $query = $_POST['search'];
+    $stmt = $etudiant->searchCourses($query);
+    header("Location:dashbordvisiteur.php");
+
+    echo "<div id='search-results'>";
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo "<h3>" . $row['Titre'] . "</h3><p>" . $row['DESCRIPTION'] . "</p>";
+    }
+    echo "</div>";
+}
+
+
 
 ?>
 
@@ -61,7 +78,7 @@ $coursvideo_ = $coursvideo->affichercoursetudiants();
   </div>
 </nav>
 
-<form method="post" action="../action/etudiantiaction.php" class="max-w-md mx-auto">   
+<form method="post" action="" class="max-w-md mx-auto">   
         <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
         <div class="relative">
             <input type="search" id="search" name="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required />

@@ -30,10 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die('Format d\'email invalide.');
     }
 
-    // Password hashing
     $hashed_password = password_hash($Motdepasse, PASSWORD_DEFAULT);
 
-    // File upload validation
     $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
     $file_extension = strtolower(pathinfo($_FILES['PROFILE']['name'], PATHINFO_EXTENSION));
     if (!in_array($file_extension, $allowed_types)) {

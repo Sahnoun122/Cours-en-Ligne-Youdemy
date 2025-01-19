@@ -3,14 +3,15 @@
 
 session_start();
 
-// if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'enseignant') {
-//     header("Location: connecter.php");
+// if (!isset($_SESSION['id_user']) || !isset($_SESSION['ROLE']) || $_SESSION['role'] !== 'enseignant') {
+//     header("Location:connecter.php");
 //     exit;
 // }
 
  require_once '../classes/user.php';
  require_once '../database/db.php';
 require_once '../classes/coursvideo.php';
+
  echo $_SESSION['id_user'];
 
  $db = new DbConnection();

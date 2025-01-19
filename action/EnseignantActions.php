@@ -18,7 +18,7 @@ $tags= new Tags($pdo);
  
 $category = new Category($pdo);
 
-$coursvideo= new Coursvideo($pdo);
+$coursvideo= new Coursvideo($pdo );
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Titre'])) {
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Titre'])) {
     if (!move_uploaded_file($_FILES['video_up']['tmp_name'], $target_path)) {
         die('Erreur lors du téléchargement du fichier.');
     }
-
+    $coursvideo= new Coursvideo($pdo );
     $enseignant->ajouterCours($id_enseignant, $titre, $description, $target_path, $id_category, $id_tag);
     header("Location:../views/ajoutercours.php");
     exit;

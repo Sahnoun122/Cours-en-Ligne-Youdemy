@@ -16,7 +16,7 @@
  
     public function searchCourses($query) {
         $query = "%" . $query . "%";
-        $sql = "SELECT Titre, DESCRIPTION FROM " . $this->table_name . " WHERE Titre LIKE :query OR DESCRIPTION LIKE :query";
+        $sql = "SELECT Titre, DESCRIPTION FROM Cours  WHERE Titre LIKE :query OR DESCRIPTION LIKE :query";
         
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":query", $query);

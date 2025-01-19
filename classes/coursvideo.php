@@ -1,7 +1,7 @@
 <?php
 require_once '../classes/cours.php';
 class Coursvideo extends Cours{
-         
+       
     private $db;
      public function __construct($db)
      {

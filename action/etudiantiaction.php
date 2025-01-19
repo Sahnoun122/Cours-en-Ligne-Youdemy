@@ -22,17 +22,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['inscrire'])) {
 }
 
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-        $query = $_POST['search'];
-        $stmt = $etudiant->searchCourses($query);
-        header("Location:../views/dashbordvisiteur.php");
-
-        echo "<div id='search-results'>";
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            echo "<h3>" . $row['Titre'] . "</h3><p>" . $row['DESCRIPTION'] . "</p>";
-        }
-        echo "</div>";
-    }
 
 

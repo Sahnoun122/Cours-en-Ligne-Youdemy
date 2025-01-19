@@ -7,8 +7,8 @@ require_once '../classes/user.php';
 require_once '../database/db.php';
 require_once '../classes/coursvideo.php';
 
-// if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-//     header("Location: connecter.php");
+// if (!isset($_SESSION['id_user']) || !isset($_SESSION['ROLE']) || $_SESSION['role'] !== 'admin') {
+//     header("Location:connecter.php");
 //     exit;
 // }
 
