@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     exit;
 }
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_cours'], $_GET['Titre'], $_GET['DESCRIPTION'], $_GET['video'], $_GET['id_category'], $_GET['id_tag'])) {
     $id_cours= (int)$_GET['id_cours'];
     $titre = $_GET['Titre'];

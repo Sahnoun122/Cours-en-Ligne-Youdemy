@@ -21,6 +21,8 @@ $category = new Category($pdo);
 
 
 $category = $category->affichercategory();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -137,7 +139,7 @@ $category = $category->affichercategory();
 
 
 
-    <h2 class="text-4xl font-semibold text-black mb-6">Add New Activity</h2>
+    <h2 class="text-4xl font-semibold text-black mb-6">Add New category</h2>
     <div class="flex items-center justify-center my-8 bg-gray-100">
         <div class="w-full mx-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12">
             <div class="p-10 bg-white shadow-2xl rounded-xl relative z-10" data-aos="fade-right">

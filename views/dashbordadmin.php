@@ -117,6 +117,8 @@ var_dump($totalcours);
 
    <!-- Main -->
 
+
+<div class="p-4 sm:ml-80">
 <?php
 
 if ($totalcours && isset($totalcours['total_courses'])) {
@@ -128,9 +130,8 @@ if ($totalcours && isset($totalcours['total_courses'])) {
 } else {
     echo "<h2 class='text-4xl font-semibold text-black mb-6'>Erreur de récupération du nombre total de cours</h2>";
 }
+?>
    
-       ?>
-<div class="p-4 sm:ml-80">
     
 <div id="articlesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
     <?php
