@@ -14,6 +14,8 @@ $admin = new Admin($pdo);
 
 $admin_= $admin-> voirprofile() ;
 
+$topTeachers = $admin->getTopTeachers();
+var_dump($topTeachers); 
 
 ?>
 
@@ -101,9 +103,20 @@ $admin_= $admin-> voirprofile() ;
       </ul>
    </div>
 </aside>
+<?php
 
+if ($topTeachers) {
+    echo "<h2 class='text-4xl font-semibold text-black mb-6'>Top 3 Enseignants</h2>";
+    echo "<ul class='list-disc ml-8'>";
+    foreach ($topTeachers as $teacher) {
+        echo "<li>" . htmlspecialchars($teacher['teacher_name'], ENT_QUOTES, 'UTF-8') . " " . htmlspecialchars($teacher['teacher_surname'], ENT_QUOTES, 'UTF-8') . " - " . htmlspecialchars($teacher['number_of_courses'], ENT_QUOTES, 'UTF-8') . " cours</li>";
+    }
+    echo "</ul>";
+} else {
+    echo "<h2 class='text-4xl font-semibold text-black mb-6'>Erreur de récupération des enseignants</h2>";
+}
 
-
+?>
     <h2 class="text-4xl font-semibold text-black mb-6">profils</h2>
 
     

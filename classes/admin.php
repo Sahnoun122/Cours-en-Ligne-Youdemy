@@ -156,6 +156,49 @@ public function supprimerProfil($id) {
     return $stmt->rowCount(); 
 }
 
+public function getTotalcours() {
+    $sql = "SELECT COUNT(*) AS total_courses FROM Cours;";
+    $stmt = $this->db->prepare($sql);
+    
+    if ($stmt->execute()) {
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    } else {
+        // Affiche des informations de débogage
+        var_dump($stmt->errorInfo());
+        return false;
+    }
+}
+
+
+public function getTopTeachers() {
+    $sql = "SELECT 
+                user.Nom AS teacher_name, 
+                user.Prenom AS teacher_surname, 
+                COUNT(Cours.id_cours) AS number_of_courses 
+            FROM 
+                Cours 
+            JOIN 
+                user ON Cours.id_enseignant = user.id_user 
+            WHERE 
+                user.ROLE = 'enseignant' 
+            GROUP BY 
+                user.id_user, user.Nom, user.Prenom 
+            ORDER BY 
+                number_of_courses DESC 
+            LIMIT 3;";
+            
+    $stmt = $this->db->prepare($sql);
+    
+    if ($stmt->execute()) {
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        var_dump($stmt->errorInfo());
+        return false;
+    }
+}
+
+
+
 }
 
 

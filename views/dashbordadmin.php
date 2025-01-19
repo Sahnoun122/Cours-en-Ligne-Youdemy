@@ -6,6 +6,7 @@ session_start();
 require_once '../classes/user.php';
 require_once '../database/db.php';
 require_once '../classes/coursvideo.php';
+require_once '../classes/admin.php';
 
 // if (!isset($_SESSION['id_user']) || !isset($_SESSION['ROLE']) || $_SESSION['role'] !== 'admin') {
 //     header("Location:connecter.php");
@@ -13,19 +14,21 @@ require_once '../classes/coursvideo.php';
 // }
 
 
-
-
 echo $_SESSION['id_user'];
 
 $db= new DbConnection();
 $pdo = $db->getConnection();
 
+$admin= new Admin($pdo);
 $coursvideo= new Coursvideo($pdo);
 
 $coursvideo_ = $coursvideo->afficherCours();
 
-?>
+$totalcours = $admin-> getTotalcours();
 
+var_dump($totalcours); 
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -114,10 +117,19 @@ $coursvideo_ = $coursvideo->afficherCours();
 
    <!-- Main -->
 
-    <h2 class="text-4xl font-semibold text-black mb-6">Cours</h2>
+<?php
 
-    
-       
+if ($totalcours && isset($totalcours['total_courses'])) {
+    ?>
+    <h2 class="text-4xl font-semibold text-black mb-6">
+        Cours: <?php echo htmlspecialchars($totalcours['total_courses'], ENT_QUOTES, 'UTF-8'); ?> 
+    </h2>
+    <?php
+} else {
+    echo "<h2 class='text-4xl font-semibold text-black mb-6'>Erreur de récupération du nombre total de cours</h2>";
+}
+   
+       ?>
 <div class="p-4 sm:ml-80">
     
 <div id="articlesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
