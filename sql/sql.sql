@@ -9,7 +9,9 @@ CREATE TABLE user (
     Email VARCHAR(255) NOT NULL UNIQUE,
     Motdepasse VARCHAR(255) NOT NULL,
     profile VARCHAR(255),
-    ROLE ENUM('admin', 'etudiant ', 'enseignant')
+    ROLE ENUM('admin', 'etudiant ', 'enseignant'),
+    Statut ENUM('Soumis', 'Accepté', 'Refusé') NOT NULL
+
 );
 
 CREATE TABLE Category (

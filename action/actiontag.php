@@ -21,7 +21,7 @@ $tags = new Tags($pdo);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['Nom'])) {
         $id_admin = $_SESSION['id_user'];
-        $tagsArray = [ ''];
+        $tagsArray = ['Nom[]'];
         $tags_=  $admin->ajoutertags($id_admin,$tagsArray);  
         header("Location:../views/ajoutertags.php");
 

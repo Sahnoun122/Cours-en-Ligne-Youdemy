@@ -116,20 +116,21 @@ public function login($email , $Motdepasse){
         $stmt->execute([':Email' => $email]);
 
         if($stmt -> rowCount()>0){
-       $user= $stmt ->fetch(PDO::FETCH_ASSOC);
-       if(password_verify($Motdepasse, $user['Motdepasse'])){
+            $user= $stmt ->fetch(PDO::FETCH_ASSOC);
+            print_r($user);
+            if(!password_verify($Motdepasse, $user['Motdepasse'])){
 
-        $this->id_user =  $user['id_user'];
-        $this->prenom =  $user['Prenom'];
-        $this->nom =  $user['Nom'];
-        $this->email =  $user['Email'];
-        $this->role =  $user['ROLE'];
-        $this->profile =  $user['profile'];
+                $this->id_user = $user['id_user'];
+                $this->prenom = $user['Prenom'];
+                $this->nom = $user['Nom'];
+                $this->email = $user['Email'];
+                $this->role = $user['ROLE'];
+                $this->profile = $user['profile'];
 
-        return $this;
-       }else{
-        throw new Exception('mot de passe Incorrect !');
-       }
+                return $this;
+            }else{
+                throw new Exception('mot de passe Incorrect !');
+            }
         }  
         
     }catch (Exception $e){
@@ -147,8 +148,7 @@ public function login($email , $Motdepasse){
     return $stmt->fetch(PDO::FETCH_ASSOC);
  }
 
- 
+}
 
- }
 
 ?>

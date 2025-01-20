@@ -116,12 +116,9 @@ public function modifietags($id, $nom){
             $stmt->execute();
             header("location: ");
         } catch (PDOException $e) {
-            return "Erreur lors de la confirmation d'Article : ". $e->getMessage();
+            return "Erreur lors de la confirmation utilisateurs : ". $e->getMessage();
         }
     }
-
-
-
 
 public function acceptercours($id_cours){
     try {
