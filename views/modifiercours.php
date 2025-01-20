@@ -17,18 +17,20 @@ $enseignant= new Enseignant($pdo);
 
 $coursvideo= new Coursvideo($pdo);
 
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $id_cours = $_GET['id'];
-
-    $idcours = $coursvideo->getIdcours($id_cours);
-
-    if ($idcours) {
-
-    } else {
-        echo "cours non trouvé.";
+    if (isset($_GET['id'])) {
+        $id_cours = $_GET['id'];
+        $idcours = $enseignant->getid($id_cours);
+        if ($idcours) {
+            print_r($idcours);
+        } else {
+            echo "cours non trouvé.";
+        }
     }
 }
-?>
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,5 +76,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 </body>
 </html>
-
 

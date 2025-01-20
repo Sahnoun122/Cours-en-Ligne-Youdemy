@@ -77,7 +77,24 @@
     }
 
 
-    
+    public function getid($id_cours) {
+        try {
+            $sql = "SELECT * FROM Cours WHERE id_cours = :id_cours";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(":id_cours", $id_cours, PDO::PARAM_INT);
+            $stmt->execute();
+            $id_cours = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if (!$id_cours) {
+                echo "Article non trouvé.";
+            }
+            
+            return $id_cours;
+        } catch (PDOException $e) {
+            return "Erreur lors de la récupération de l'article : " . $e->getMessage();
+        }
+    }
+
  }
 
 ?>

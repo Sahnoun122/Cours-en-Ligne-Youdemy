@@ -24,22 +24,8 @@ $tags= $tags-> afficherTags();
 
 $category= $category->affichercategory();
 
-// if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_cours'], $_GET['Titre'], $_GET['DESCRIPTION'], $_GET['video'], $_GET['id_category'], $_GET['id_tag'])) {
-//     $id_cours= (int)$_GET['id_cours'];
-//     $titre = $_GET['Titre'];
-//     $description = $_GET['DESCRIPTION'];
-//     $video = $_GET['video'];
-//     $id_category = (int)$_GET['id_category'];
-//     $id_tag = (int)$_GET['id_tag'];
-//     if ($enseignant-> modifierCours($id_cours, $titre,$description,$video, $id_category, $id_tag)) {
-//         header("Location:../views/ajoutercours.php");
-//         exit;
-//     } else {
-//         echo "Error updating article.";
-//     }
-// } else {
-//     echo "Invalid request.";
-// }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -145,7 +131,7 @@ $category= $category->affichercategory();
                             <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo $cours['id_cours']; ?>">🗑️</button>
                         </div>
                     </form>
-                    <a href="ajoutercours.php?id=<?php echo htmlspecialchars($cours['id_cours'], ENT_QUOTES, 'UTF-8'); ?>">🔏</a>
+                    <a href="modifiercours.php?id=<?php echo htmlspecialchars($cours['id_cours'], ENT_QUOTES, 'UTF-8'); ?>">🔏</a>
 
                 </div>
             </div>
@@ -181,7 +167,10 @@ $category= $category->affichercategory();
 
               <div class="relative">
                  <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">Titre</p> 
-                 <input type="text" id="Titre" name="Titre" class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md" value="<?php if(isset($_GET['id'])){ echo $titre; }; ?>" /> 
+                 <input type="text" id="Titre" name="Titre" class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md" 
+                 value="<?php if(isset($_GET['titre'])){
+                     echo $_GET['titre'];
+                      }; ?>" /> 
                 </div>
 
 
@@ -196,7 +185,8 @@ $category= $category->affichercategory();
                  <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">Contenu Video</p>
                   <input type="file" id="video" name="video_up" required class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md" 
                   value="<?php if(isset($_GET['id']))
-                  { echo $video; }; ?>" /> 
+                  { echo $video; 
+                  }; ?>" /> 
             </div> 
             <div class="relative">
                  <button type="submit" name="modifi" class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-green-500 rounded-lg transition duration-200 hover:bg-green-600 ease"> 

@@ -20,7 +20,6 @@ $category = new Category($pdo);
 
 $coursvideo= new Coursvideo($pdo );
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Titre'])) {
     $id_enseignant = $_SESSION['id_user'];
     $titre = $_POST['Titre'];
@@ -55,13 +54,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_cours'], $_GET['Titre'], $_GET['DESCRIPTION'], $_GET['video'], $_GET['id_category'], $_GET['id_tag'])) {
-    $id_cours= (int)$_GET['id_cours'];
+    $id_cours = (int)$_GET['id_cours'];
     $titre = $_GET['Titre'];
     $description = $_GET['DESCRIPTION'];
     $video = $_GET['video'];
     $id_category = (int)$_GET['id_category'];
     $id_tag = (int)$_GET['id_tag'];
-    if ($enseignant-> modifierCours($id_cours, $titre,$description,$video, $id_category, $id_tag)) {
+    if ($enseignant->modifierCours($id_cours, $titre, $description, $video, $id_category, $id_tag)) {
         header("Location:../views/ajoutercours.php");
         exit;
     } else {
@@ -70,6 +69,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_cours'], $_GET['Titr
 } else {
     echo "Invalid request.";
 }
-
 
 

@@ -39,5 +39,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
         echo "Failed to delete the tag.";
     }
 }
-
+ 
 $tags_ = $tags->afficherTags();
