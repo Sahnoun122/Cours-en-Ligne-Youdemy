@@ -30,7 +30,7 @@
             echo "Erreur lors de l'ajout de cours: " . $e->getMessage();
         }
     }
-    
+
 
     public function modifierCours($id_cours, $titre,$description,$video, $id_category, $id_tag) {
         try {
@@ -96,5 +96,5 @@
     }
 
  }
-
+  
 ?>

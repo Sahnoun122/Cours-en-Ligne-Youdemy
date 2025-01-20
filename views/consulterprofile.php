@@ -12,6 +12,8 @@ $pdo= $db->getConnection();
 $admin = new Admin($pdo);
 $admin_= $admin-> voirprofile() ;
 
+
+
 $topTeachers = $admin->getTopTeachers();
 ?>
 
@@ -158,9 +160,9 @@ if (is_array($admin_) || is_object($admin_)) {
                 <td class="px-6 py-4 text-sm">'.$profile['ROLE'].'</td>
                 <td class="px-6 py-4 text-sm">
                     <form method="post" action="../action/adminaction.php">
-                        <input type="hidden" name="supprimer" value="'.$profile['id_user'].'">
-                        <button type="submit" class="bg-red-500 text-white px-3 py-1">Supprimer</button>
-                    </form>
+                        <input type="hidden" name="id_user" value="'.$profile['id_user'].'">
+                        <button name="accepter" value="accept" class="text-xl hover:scale-105 bg-green-500 text-white px-3 py-1">Accepter</button>
+                        <button  name="supprimer" value="reject" class="text-xl hover:scale-105 bg-red-500 text-white px-3 py-1">Supprimer</button>
                 </td>
             </tr>';
         } else {

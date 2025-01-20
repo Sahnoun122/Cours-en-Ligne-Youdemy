@@ -13,23 +13,9 @@ $coursvideo_ = $coursvideo->affichercoursetudiants();
 
 $etudiant = new Etudiant($pdo);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    $query = $_POST['search'];
-    $stmt = $etudiant->searchCourses($query);
-    header("Location:dashbordvisiteur.php");
-
-    echo "<div id='search-results'>";
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        echo "<h3>" . $row['Titre'] . "</h3><p>" . $row['DESCRIPTION'] . "</p>";
-    }
-    echo "</div>";
-}
-
 
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -78,8 +64,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 </nav>
 
-<form method="post" action="" class="max-w-md mx-auto">   
+<form method="post" action="../classes/etudiant.php" class="max-w-md mx-auto">  
+  
         <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+        
+<div id='search-results'>
+
+</div>
         <div class="relative">
             <input type="search" id="search" name="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required />
             <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>

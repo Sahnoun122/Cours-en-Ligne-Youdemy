@@ -9,10 +9,6 @@
     {
      $this->db= $db;
     }
-
-
-    
-    private $table_name = "Cours";
  
     public function searchCourses($query) {
         $query = "%" . $query . "%";
@@ -74,9 +70,7 @@
         } catch(Exception $e) {
             echo "error: " . $e->getMessage();
         }
-    }
-    
-    
+    } 
  }
  
 ?>
