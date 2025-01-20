@@ -44,30 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
    exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['Nom'])) {
-        $nom = $_POST['Nom'];
-        $id_admin = $_SESSION['id_user'];
-        $admin->ajoutertags($id_admin, $nom);
-
-        header("Location:../views/ajoutertags.php");
-        exit;
-    }
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
-    $id_tag = $_POST['delete'];
-
-    if ($admin->supprimertags( $id_tag)) {
-        header("Location:../views/ajoutertags.php");
-        exit;
-    } else {
-        echo "Failed to delete the tag.";
-    }
-}
-
-
-$tags_ = $tags->afficherTags();
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_cours'], $_POST['action'])) {

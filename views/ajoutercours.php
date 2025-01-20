@@ -24,22 +24,22 @@ $tags= $tags-> afficherTags();
 
 $category= $category->affichercategory();
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_cours'], $_GET['Titre'], $_GET['DESCRIPTION'], $_GET['video'], $_GET['id_category'], $_GET['id_tag'])) {
-    $id_cours= (int)$_GET['id_cours'];
-    $titre = $_GET['Titre'];
-    $description = $_GET['DESCRIPTION'];
-    $video = $_GET['video'];
-    $id_category = (int)$_GET['id_category'];
-    $id_tag = (int)$_GET['id_tag'];
-    if ($enseignant-> modifierCours($id_cours, $titre,$description,$video, $id_category, $id_tag)) {
-        header("Location:../views/ajoutercours.php");
-        exit;
-    } else {
-        echo "Error updating article.";
-    }
-} else {
-    echo "Invalid request.";
-}
+// if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_cours'], $_GET['Titre'], $_GET['DESCRIPTION'], $_GET['video'], $_GET['id_category'], $_GET['id_tag'])) {
+//     $id_cours= (int)$_GET['id_cours'];
+//     $titre = $_GET['Titre'];
+//     $description = $_GET['DESCRIPTION'];
+//     $video = $_GET['video'];
+//     $id_category = (int)$_GET['id_category'];
+//     $id_tag = (int)$_GET['id_tag'];
+//     if ($enseignant-> modifierCours($id_cours, $titre,$description,$video, $id_category, $id_tag)) {
+//         header("Location:../views/ajoutercours.php");
+//         exit;
+//     } else {
+//         echo "Error updating article.";
+//     }
+// } else {
+//     echo "Invalid request.";
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -173,21 +173,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_cours'], $_GET['Titr
 
          <?php foreach ($category as $row) { echo "<option value=".$row['id_category'] . ">" . $row['Nom'] . "</option>"; } ?>
          </select> 
+
          <label for="tags" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select tags</label> 
          <div id="tags" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
              <?php foreach ($tags as $row) { echo '<div class="flex items-center mb-2">'; echo '<input id="tag-' . $row['id_tag'] . '" type="checkbox" name="id_tag" value="' . $row['id_tag'] . ' " class="mr-2">'; echo '<label for="tag-' . $row['id_tag'] . '" class="text-gray-900 dark:text-white">' . $row['Nom'] . '</label>'; echo '</div>'; } ?> 
             </div>
+
               <div class="relative">
                  <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">Titre</p> 
                  <input type="text" id="Titre" name="Titre" class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md" value="<?php if(isset($_GET['id'])){ echo $titre; }; ?>" /> 
                 </div>
-                 <div class="relative"> <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">description</p> <textarea id="DESCRIPTION" name="DESCRIPTION" rows="3" required class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md" value="<?php if(isset($_GET['id'])){ echo $description; }; ?>" ></textarea>
+
+
+                 <div class="relative">
+                     <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">description</p>
+                      <textarea id="DESCRIPTION" name="DESCRIPTION" rows="3" required class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md" 
+                      value="<?php if(isset($_GET['id'])){
+                         echo $description; }; ?>" >
+                         </textarea>
              </div>
-              <div class="relative"> <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">Contenu Video</p> <input type="file" id="video" name="video_up" required class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md" value="<?php if(isset($_GET['id'])){ echo $video; }; ?>" /> 
+              <div class="relative">
+                 <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">Contenu Video</p>
+                  <input type="file" id="video" name="video_up" required class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md" 
+                  value="<?php if(isset($_GET['id']))
+                  { echo $video; }; ?>" /> 
             </div> 
             <div class="relative">
                  <button type="submit" name="modifi" class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-green-500 rounded-lg transition duration-200 hover:bg-green-600 ease"> 
-                    <?php if(isset($_GET['id'])){ echo "Modifier"; }else{ echo " Ajouter Cours"; } ?> 
+                    <?php if(isset($_GET['id']))
+                    { echo "Modifier"; }else{ 
+                        echo " Ajouter Cours"; 
+                        } ?> 
                 </button> 
             </div>
          </form> 
