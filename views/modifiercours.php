@@ -6,6 +6,11 @@ require_once '../database/db.php';
 require_once '../classes/enseignant.php';
 require_once '../classes/cours.php';
 require_once '../classes/coursvideo.php';
+require_once '../classes/tags.php';
+require_once '../classes/category.php';
+
+
+
 
 
 
@@ -16,7 +21,8 @@ $enseignant= new Enseignant($pdo);
 
 
 $coursvideo= new Coursvideo($pdo);
-
+$tags = new Tags($pdo);
+$category = new Category($pdo);
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -26,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if ($idcours) {
             print_r($idcours);
         } else {
-            echo "cours non trouvé.";
+             echo "cours non trouvé.";
         }
     }
 }

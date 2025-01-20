@@ -58,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_cours'], $_GET['Titr
     $titre = $_GET['Titre'];
     $description = $_GET['DESCRIPTION'];
     $video = $_GET['video'];
-    $id_category = (int)$_GET['id_category'];
-    $id_tag = (int)$_GET['id_tag'];
+    $id_category = (int)$_GET['NomCategorie'];
+    $id_tag = (int)$_GET['NomTag'];
     if ($enseignant->modifierCours($id_cours, $titre, $description, $video, $id_category, $id_tag)) {
         header("Location:../views/ajoutercours.php");
         exit;
