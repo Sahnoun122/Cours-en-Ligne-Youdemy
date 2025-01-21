@@ -21,11 +21,7 @@ class Admin extends User{
     }catch (PDOException $e){
         echo "Erreur lors de l'ajout de la catégorie : " .$e->getMessage();
     }
-
    }
-
-
-
   public function modifiercategory($id_admin , $nom){
     try{
         $sql= "UPDATE catagory SET Nom = :Nom WHERE id_admin = :id_category";
@@ -155,14 +151,13 @@ public function voirprofile() {
 
 
 public function accepterProfil($id) {
-    $sql = "DELETE FROM user WHERE id_user = :id_user";
+    $sql = "UPDATE user SET Statut = 'Accepté' WHERE id_user = :id_user";
     $stmt = $this->db->prepare($sql);
     $stmt->bindParam(':id_user', $id, PDO::PARAM_INT);
     $stmt->execute();
     
-    return $stmt->rowCount(); 
+    return $stmt->rowCount();
 }
-
 
 public function supprimerProfil($id) {
     $sql = "DELETE FROM user WHERE id_user = :id_user";
@@ -170,7 +165,7 @@ public function supprimerProfil($id) {
     $stmt->bindParam(':id_user', $id, PDO::PARAM_INT);
     $stmt->execute();
     
-    return $stmt->rowCount(); 
+    return $stmt->rowCount();
 }
 
 public function getTotalcours() {

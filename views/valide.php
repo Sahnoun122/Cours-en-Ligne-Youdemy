@@ -10,11 +10,8 @@ $db= new DbConnection();
 $pdo= $db->getConnection();
 
 $admin = new Admin($pdo);
-$admin_= $admin-> voirprofile() ;
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -141,10 +138,10 @@ if (is_array($admin_) || is_object($admin_)) {
                 <td class="px-6 py-4 text-sm">'.$profile['Email'].'</td>
                 <td class="px-6 py-4 text-sm">'.$profile['ROLE'].'</td>
                 <td class="px-6 py-4 text-sm">
-                    <form method="post" action="../action/adminaction.php">
+                    <form method="post" action="">
                         <input type="hidden" name="id_user" value="'.$profile['id_user'].'">
-                        <button name="accepter" value="accepter" class="text-xl hover:scale-105 bg-green-500 text-white px-3 py-1">Accepter</button>
-                        <button  name="supprimer" value="supprimer" class="text-xl hover:scale-105 bg-red-500 text-white px-3 py-1">Supprimer</button>
+                        <button name="accepter" value="valide" class="text-xl hover:scale-105 bg-green-500 text-white px-3 py-1">valide</button>
+                        <button  name="supprimer" value="refuse" class="text-xl hover:scale-105 bg-red-500 text-white px-3 py-1">refuse</button>
                           </form>
                 </td>
             </tr>';
@@ -158,10 +155,6 @@ if (is_array($admin_) || is_object($admin_)) {
     echo "No articles found.";
 }
 ?>
-
-?>
-
-        
         </tbody>
     </table>
 </div>

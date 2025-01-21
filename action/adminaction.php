@@ -66,21 +66,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_cours'], $_POST['a
 }
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
-    
-    $id = $_POST['supprimer'];
-    $admin->supprimerProfil($id) ;
-    header("Location:../views/consulterprofile.php");
-    exit;
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['supprimer'])) {
+        $id = $_POST['id_user'];
+        $admin->supprimerProfil($id);
+        header("Location:../views/consulterprofile.php");
+        exit;
+    }
 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['id_user'],$_POST['accepter'])) {
-    $id_user = $_POST['id_user'];
-    $action = $_POST['accepter'];
-    $admin->accepteuser($id_user) ;
-    $_SESSION['message'] = "cours has been accepter.";
-
-    header("Location:../views/consulterprofile.php");
-    exit;
+    if (isset($_POST['accepter'])) {
+        $id_user = $_POST['id_user'];
+        $admin->accepterProfil($id_user);
+        $_SESSION['message'] = "User has been accepted.";
+        header("Location:../views/consulterprofile.php");
+        exit;
+    }
 }

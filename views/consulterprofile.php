@@ -15,6 +15,7 @@ $admin_= $admin-> voirprofile() ;
 
 
 $topTeachers = $admin->getTopTeachers();
+
 ?>
 
 
@@ -157,7 +158,6 @@ $topTeachers = $admin->getTopTeachers();
         </thead>
         <tbody>
 
-
         <?php 
 if (is_array($admin_) || is_object($admin_)) {
     foreach ($admin_ as $profile) {
@@ -171,8 +171,8 @@ if (is_array($admin_) || is_object($admin_)) {
                     <form method="post" action="../action/adminaction.php">
                         <input type="hidden" name="id_user" value="'.$profile['id_user'].'">
                         <button name="accepter" value="accepter" class="text-xl hover:scale-105 bg-green-500 text-white px-3 py-1">Accepter</button>
-                        <button  name="supprimer" value="supprimer" class="text-xl hover:scale-105 bg-red-500 text-white px-3 py-1">Supprimer</button>
-                          </form>
+                        <button name="supprimer" value="'.$profile['id_user'].'" class="text-xl hover:scale-105 bg-red-500 text-white px-3 py-1">Supprimer</button>
+                    </form>
                 </td>
             </tr>';
         } else {
@@ -182,11 +182,11 @@ if (is_array($admin_) || is_object($admin_)) {
         }
     }
 } else {
-    echo "No articles found.";
+    echo "No profiles found.";
 }
 ?>
 
-?>
+
 
         
         </tbody>
