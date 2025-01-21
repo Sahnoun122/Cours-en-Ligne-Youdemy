@@ -159,6 +159,16 @@ public function accepterProfil($id) {
     return $stmt->rowCount();
 }
 
+
+public function validecomptes($id) {
+    $sql = "UPDATE user SET Statut = 'Accepté' WHERE id_user = :id_user";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':id_user', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    return $stmt->rowCount();
+}
+
 public function supprimerProfil($id) {
     $sql = "DELETE FROM user WHERE id_user = :id_user";
     $stmt = $this->db->prepare($sql);

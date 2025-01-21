@@ -66,64 +66,104 @@ public function getEmail(){
     $this->role= $role;
  }
 
- public function register($nom, $prenom, $email, $Motdepasse, $role, $profile) {
+ public function register() {
     try {
         $toutsrole = ['admin', 'etudiant', 'enseignant'];
-        if (!in_array($role, $toutsrole)) {
+        if (!in_array($this->role, $toutsrole)) {
             throw new Exception('Role invalide.');
         }
+
         $this->db->beginTransaction();
 
-        $Motdepasse = password_hash($Motdepasse, PASSWORD_BCRYPT);
-        $sqluser = "INSERT INTO user (Nom, Prenom, Email, Motdepasse, ROLE, profile) VALUES (:Nom, :Prenom, :Email, :Motdepasse, :ROLE, :profile)";
+        $sqluser = "INSERT INTO user (Nom, Prenom, Email, Motdepasse, ROLE, profile) 
+                   VALUES (:Nom, :Prenom, :Email, :Motdepasse, :ROLE, :profile)";
 
         $stmt = $this->db->prepare($sqluser);
-        $stmt->bindParam(":Nom", $nom, PDO::PARAM_STR);
-        $stmt->bindParam(":Prenom", $prenom, PDO::PARAM_STR);
-        $stmt->bindParam(":Email", $email, PDO::PARAM_STR);
-        $stmt->bindParam(":Motdepasse", $Motdepasse, PDO::PARAM_STR);
-        $stmt->bindParam(":ROLE", $role, PDO::PARAM_STR);
-        $stmt->bindParam(":profile", $profile, PDO::PARAM_STR);
+        $stmt->bindParam(":Nom", $this->nom);
+        $stmt->bindParam(":Prenom", $this->prenom);
+        $stmt->bindParam(":Email", $this->email);
+        $stmt->bindParam(":Motdepasse", $this->Motdepasse); 
+        $stmt->bindParam(":ROLE", $this->role);
+        $stmt->bindParam(":profile", $this->profile);
 
         $stmt->execute();
-
         $userid = $this->db->lastInsertId();
-
         $this->db->commit();
+
         return $userid;
     } catch (Exception $e) {
         $this->db->rollback();
-        throw new Exception("Enregistrement incorrect.");
+        throw new Exception("Enregistrement incorrect: " . $e->getMessage());
     }
 }
-public function login($email, $Motdepasse) {
+
+
+public function login() {
     try {
-        $sql = "SELECT * FROM user WHERE Email = :Email";
+        echo "<div style='background-color: #f0f0f0; padding: 20px; margin: 20px; font-family: monospace;'>";
+        echo "<h3>Debug Information:</h3>";
+        
+        // Connection check
+        echo "<p>Database Connection: " . ($this->db ? "✅ Connected" : "❌ Not Connected") . "</p>";
+        echo "<p>Login attempt for email: " . htmlspecialchars($this->email) . "</p>";
+        
+        $sql = "SELECT * FROM user WHERE Email = :Email AND Statut = 'Accepté'";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([':Email' => $email]);
+        $stmt->execute([':Email' => $this->email]);
+        
+        echo "<p>Rows found in database: " . $stmt->rowCount() . "</p>";
 
         if ($stmt->rowCount() > 0) {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            if (!password_verify($Motdepasse, $user['Motdepasse'])) {
+            
+            echo "<p>Found user with ID: " . $user['id_user'] . "</p>";
+            
+            // Password verification debug
+            echo "<h4>Password Verification Details:</h4>";
+            echo "<p>Submitted password length: " . strlen($this->Motdepasse) . "</p>";
+            echo "<p>Stored hash length: " . strlen($user['Motdepasse']) . "</p>";
+            echo "<p>Hash format: " . (strpos($user['Motdepasse'], '$2y$') === 0 ? "✅ Valid bcrypt" : "❌ Invalid format") . "</p>";
+            
+            // For testing - create a new hash with the submitted password
+            $newHash = password_hash($this->Motdepasse, PASSWORD_DEFAULT);
+            echo "<p>New hash generated from submitted password: " . substr($newHash, 0, 10) . "...</p>";
+            echo "<p>Stored hash in database: " . substr($user['Motdepasse'], 0, 10) . "...</p>";
+            
+            // Verify password
+            $verifyResult = password_verify($this->Motdepasse, $user['Motdepasse']);
+            echo "<p>Password verification result: " . ($verifyResult ? "✅ Success" : "❌ Failed") . "</p>";
+            
+            if ($verifyResult) {
+                echo "<p style='color: green;'>✅ Login successful!</p>";
+                
                 $this->id_user = $user['id_user'];
                 $this->prenom = $user['Prenom'];
                 $this->nom = $user['Nom'];
                 $this->email = $user['Email'];
                 $this->role = $user['ROLE'];
                 $this->profile = $user['profile'];
-
-                return $this;
+                
+                echo "</div>";
+                return true;
             } else {
+                echo "<p style='color: red;'>❌ Password verification failed</p>";
+                // Safe debug info - only show first few characters
+                echo "<p>First few chars of submitted password: '" . htmlspecialchars(substr($this->Motdepasse, 0, 3)) . "...'</p>";
+                echo "</div>";
+                
                 throw new Exception('Mot de passe incorrect !');
             }
         } else {
+            echo "<p style='color: red;'>❌ No user found with this email</p>";
+            echo "</div>";
             throw new Exception('Email non trouvé !');
         }
     } catch (Exception $e) {
+        echo "<p style='color: red;'>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
+        echo "</div>";
         throw $e;
     }
 }
-
 
 
  public function getData(){

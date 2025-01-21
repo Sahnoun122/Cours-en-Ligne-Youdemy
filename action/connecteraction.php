@@ -8,22 +8,22 @@ $pdo = $db->getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['Email'];
-    $Motdepasse = htmlspecialchars($_POST['Motdepasse']);
+    $Motdepasse = $_POST['Motdepasse'];
 
     try {
         $auth = new User($pdo, null, null, $email, $Motdepasse, null, null);
-        $user = $auth->login($auth->getEmail(), $auth->getMotdepasse());
+        $auth->login();
 
-        $_SESSION['id_user'] = $user->getIduser();
-        $_SESSION['Email'] = $user->getEmail();
-        $_SESSION['Nom'] = $user->getNom();
-        $_SESSION['ROLE'] = $user->getRole();
+        $_SESSION['id_user'] = $auth->getIduser();
+        $_SESSION['Email'] = $auth->getEmail();
+        $_SESSION['Nom'] = $auth->getNom();
+        $_SESSION['ROLE'] = $auth->getRole();
 
-        if ($user->getRole() === 'admin') {
+        if ($auth->getRole() === 'admin') {
             header('Location:../views/dashbordadmin.php');
-        } elseif ($user->getRole() === 'etudiant') {
+        } elseif ($auth->getRole() === 'etudiant') {
             header('Location:../views/dashbordetudiant.php');
-        } elseif ($user->getRole() === 'enseignant') {
+        } elseif ($auth->getRole() === 'enseignant') {
             header('Location:../views/dasbordenseignant.php');
         }
         exit();

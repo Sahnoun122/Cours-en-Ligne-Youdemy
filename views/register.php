@@ -9,13 +9,7 @@ require_once '../classes/user.php';
 $db = new DbConnection();
 $pdo = $db->getConnection();
 
-// <?php
-// require_once '../database/db.php';
-// require_once '../classes/user.php';
-// session_start();
 
-// $db = new DbConnection();
-// $pdo = $db->getConnection();
 
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -31,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = htmlspecialchars($_POST['nom'], ENT_QUOTES, 'UTF-8');
     $prenom = htmlspecialchars($_POST['prenom'], ENT_QUOTES, 'UTF-8');
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-    $Motdepasse = htmlspecialchars($_POST['Motdepasse'], ENT_QUOTES, 'UTF-8');
+    $Motdepasse = $_POST['Motdepasse'];
     $role = htmlspecialchars($_POST['role'], ENT_QUOTES, 'UTF-8');
 
     if (empty($nom) || empty($prenom) || empty($email) || empty($Motdepasse)) {
