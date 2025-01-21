@@ -195,6 +195,7 @@ public function getTotalcours() {
 public function getTopTeachers() {
     $sql = "SELECT 
                 user.Nom AS teacher_name, 
+
                 user.Prenom AS teacher_surname, 
                 COUNT(Cours.id_cours) AS number_of_courses 
             FROM 

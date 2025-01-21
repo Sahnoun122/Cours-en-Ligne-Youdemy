@@ -95,6 +95,22 @@
         }
     }
 
+
+    public function Totalcours() {
+        $sql = "SELECT COUNT(*) AS total_courses FROM Cours;";
+        $stmt = $this->db->prepare($sql);
+        
+        if ($stmt->execute()) {
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } else {
+            // Affiche des informations de débogage
+            var_dump($stmt->errorInfo());
+            return false;
+        }
+    }
+
  }
+
+
   
 ?>

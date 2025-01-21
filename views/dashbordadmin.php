@@ -26,7 +26,6 @@ $coursvideo_ = $coursvideo->afficherCours();
 
 $totalcours = $admin-> getTotalcours();
 
-var_dump($totalcours); 
 
 ?>
 

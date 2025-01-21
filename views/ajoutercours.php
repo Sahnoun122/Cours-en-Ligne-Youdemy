@@ -24,7 +24,7 @@ $tags= $tags-> afficherTags();
 
 $category= $category->affichercategory();
 
-
+$totalcours = $enseignant->Totalcours();
 
 ?>
 <!DOCTYPE html>
@@ -107,8 +107,19 @@ $category= $category->affichercategory();
 
 
 <div class="p-8 sm:ml-80">
-    <h2 class="text-4xl font-semibold text-black mb-6">Cours</h2>
+<?php
 
+if ($totalcours && isset($totalcours['total_courses'])) {
+    ?>
+    <h2 class="text-4xl font-semibold text-black mb-6">
+        Cours: <?php echo htmlspecialchars($totalcours['total_courses'], ENT_QUOTES, 'UTF-8'); ?> 
+    </h2>
+    <?php
+} else {
+    echo "<h2 class='text-4xl font-semibold text-black mb-6'>Erreur de récupération du nombre total de cours</h2>";
+}
+?>
+   
     </div>
 </div>
 

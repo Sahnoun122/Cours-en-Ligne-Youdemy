@@ -20,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
         die('Jeton CSRF invalide');
     }
- 
 
     $nom = htmlspecialchars($_POST['nom'], ENT_QUOTES, 'UTF-8');
     $prenom = htmlspecialchars($_POST['prenom'], ENT_QUOTES, 'UTF-8');
