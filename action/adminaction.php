@@ -28,18 +28,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Nom'])) {
     $id_admin =$_SESSION['id_user'];
     $nom = $_POST['Nom'];
    
-    $admin->ajoutercategory($id_admin , $nom);
+    $category->ajoutercategory($id_admin , $nom);
 
     header("Location:../views/ajoutercategory.php");
     exit;
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     $category = $_POST['delete'];
     $id = $_SESSION['id_user'];
     
-   $admin->supprimercategory($id);
+   $category->supprimercategory($id);
    header("Location:../views/ajoutercategory.php");
    exit;
 }
