@@ -16,20 +16,6 @@ $tags = new Tags($pdo);
 $tags_ = $tags->afficherTags();
 
 
-
-// if ($_SERVER['REQUEST_METHOD']==='POST') {
-//     $tags=$_POST['tags'];
-//     foreach ($tags as $tag) {
-//         $tagTitle=trim(htmlspecialchars($tag));
-//         $tags_= $tags-> afficherTags();
-//         if ( $tags_) {
-//             header('Location:ajouter');
-//         }else {
-//             echo "Failed to add tags";
-//         }
-//     }
-// }
-
 ?>
 
 <!DOCTYPE html>

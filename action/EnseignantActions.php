@@ -7,6 +7,7 @@ require_once '../classes/enseignant.php';
 require_once '../classes/tags.php';
 require_once '../classes/category.php';
 require_once '../classes/coursvideo.php';
+require_once '../classes/cours.php';
 
 
 $db= new DbConnection();
@@ -19,6 +20,7 @@ $tags= new Tags($pdo);
 $category = new Category($pdo);
 
 $coursvideo= new Coursvideo($pdo );
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Titre'])) {
     $id_enseignant = $_SESSION['id_user'];
@@ -39,15 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Titre'])) {
         die('Erreur lors du téléchargement du fichier.');
     }
     $coursvideo= new Coursvideo($pdo );
-    $enseignant->ajouterCours($id_enseignant, $titre, $description, $target_path, $id_category, $id_tag);
+    $coursvideo->ajouterCours($id_enseignant, $titre, $description, $target_path, $id_category, $id_tag);
     header("Location:../views/ajoutercours.php");
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     echo $_POST['delete'];
-    $cours= intval($_POST['delete']);
-    $enseignant->supprimeCours($cours);
+    $cour= intval($_POST['delete']);
+    $coursvideo->supprimeCours($cour);
     header("Location:../views/ajoutercours.php");
     exit;
 }
@@ -60,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_cours'], $_GET['Titr
     $video = $_GET['video'];
     $id_category = (int)$_GET['id_category'];
     $id_tag = (int)$_GET['id_tag'];
-    if ($enseignant->modifierCours($id_cours, $titre, $description, $video, $id_category, $id_tag)) {
+    if ($coursvideo->modifierCours($id_cours, $titre, $description, $video, $id_category, $id_tag)) {
         header("Location:../views/ajoutercours.php");
         exit;
     } else {

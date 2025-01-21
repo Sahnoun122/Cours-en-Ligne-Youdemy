@@ -4,6 +4,7 @@ session_start();
 require_once '../database/db.php';
  require_once '../classes/coursvideo.php';
  require_once '../classes/etudiant.php';
+ require_once '../classes/cours.php';
 
 //  if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'etudiant') {
 //     header("Location:connecter.php");
@@ -17,6 +18,7 @@ $pdo= $db->getConnection();
 
 $coursvideo= new Coursvideo($pdo);
 
+$courss = new Cours($pdo);
 $coursvideo_ = $coursvideo->affichercoursetudiants();
 
 ?>

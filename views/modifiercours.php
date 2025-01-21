@@ -25,7 +25,7 @@ $tags = new Tags($pdo);
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['id'])) {
         $id_cours = $_GET['id'];
-        $idcours = $enseignant->getid($id_cours);
+        $idcours = $coursvideo->getid($id_cours);
         if ($idcours) {
             // print_r($idcours);
         } else {

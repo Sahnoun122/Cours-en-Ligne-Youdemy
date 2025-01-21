@@ -4,7 +4,6 @@
 
   abstract  class Cours {
 
-
         private  $id_cours;
         private  $titre;
         private  $description;
@@ -29,9 +28,9 @@
         // }
         
 
-        public function getId(){
-            return $this->id_cours;
-        }
+        // public function getId(){
+        //     return $this->id_cours;
+        // }
         public function getTitre(){
             return $this->titre;
         }
@@ -80,14 +79,18 @@
         public function setIdcategory($id_category){
             $this->id_category= $id_category;
         }
+
+
         abstract public function afficherCours();
 
 
-       abstract public function getIdcours($id_cours);
+    //    abstract public function getIdcours($id_cours);
 
-       abstract function affichercoursetudiants();
+    //    abstract function affichercoursetudiants();
 
-       abstract  public function afficherstatu();
-      
+    //    abstract  public function afficherstatu();
+       
 
+
+ 
     }

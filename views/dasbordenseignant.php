@@ -11,6 +11,7 @@ session_start();
  require_once '../classes/user.php';
  require_once '../database/db.php';
 require_once '../classes/coursvideo.php';
+require_once '../classes/cours.php';
 
  echo $_SESSION['id_user'];
 
@@ -20,6 +21,7 @@ require_once '../classes/coursvideo.php';
  $status = new Coursvideo($pdo);
 
  $status_ = $status-> afficherstatu();
+
 
 ?>
 
