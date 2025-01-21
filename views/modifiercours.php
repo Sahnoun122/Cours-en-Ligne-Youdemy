@@ -20,7 +20,6 @@ $tags = new Tags($pdo);
 
 $coursvideo= new Coursvideo($pdo);
 $tags = new Tags($pdo);
-// $category = new Category($pdo);
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -28,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $id_cours = $_GET['id'];
         $idcours = $enseignant->getid($id_cours);
         if ($idcours) {
-            print_r($idcours);
+            // print_r($idcours);
         } else {
              echo "cours non trouvé.";
         }
@@ -78,8 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <label for="tags" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select tags</label> 
          <div id="tags" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
              <?php $tags= $tags-> afficherTags(); foreach ($tags as $row) { echo '<div class="flex items-center mb-2">'; echo '<input id="tag-' . $row['id_tag'] . '" type="checkbox" name="id_tag" value="' . $row['id_tag'] . ' " class="mr-2">'; echo '<label for="tag-' . $row['id_tag'] . '" class="text-gray-900 dark:text-white">' . $row['Nom'] . '</label>'; echo '</div>'; } ?> 
-         
-            <div class="flex justify-end">
+</div>
+            <div class="flex justify-end mt-10">
                 <input type="submit" value="modifie" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
             </div>
         </form>

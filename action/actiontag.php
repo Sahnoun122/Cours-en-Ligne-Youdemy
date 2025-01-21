@@ -11,7 +11,7 @@ $pdo = $db->getConnection();
 
 $admin = new Admin($pdo);
 $category = new Category($pdo);
-// $tags = new Tags($pdo);
+$tagss = new Tags($pdo);
 
 
 
@@ -26,10 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (is_array($tags) || is_object($tags)){
         foreach ($tags as $tag) {
             print_r($tag);
-            $tags_c = $admin-> ajoutertags($id_admin, $tag);
+            $tags_c = $tagss-> ajoutertags($id_admin, $tag);
         }
         if ($tags_c) {
-            header("Location: ../views/ajoutertags.php");
+            header("Location:../views/ajoutertags.php");
             exit;
         } else {
             echo "Failed to add tags";
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     $id_tag = $_POST['delete'];
     $id = $_SESSION['id_user'];
 
-    if ($admin->supprimertags( $id_tag)) {
+    if ($tagss->supprimertags( $id_tag)) {
         header("Location:../views/ajoutertags.php");
         exit;
     } else {
