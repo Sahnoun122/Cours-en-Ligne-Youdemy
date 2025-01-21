@@ -161,15 +161,16 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
             
 
             <form method="POST" action="../action/actiontag.php" id="tagsForm" class="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
-            <div class="relative">
-                <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">Tags Name</p>
-                <input type="text" id="Nom" name="Nom[]" required class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"/>
-                <button type="button" id="addTagButton" class="w-full inline-block pt-2 pr-4 pb-2 pl-4 text-lg font-medium text-center text-white bg-blue-500 rounded-lg transition duration-200 hover:bg-blue-600 ease">Add Another Tag</button>
-            </div>
-            <div class="relative">
-                <button type="submit" class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-green-500 rounded-lg transition duration-200 hover:bg-green-600 ease">Ajouter Tags</button>
-            </div>
-       </form>
+    <div class="relative">
+        <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">Tags Name</p>
+        <input type="text" id="Nom" name="Nom[]" required class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"/>
+        <button type="button" id="addTagButton" class="w-full inline-block pt-2 pr-4 pb-2 pl-4 text-lg font-medium text-center text-white bg-blue-500 rounded-lg transition duration-200 hover:bg-blue-600 ease">Add Another Tag</button>
+    </div>
+    <div class="relative">
+        <button type="submit" class="w-full inline-block pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-green-500 rounded-lg transition duration-200 hover:bg-green-600 ease">Ajouter Tags</button>
+    </div>
+</form>
+
 
 
             </div>
@@ -177,7 +178,6 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
     </div>
 
 </div>
-
 
 <script>
 
@@ -187,10 +187,11 @@ document.getElementById('addTagButton').addEventListener('click', function() {
     newInput.name = 'Nom[]';
     newInput.required = true;
     newInput.classList.add('border', 'placeholder-gray-400', 'focus:outline-none', 'focus:border-black', 'w-full', 'pt-4', 'pr-4', 'pb-4', 'pl-4', 'mt-2', 'mr-0', 'mb-0', 'ml-0', 'text-base', 'block', 'bg-white', 'border-gray-300', 'rounded-md');
-    
+
     var form = document.getElementById('tagsForm');
     form.insertBefore(newInput, form.children[form.children.length - 2]);
 });
+
 </script>
 <script>
   AOS.init();

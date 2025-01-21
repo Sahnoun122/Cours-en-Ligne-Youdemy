@@ -53,28 +53,27 @@ class Admin extends User{
 
 
 
-public function ajoutertags($id_admin, $tags) {
+
+
+function ajoutertags($id_admin, $tag) {
     try {
         $sql = "INSERT INTO tags (id_admin, Nom) VALUES (:id_admin, :Nom)";
         $stmt = $this->db->prepare($sql);
-        
-        // Debugging line
-        if (!is_array($tags)) {
-            throw new Exception('The $tags variable is not an array');
-        }
 
-        foreach ($tags as $nom) {
-            $stmt->bindParam(":id_admin", $id_admin, PDO::PARAM_INT);
-            $stmt->bindParam(":Nom", $nom, PDO::PARAM_STR);
-            $stmt->execute();
-        }
-        header("Location: ../views/ajoutertags.php");
+        $stmt->bindParam(":id_admin", $id_admin, PDO::PARAM_INT);
+        $stmt->bindParam(":Nom", $tag, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return true;
     } catch (PDOException $e) {
-        return "Erreur lors de l'ajout des tags : " . $e->getMessage();
+        echo "Erreur lors de l'ajout des tags : " . $e->getMessage();
+        return false;
     } catch (Exception $e) {
-        return "Error: " . $e->getMessage();
+        echo "Error: " . $e->getMessage();
+        return false;
     }
 }
+
 
 
 public function modifietags($id, $nom){

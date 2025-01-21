@@ -75,51 +75,46 @@ public function getEmail(){
     $this->role= $role;
  }
 
-     
- public function register( $nom,$prenom,$email,$Motdepasse,$role , $profile){
+ public function register($nom, $prenom, $email, $Motdepasse, $role, $profile) {
+    try {
+        $toutsrole = ['admin', 'etudiant', 'enseignant'];
+        if (!in_array($role, $toutsrole)) {
+            throw new Exception('Role invalide.');
+        }
+        $this->db->beginTransaction();
 
-    try{
-    $toutsrole=['admin', 'etudiant' ,'enseignant'];
-    if(!in_array($role, $toutsrole)){
-        throw new Exception('invalide role .');
-    }
-    $this->db->beginTransaction();
+        $Motdepasse = password_hash($Motdepasse, PASSWORD_BCRYPT);
+        $sqluser = "INSERT INTO user (Nom, Prenom, Email, Motdepasse, ROLE, profile) VALUES (:Nom, :Prenom, :Email, :Motdepasse, :ROLE, :profile)";
 
-     $Motdepasse = password_hash($Motdepasse, PASSWORD_BCRYPT);
-    $sqluser = "INSERT INTO user (Nom , Prenom , Email , Motdepasse , ROLE , profile  ) VALUES (:Nom , :Prenom , :Email , :Motdepasse , :ROLE  , :profile)  ";
-    
-    $stmt = $this->db->prepare($sqluser);
-    $stmt->bindParam(":Nom", $nom, PDO::PARAM_STR);
-    $stmt->bindParam(":Prenom", $prenom, PDO::PARAM_STR);
-    $stmt->bindParam(":Email", $email, PDO::PARAM_STR);
-    $stmt->bindParam(":Motdepasse", $Motdepasse, PDO::PARAM_STR);
-    $stmt->bindParam(":ROLE", $role, PDO::PARAM_STR);
-    $stmt->bindParam(":profile",  $profile, PDO::PARAM_STR);
+        $stmt = $this->db->prepare($sqluser);
+        $stmt->bindParam(":Nom", $nom, PDO::PARAM_STR);
+        $stmt->bindParam(":Prenom", $prenom, PDO::PARAM_STR);
+        $stmt->bindParam(":Email", $email, PDO::PARAM_STR);
+        $stmt->bindParam(":Motdepasse", $Motdepasse, PDO::PARAM_STR);
+        $stmt->bindParam(":ROLE", $role, PDO::PARAM_STR);
+        $stmt->bindParam(":profile", $profile, PDO::PARAM_STR);
 
-    $stmt->execute();
+        $stmt->execute();
 
+        $userid = $this->db->lastInsertId();
 
-    $userid= $this->db->lastInsertId();
-    
-   $this->db->commit();
-   return $userid;
-    }catch(Exception $e){
+        $this->db->commit();
+        return $userid;
+    } catch (Exception $e) {
         $this->db->rollback();
-        throw new Exception("incorrect registration .");
+        throw new Exception("Enregistrement incorrect.");
     }
 }
-  
-public function login($email , $Motdepasse){
-    try{
-        $sql= "SELECT * FROM user WHERE Email = :Email";
+
+public function login($email, $Motdepasse) {
+    try {
+        $sql = "SELECT * FROM user WHERE Email = :Email";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':Email' => $email]);
 
-        if($stmt -> rowCount()>0){
-            $user= $stmt ->fetch(PDO::FETCH_ASSOC);
-            print_r($user);
-            if(!password_verify($Motdepasse, $user['Motdepasse'])){
-
+        if ($stmt->rowCount() > 0) {
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (!password_verify($Motdepasse, $user['Motdepasse'])) {
                 $this->id_user = $user['id_user'];
                 $this->prenom = $user['Prenom'];
                 $this->nom = $user['Nom'];
@@ -128,13 +123,14 @@ public function login($email , $Motdepasse){
                 $this->profile = $user['profile'];
 
                 return $this;
-            }else{
-                throw new Exception('mot de passe Incorrect !');
+            } else {
+                throw new Exception('Mot de passe incorrect !');
             }
-        }  
-        
-    }catch (Exception $e){
-       throw $e;
+        } else {
+            throw new Exception('Email non trouvé !');
+        }
+    } catch (Exception $e) {
+        throw $e;
     }
 }
 
