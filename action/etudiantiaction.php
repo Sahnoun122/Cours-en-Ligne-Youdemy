@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['inscrire'])) {
     
         echo "<div id='search-results'>";
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            echo "<h3>" . $row['Titre'] . "</h3><p>" . $row['DESCRIPTION'] . "</p>";
+            echo "<h3>" . $row['Titre'] . "</h3> <p>" . $row['DESCRIPTION'] . "</p>";
         }
         echo "</div>";
     }

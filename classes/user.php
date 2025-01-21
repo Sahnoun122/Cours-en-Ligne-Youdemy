@@ -24,14 +24,9 @@ public function __construct($db , $nom , $prenom ,$email,$Motdepasse ,$profile,$
     $this->profile = $profile;
     $this->db= $db;
 }
-
-
-
-
 public function getIduser(){
     return $this->id_user;
 }
-
 public function getNom(){
     return $this->nom;
 }
@@ -43,18 +38,14 @@ public function getEmail(){
 }
  public function getProfile(){
    return  $this->profile;
- }
-
+}
  public function getMotdepasse(){
     return $this->Motdepasse;
- }
-
+}
  public function getRole(){
     return $this->role;
- }
+}
 
-
- 
  public function setNom($nom){
      $this->nom =$nom;
  }
@@ -105,7 +96,6 @@ public function getEmail(){
         throw new Exception("Enregistrement incorrect.");
     }
 }
-
 public function login($email, $Motdepasse) {
     try {
         $sql = "SELECT * FROM user WHERE Email = :Email";

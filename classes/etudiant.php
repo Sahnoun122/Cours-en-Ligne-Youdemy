@@ -16,11 +16,16 @@
         
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(":query", $query);
+
         $stmt->execute();
-
-        return $stmt;
+             
+        if($stmt->rowCount() > 0) {
+            $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $resultat;
+        } else {
+            return false;
+        }
     }
-
     
     public function Inscription($id_user, $id_cours) {
         try {
@@ -36,8 +41,6 @@
             return false;
         }
     }
-
-    
     public function afficherinscription() {
         try {
             $sql = "SELECT 
