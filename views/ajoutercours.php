@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once '../database/db.php';
 require_once '../classes/enseignant.php';
 require_once '../classes/tags.php';
@@ -7,6 +7,7 @@ require_once '../classes/category.php';
 require_once '../classes/coursvideo.php';
 
 
+$id_enseignant= $_SESSION['id_user'];
 $db= new DbConnection();
 $pdo= $db->getConnection();
 
@@ -18,7 +19,7 @@ $category = new Category($pdo);
 
 $coursvideo= new Coursvideo($pdo);
 
-$coursvideo_ = $coursvideo->afficherCours();
+$coursvideo_ = $coursvideo->afficherCoursensignats($id_enseignant);
 
 $tags= $tags-> afficherTags();
 

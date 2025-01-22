@@ -29,6 +29,7 @@ class Coursvideo extends Cours{
         ";
         $stmt= $this->db->prepare($sql);
         $stmt->execute();
+
         if($stmt->rowcount()>0){
             $result= $stmt->fetchAll();
             return $result;
@@ -43,6 +44,41 @@ class Coursvideo extends Cours{
    
     
     
+    
+    public function afficherCoursensignats($id_enseignant){
+        try{
+                $sql="SELECT 
+                Cours.id_cours,
+                Cours.Titre,
+                Cours.DESCRIPTION,
+                Cours.video,
+                Category.Nom AS NomCategorie,
+                tags.Nom AS NomTag
+                FROM 
+                    Cours
+                INNER JOIN 
+                    Category ON Cours.id_category = Category.id_category
+                INNER JOIN 
+                    tags ON Cours.id_tag = tags.id_tag 
+                    WHERE Cours.id_enseignant = :id_enseignant
+                    ;
+            ";
+            $stmt= $this->db->prepare($sql);
+            $stmt->bindParam(':id_enseignant', $id_enseignant , PDO::PARAM_INT);
+
+            $stmt->execute();
+            $result= $stmt->fetchAll();
+
+           
+                return $result;
+           
+    
+        }catch(PDOException $e){
+                echo "Erreur lors de la récupération des cours : " .$e->getMessage();
+            }
+        }
+       
+        
     
     public function ajouterCours($id_enseignant, $titre, $description, $video, $id_category, $id_tag) {
         try {
