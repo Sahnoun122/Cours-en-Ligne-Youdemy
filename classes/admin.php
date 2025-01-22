@@ -53,17 +53,17 @@ class Admin extends User{
 
 
 
-    public function accepteuser($id_user){
-        try {
-            $sql = "UPDATE user SET  Statut = 'Accepté' WHERE id_user = :id_user";
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(":id_cours", $id_user, PDO::PARAM_INT);
-            $stmt->execute();
-            header("location: ");
-        } catch (PDOException $e) {
-            return "Erreur lors de la confirmation utilisateurs : ". $e->getMessage();
-        }
-    }
+    // public function accepteuser($id_user){
+    //     try {
+    //         $sql = "UPDATE user SET  Statut = 'Accepté' WHERE id_user = :id_user";
+    //         $stmt = $this->db->prepare($sql);
+    //         $stmt->bindParam(":id_cours", $id_user, PDO::PARAM_INT);
+    //         $stmt->execute();
+    //         header("location: ");
+    //     } catch (PDOException $e) {
+    //         return "Erreur lors de la confirmation utilisateurs : ". $e->getMessage();
+    //     }
+    // }
 
 public function acceptercours($id_cours){
     try {

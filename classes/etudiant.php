@@ -10,20 +10,29 @@
      $this->db= $db;
     }
  
-    public function searchCourses($query) {
-        $query = "%" . $query . "%";
-        $sql = "SELECT Titre, DESCRIPTION FROM Cours  WHERE Titre LIKE :query OR DESCRIPTION LIKE :query";
-        
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":query", $query);
-
-        $stmt->execute();
-             
-        if($stmt->rowCount() > 0) {
-            $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $resultat;
-        } else {
-            return false;
+    public function searchCourses($searchTerm) {
+        try {
+            $sql = "SELECT 
+            Cours.id_cours,
+            Cours.Titre,
+            Cours.DESCRIPTION,
+            Cours.video,
+            Category.Nom AS NomCategorie,
+            tags.Nom AS NomTag
+            FROM 
+                Cours
+            INNER JOIN 
+                Category ON Cours.id_category = Category.id_category
+            INNER JOIN 
+                tags ON Cours.id_tag = tags.id_tag 
+            WHERE (Titre LIKE :searchTerm OR DESCRIPTION LIKE :searchTerm)
+            AND Statut = 'Accepté'";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':searchTerm' => "%$searchTerm%"]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return [];
         }
     }
     

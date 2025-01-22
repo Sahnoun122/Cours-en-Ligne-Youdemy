@@ -9,11 +9,16 @@ $db= new DbConnection();
 $pdo= $db->getConnection();
 
 $coursvideo= new Coursvideo($pdo);
-$coursvideo_ = $coursvideo->affichercoursetudiants();
 
 $etudiant = new Etudiant($pdo);
 
+$searchTerm = $_GET['search'];
 
+if ($searchTerm) {
+  $coursvideo_ = $etudiant->searchCourses($searchTerm);
+} else {
+  $coursvideo_ = $coursvideo->affichercoursetudiants();
+}
 
 ?>
 
@@ -32,7 +37,7 @@ $etudiant = new Etudiant($pdo);
 
 <nav class="bg-white border-gray-200 dark:bg-gray-900">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+    <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
     </a>
@@ -64,18 +69,16 @@ $etudiant = new Etudiant($pdo);
   </div>
 </nav>
 
-<form method="post" action="../classes/etudiant.php" class="max-w-md mx-auto">  
-  
-        <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-        
-<div id='search-results'>
-
+  <form method="GET" action="" class="w-80 flex items-center space-x-4">
+        <input id="search" name="search" value="<?php echo $searchTerm; ?>" onchange="this.form.submit()" class="block w-full max-w-sm px-4 py-2 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Search courses..." />
+  </form>
+<!-- 
 </div>
         <div class="relative">
             <input type="search" id="search" name="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required />
             <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
         </div>
-    </form>
+    </form> -->
 
 
 
