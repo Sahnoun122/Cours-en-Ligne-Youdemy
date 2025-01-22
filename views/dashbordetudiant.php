@@ -18,7 +18,6 @@ $pdo= $db->getConnection();
 
 $coursvideo= new Coursvideo($pdo);
 
-$courss = new Cours($pdo);
 $coursvideo_ = $coursvideo->affichercoursetudiants();
 
 ?>

@@ -12,25 +12,8 @@
         private  $date;
         private $id_category;
         private $id_tag;
-        private $db;
 
-        // public function __construct($db, $id_cours, $titre , $description,$video, $status , $date ,$id_category , $id_tag)
-        // {
-        //     $this->db=$db ;
-        //     $this->id_cours = $id_cours;
-        //     $this->titre =$titre;
-        //     $this->description= $description;
-        //     $this->video=$video;
-        //     $this->status= $status;
-        //     $this->date=$date;
-        //     $this->id_category= $id_category;
-        //     $this->id_tag= $id_tag; 
-        // }
-        
-
-        // public function getId(){
-        //     return $this->id_cours;
-        // }
+   
         public function getTitre(){
             return $this->titre;
         }
@@ -82,14 +65,6 @@
 
 
         abstract public function afficherCours();
-
-
-    //    abstract public function getIdcours($id_cours);
-
-    //    abstract function affichercoursetudiants();
-
-    //    abstract  public function afficherstatu();
-       
 
 
  

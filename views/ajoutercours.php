@@ -8,6 +8,7 @@ require_once '../classes/coursvideo.php';
 
 
 $id_enseignant= $_SESSION['id_user'];
+
 $db= new DbConnection();
 $pdo= $db->getConnection();
 
@@ -137,7 +138,7 @@ if ($totalcours && isset($totalcours['total_courses'])) {
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['DESCRIPTION'], ENT_QUOTES, 'UTF-8'); ?></p>
                     <video src="<?php echo $cours['video']; ?>" alt="video" class="w-full h-52 object-cover rounded-md mb-2"></video>
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomCategorie'], ENT_QUOTES, 'UTF-8'); ?></p>
-                    <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
+                    <p class="text-sm text-white mb-2"  ><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
                     <form method="POST" action="../action/EnseignantActions.php" onsubmit="return confirm('Are you sure you want to delete this course?');">
                         <div class="flex items-center justify-center mt-2">
                             <button type="submit" class="text-xl hover:scale-105" name="delete" value="<?php echo $cours['id_cours']; ?>">🗑️</button>
@@ -173,8 +174,11 @@ if ($totalcours && isset($totalcours['total_courses'])) {
          </select> 
 
          <label for="tags" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select tags</label> 
-         <div id="tags" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-             <?php foreach ($tags as $row) { echo '<div class="flex items-center mb-2">'; echo '<input id="tag-' . $row['id_tag'] . '" type="checkbox" name="id_tag" value="' . $row['id_tag'] . ' " class="mr-2">'; echo '<label for="tag-' . $row['id_tag'] . '" class="text-gray-900 dark:text-white">' . $row['Nom'] . '</label>'; echo '</div>'; } ?> 
+         <div id="tags" required  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+             <?php foreach ($tags as $row)
+              { 
+                echo '<div class="flex items-center mb-2" >'; echo '<input id="tag-' . $row['id_tag'] . '" type="checkbox" name="id_tag" required  value="' . $row['id_tag'] . ' " class="mr-2">'; echo '<label for="tag-' . $row['id_tag'] . '" class="text-gray-900 dark:text-white">' . $row['Nom'] . '</label>'; 
+                echo '</div>'; } ?> 
             </div>
 
               <div class="relative">

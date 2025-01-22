@@ -43,20 +43,19 @@ CREATE TABLE Cours (
     DateCréation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     DateModification TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     
-    FOREIGN KEY (id_category) REFERENCES Category(id_category) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (id_tag) REFERENCES tags(id_tag) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_category) REFERENCES Category(id_category) ,
+    FOREIGN KEY (id_tag) REFERENCES tags(id_tag) ,
     FOREIGN KEY (id_enseignant) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 CREATE TABLE inscription (
-    id_inscrire INT AUTO_INCREMENT PRIMARY KEY,
+
     id_user INT NOT NULL,
     id_cours INT,
     dateInsrire TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id_user, id_cours)  ,
     FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE ON UPDATE CASCADE ,
-       FOREIGN KEY (id_cours) REFERENCES Cours(id_cours) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (id_cours) REFERENCES Cours(id_cours) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 
