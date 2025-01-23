@@ -211,6 +211,31 @@ class Coursvideo extends Cours{
         }
     }
 
+
+
+    public function getdetails($id_cours) {
+        try {
+            $query = "SELECT user.Nom, category.Nom, cours.*, GROUP_CONCAT(tags.Nom) AS Tags
+                      FROM Cours
+                      JOIN user ON user.id_user = Cours.id_enseignant
+                      JOIN category ON category.id_category = Cours.id_category
+                      LEFT JOIN courstag ON courstag.id_cours = cours.id_cours
+                      LEFT JOIN tags ON tags.id_tag = courstag.id_tag
+                      WHERE cours.id_cours = :id_cours
+                      GROUP BY cours.id_cours";
+    
+            $stmt = $this->db->prepare($query);
+            $stmt->execute([':id_cours' => $id_cours]);
+    
+            $cours = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+          
+            return $cours;
+        } catch (PDOException $e) {
+            error_log($e->getMessage());
+            return "Failed to fetch course details.";
+        }
+    }
  
 }
 

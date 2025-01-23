@@ -59,3 +59,9 @@ CREATE TABLE inscription (
 );
 
 
+CREATE TABLE courstag (
+    id_cours INT NOT NULL,
+    id_cours INT NOT NULL,
+    FOREIGN KEY (id_cours) REFERENCES cours(id_cours) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_cours) REFERENCES tags(id_tag) ON DELETE CASCADE ON UPDATE CASCADE
+);

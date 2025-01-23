@@ -6,10 +6,12 @@ require_once '../database/db.php';
  require_once '../classes/etudiant.php';
  require_once '../classes/cours.php';
 
-//  if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] !== 'etudiant') {
+
+//  if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] == 'etudiant') {
 //     header("Location:connecter.php");
 //     exit;
 // }
+
 
 
  echo $_SESSION['id_user'];
@@ -106,11 +108,9 @@ $coursvideo_ = $coursvideo->affichercoursetudiants();
                 <div class="p-4">
                     <h3 class="text-2xl mb-2 font-semibold text-white"><?php echo htmlspecialchars($cours['Titre'], ENT_QUOTES, 'UTF-8'); ?></h3>
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['DESCRIPTION'], ENT_QUOTES, 'UTF-8'); ?></p>
-                    <video src="<?php echo htmlspecialchars($cours['video'], ENT_QUOTES, 'UTF-8'); ?>" alt="video" class="w-full h-52 object-cover rounded-md mb-2"></video>
-
+                    <a href="details.php?id=<?php echo $cours['id_cours']; ?>"> <video src="<?php echo htmlspecialchars($cours['video'], ENT_QUOTES, 'UTF-8'); ?>" alt="video" class="w-full h-52 object-cover rounded-md mb-2"></video></a>
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomCategorie'], ENT_QUOTES, 'UTF-8'); ?></p>
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>
-
 
                     <form method="POST" action="../action/etudiantiaction.php" class="mt-4">
                     <input type="hidden" name="inscrire" value="1"> 

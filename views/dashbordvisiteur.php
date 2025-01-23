@@ -69,20 +69,11 @@ if ($searchTerm) {
   </div>
 </nav>
 
-  <form method="GET" action="" class="w-80 flex items-center space-x-4">
+  <form method="GET" action="" class="w-80 flex items-center space-x-4 ml-80">
         <input id="search" name="search" value="<?php echo $searchTerm; ?>" onchange="this.form.submit()" class="block w-full max-w-sm px-4 py-2 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Search courses..." />
   </form>
-<!-- 
-</div>
-        <div class="relative">
-            <input type="search" id="search" name="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos..." required />
-            <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-        </div>
-    </form> -->
 
-
-
-
+  
 <div class="p-4 sm:ml-80">
 <div id="articlesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
     <?php
