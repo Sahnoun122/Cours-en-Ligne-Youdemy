@@ -3,10 +3,12 @@
 
 session_start();
 
-// if (!isset($_SESSION['id_user']) || !isset($_SESSION['ROLE']) || $_SESSION['role'] !== 'enseignant') {
-//     header("Location:connecter.php");
-//     exit;
-// }
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location:connecter.php");
+    exit;
+}
+
 
  require_once '../classes/user.php';
  require_once '../database/db.php';

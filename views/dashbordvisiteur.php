@@ -84,7 +84,7 @@ if ($searchTerm) {
                 <div class="p-4">
                     <h3 class="text-2xl mb-2 font-semibold text-white"><?php echo htmlspecialchars($cours['Titre'], ENT_QUOTES, 'UTF-8'); ?></h3>
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['DESCRIPTION'], ENT_QUOTES, 'UTF-8'); ?></p>
-                    <video src="<?php echo htmlspecialchars($cours['video'], ENT_QUOTES, 'UTF-8'); ?>" alt="video" class="w-full h-52 object-cover rounded-md mb-2"></video>
+                    <a href="details.php?id=<?php echo $cours['id_cours']; ?>"> <video src="<?php echo htmlspecialchars($cours['video'], ENT_QUOTES, 'UTF-8'); ?>" alt="video" class="w-full h-52 object-cover rounded-md mb-2"></video></a>
 
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomCategorie'], ENT_QUOTES, 'UTF-8'); ?></p>
                     <p class="text-sm text-white mb-2"><?php echo htmlspecialchars($cours['NomTag'], ENT_QUOTES, 'UTF-8'); ?></p>

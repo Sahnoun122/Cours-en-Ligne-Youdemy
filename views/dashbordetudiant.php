@@ -7,10 +7,10 @@ require_once '../database/db.php';
  require_once '../classes/cours.php';
 
 
-//  if (!isset($_SESSION['id_user']) || !isset($_SESSION['role']) || $_SESSION['role'] == 'etudiant') {
-//     header("Location:connecter.php");
-//     exit;
-// }
+if (!isset($_SESSION['user_id'])) {
+    header("Location:connecter.php");
+    exit;
+}
 
 
 
