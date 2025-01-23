@@ -100,12 +100,7 @@ public function getEmail(){
 
 public function login() {
     try {
-        echo "<div style='background-color: #f0f0f0; padding: 20px; margin: 20px; font-family: monospace;'>";
-        echo "<h3>Debug Information:</h3>";
-        
-        // Connection check
-        echo "<p>Database Connection: " . ($this->db ? "✅ Connected" : "❌ Not Connected") . "</p>";
-        echo "<p>Login attempt for email: " . htmlspecialchars($this->email) . "</p>";
+       
         
         $sql = "SELECT * FROM user WHERE Email = :Email AND Statut = 'Accepté'";
         $stmt = $this->db->prepare($sql);
@@ -115,26 +110,8 @@ public function login() {
 
         if ($stmt->rowCount() > 0) {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-            echo "<p>Found user with ID: " . $user['id_user'] . "</p>";
-            
-            // Password verification debug
-            echo "<h4>Password Verification Details:</h4>";
-            echo "<p>Submitted password length: " . strlen($this->Motdepasse) . "</p>";
-            echo "<p>Stored hash length: " . strlen($user['Motdepasse']) . "</p>";
-            echo "<p>Hash format: " . (strpos($user['Motdepasse'], '$2y$') === 0 ? "✅ Valid bcrypt" : "❌ Invalid format") . "</p>";
-            
-            // For testing - create a new hash with the submitted password
-            $newHash = password_hash($this->Motdepasse, PASSWORD_DEFAULT);
-            echo "<p>New hash generated from submitted password: " . substr($newHash, 0, 10) . "...</p>";
-            echo "<p>Stored hash in database: " . substr($user['Motdepasse'], 0, 10) . "...</p>";
-            
-            // Verify password
-            $verifyResult = password_verify($this->Motdepasse, $user['Motdepasse']);
-            echo "<p>Password verification result: " . ($verifyResult ? "✅ Success" : "❌ Failed") . "</p>";
-            
+            $verifyResult = password_verify($this->Motdepasse, $user['Motdepasse']);            
             if ($verifyResult) {
-                echo "<p style='color: green;'>✅ Login successful!</p>";
                 
                 $this->id_user = $user['id_user'];
                 $this->prenom = $user['Prenom'];
@@ -142,20 +119,13 @@ public function login() {
                 $this->email = $user['Email'];
                 $this->role = $user['ROLE'];
                 $this->profile = $user['profile'];
-                
-                echo "</div>";
+               
                 return true;
-            } else {
-                echo "<p style='color: red;'>❌ Password verification failed</p>";
-                // Safe debug info - only show first few characters
-                echo "<p>First few chars of submitted password: '" . htmlspecialchars(substr($this->Motdepasse, 0, 3)) . "...'</p>";
-                echo "</div>";
-                
+            } else {  
                 throw new Exception('Mot de passe incorrect !');
             }
         } else {
-            echo "<p style='color: red;'>❌ No user found with this email</p>";
-            echo "</div>";
+           
             throw new Exception('Email non trouvé !');
         }
     } catch (Exception $e) {

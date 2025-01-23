@@ -66,6 +66,5 @@
 
         abstract public function afficherCours();
 
-
  
     }

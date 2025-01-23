@@ -9,10 +9,10 @@ require_once '../classes/coursvideo.php';
 require_once '../classes/admin.php';
 
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location:connecter.php");
-    exit;
-}
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location:connecter.php");
+//     exit;
+// }
 
 
 

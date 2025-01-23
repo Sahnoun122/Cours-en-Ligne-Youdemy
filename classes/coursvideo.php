@@ -24,7 +24,6 @@ class Coursvideo extends Cours{
                 Category ON Cours.id_category = Category.id_category
             INNER JOIN 
                 tags ON Cours.id_tag = tags.id_tag 
-                
                 ;
         ";
         $stmt= $this->db->prepare($sql);
@@ -82,8 +81,10 @@ class Coursvideo extends Cours{
     
     public function ajouterCours($id_enseignant, $titre, $description, $video, $id_category, $id_tag) {
         try {
+
             $sql = 'INSERT INTO Cours (id_enseignant, Titre, DESCRIPTION, video, id_category, id_tag) VALUES (:id_enseignant, :Titre, :DESCRIPTION, :video, :id_category, :id_tag)';
             $stmt = $this->db->prepare($sql);
+
             $stmt->bindParam(":Titre", $titre , PDO::PARAM_STR);
             $stmt->bindParam(":DESCRIPTION", $description , PDO::PARAM_STR);
             $stmt->bindParam(":video", $video);

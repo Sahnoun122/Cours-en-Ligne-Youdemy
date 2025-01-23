@@ -160,7 +160,7 @@ if ($totalcours && isset($totalcours['total_courses'])) {
 
 <!-- Main -->
 
-    <h2 class="text-4xl font-semibold text-black mb-6">Add New Articles</h2>
+    <h2 class="text-4xl font-semibold text-black mb-6">Add New Cours</h2>
     <div class="flex items-center justify-center my-8 bg-gray-100">
         <div class="w-full mx-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12">
 
@@ -174,10 +174,10 @@ if ($totalcours && isset($totalcours['total_courses'])) {
          </select> 
 
          <label for="tags" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select tags</label> 
-         <div id="tags" required  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+         <div id="tags"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
              <?php foreach ($tags as $row)
               { 
-                echo '<div class="flex items-center mb-2" >'; echo '<input id="tag-' . $row['id_tag'] . '" type="checkbox" name="id_tag" required  value="' . $row['id_tag'] . ' " class="mr-2">'; echo '<label for="tag-' . $row['id_tag'] . '" class="text-gray-900 dark:text-white">' . $row['Nom'] . '</label>'; 
+                echo '<div class="flex items-center mb-2" >'; echo '<input id="tag-' . $row['id_tag'] . '" type="checkbox" name="id_tag"  value="' . $row['id_tag'] . ' " class="mr-2">'; echo '<label for="tag-' . $row['id_tag'] . '" class="text-gray-900 dark:text-white">' . $row['Nom'] . '</label>'; 
                 echo '</div>'; } ?> 
             </div>
 
@@ -199,7 +199,7 @@ if ($totalcours && isset($totalcours['total_courses'])) {
              </div>
               <div class="relative">
                  <p class="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">Contenu Video</p>
-                  <input type="file" id="video" name="video_up" required class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md" 
+                  <input type="file" id="video" name="video_up"  class="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md" 
                   value="<?php if(isset($_GET['id']))
                   { echo $video; 
                   }; ?>" /> 
