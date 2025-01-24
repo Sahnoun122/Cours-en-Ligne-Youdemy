@@ -135,10 +135,6 @@ class Coursvideo extends Cours{
         }
     }
 
-
-
-
-
     public function getid($id_cours) {
         try {
             $sql = "SELECT * FROM Cours WHERE id_cours = :id_cours";
