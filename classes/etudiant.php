@@ -50,6 +50,8 @@
             return false;
         }
     }
+
+    
     public function afficherinscription() {
         try {
             $sql = "SELECT 

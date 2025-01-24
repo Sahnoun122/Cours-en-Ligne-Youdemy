@@ -8,10 +8,6 @@ session_start();
 require_once '../classes/coursvideo.php';
 require_once '../classes/cours.php';
 
-// if (!isset($_SESSION['user_id'])) {
-//     header("Location:connecter.php");
-//     exit;
-// }
 
 
  echo $_SESSION['id_user'];

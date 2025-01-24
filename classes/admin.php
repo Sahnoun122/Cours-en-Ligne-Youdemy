@@ -166,7 +166,7 @@ public function getTopTeachers() {
     public function getCourpopulaire() {
         $sql = "SELECT 
                     Cours.Titre AS course_title, 
-                    COUNT(inscription.id_inscrire) AS number_of_students 
+                    COUNT(inscription.id_cours) AS number_of_students 
                 FROM 
                     inscription 
                 JOIN 
