@@ -12,7 +12,7 @@ $coursvideo= new Coursvideo($pdo);
 
 $etudiant = new Etudiant($pdo);
 
-$searchTerm = $_GET['search'];
+$searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
 
 if ($searchTerm) {
   $coursvideo_ = $etudiant->searchCourses($searchTerm);
@@ -70,7 +70,8 @@ if ($searchTerm) {
 </nav>
 
   <form method="GET" action="" class="w-80 flex items-center space-x-4 ml-80">
-        <input id="search" name="search" value="<?php echo $searchTerm; ?>" onchange="this.form.submit()" class="block w-full max-w-sm px-4 py-2 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Search courses..." />
+        <input id="search" name="search" value="<?php echo $searchTerm; 
+        ?>" onchange="this.form.submit()" class="block w-full max-w-sm px-4 py-2 text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Search courses..." />
   </form>
 
   
